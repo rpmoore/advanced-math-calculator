@@ -211,7 +211,7 @@ public class Main extends JApplet implements Runnable {
 		return clear;
 	}
 
-	@Override
+
 	public void run() {
 		// TODO Auto-generated method stub
 		

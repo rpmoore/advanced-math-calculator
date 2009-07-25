@@ -8,10 +8,14 @@ import javax.swing.JTextField;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
+import java.text.ParseException;
+
 import javax.swing.ImageIcon;
 
-public class Main extends JApplet {
+import bptree.BinaryParseTree;
 
+public class Main extends JApplet {
+	private BinaryParseTree bpTree = null;
 	private JPanel jContentPane = null;
 	private JLabel appName = null;
 	private JTextField expression = null;
@@ -40,6 +44,7 @@ public class Main extends JApplet {
 	public void init() {
 		this.setSize(300, 200);
 		this.setContentPane(getJContentPane());
+		bpTree = new BinaryParseTree();
 	}
 
 	/**
@@ -161,6 +166,18 @@ public class Main extends JApplet {
 			eval = new JButton();
 			eval.setBounds(new Rectangle(45, 105, 61, 22));
 			eval.setText("Eval");
+			eval.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseClicked(java.awt.event.MouseEvent e) {
+					try
+					{
+					bpTree.parse(expression.getText()); // TODO Auto-generated Event stub mouseClicked()
+					}
+					catch (ParseException exc)
+					{
+						exc.printStackTrace();
+					}
+				}
+			});
 		}
 		return eval;
 	}

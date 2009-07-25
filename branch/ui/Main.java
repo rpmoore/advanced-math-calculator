@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.Rectangle;
+import javax.swing.ImageIcon;
 
 public class Main extends JApplet {
 
@@ -21,6 +22,8 @@ public class Main extends JApplet {
 	private JPanel controlPanel = null;
 	private JButton eval = null;
 	private JButton clear = null;
+	private JLabel integralSign = null;
+	private JLabel expressionEnd = null;
 
 	/**
 	 * This is the xxx default constructor
@@ -46,6 +49,13 @@ public class Main extends JApplet {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			expressionEnd = new JLabel();
+			expressionEnd.setBounds(new Rectangle(272, 48, 14, 16));
+			expressionEnd.setText("dx");
+			integralSign = new JLabel();
+			integralSign.setBounds(new Rectangle(90, 30, 31, 46));
+			integralSign.setIcon(new ImageIcon(getClass().getResource("/ui/46px-WPint.png")));
+			integralSign.setText("Integral");
 			LowerBound = new JLabel();
 			LowerBound.setText("Lower Bound");
 			LowerBound.setBounds(new Rectangle(30, 75, 75, 16));
@@ -66,6 +76,8 @@ public class Main extends JApplet {
 			jContentPane.add(getControlPanel(), null);
 			jContentPane.add(getEval(), null);
 			jContentPane.add(getClear(), null);
+			jContentPane.add(integralSign, null);
+			jContentPane.add(expressionEnd, null);
 		}
 		return jContentPane;
 	}
@@ -79,7 +91,7 @@ public class Main extends JApplet {
 		if (expression == null) {
 			expression = new JTextField();
 			expression.setText("");
-			expression.setBounds(new Rectangle(105, 45, 150, 20));
+			expression.setBounds(new Rectangle(120, 45, 150, 20));
 			expression.setPreferredSize(new Dimension(150, 20));
 		}
 		return expression;

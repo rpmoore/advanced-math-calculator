@@ -28,8 +28,7 @@ public class Main extends JApplet implements Runnable {
 	private JButton clear = null;
 	private JLabel integralSign = null;
 	private JLabel expressionEnd = null;
-	private JPanel loadingPane = null;
-	private boolean LOADING;
+
 	/**
 	 * This is the xxx default constructor
 	 */
@@ -43,15 +42,8 @@ public class Main extends JApplet implements Runnable {
 	 * @return void
 	 */
 	public void init() {
-		LOADING = true;
 		this.setSize(300, 200);
-		loadingPane = new LoadingPanel(true);
-		this.setContentPane(loadingPane);
-		Thread loading = new Thread(this);
-		loading.start();
-		JPanel main = getJContentPane();
-		LOADING = false;
-		this.setContentPane(main);
+		this.setContentPane(getJContentPane());
 		bpTree = new BinaryParseTree();
 	}
 
@@ -211,7 +203,7 @@ public class Main extends JApplet implements Runnable {
 		return clear;
 	}
 
-
+	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		

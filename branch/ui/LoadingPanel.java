@@ -20,24 +20,27 @@ public class LoadingPanel extends JPanel {
 	
 	public LoadingPanel(boolean isDoubleBuffered) {
 		super(isDoubleBuffered);
-		circles = new Ellipse2D.Double[12];
 		
-		double theta = Math.PI/6.0;
+		int number = 30;
+		circles = new Ellipse2D.Double[number];
+		
+
+		
+		double theta = (2.0*Math.PI)/number;
 		double radius = 50.0;
 		Ellipse2D.Double temp;		
-		for(int i = 0; i < 12; i++)
+		for(int i = 0; i < number; i++)
 		{
 			temp = new Ellipse2D.Double(Math.cos(theta*i)*radius+100,Math.sin(theta*i)*radius+100,10,10);
 			circles[i]=temp;
 		}
-		
 	}
 	
 	public void paint(Graphics g)
 	{
 		Graphics2D g2d = (Graphics2D) g;
 		
-		for(int i = 0; i < 12; i++)
+		for(int i = 0; i < circles.length; i++)
 		{
 			g2d.setColor(Color.GREEN);
 			g2d.fill(circles[i]);

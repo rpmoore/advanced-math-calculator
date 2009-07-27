@@ -65,6 +65,7 @@ public class BinaryTreeTesting {
 		}
 		BinaryTree.TreeNode root = tree.tree.getRoot(); 
 		assertEquals(ExpressionTypes.ADD, root.getType());
+		assertEquals("2", root.getLeft().getExpression());
 	}
 	
 

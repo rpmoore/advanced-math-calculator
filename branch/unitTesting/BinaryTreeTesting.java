@@ -1,15 +1,17 @@
 package unitTesting;
 
+import java.text.ParseException;
+
 import bptree.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 
 
 
-public class OpTesting {
+public class BinaryTreeTesting {
 	
     public static junit.framework.Test suite() {
-        return new junit.framework.JUnit4TestAdapter(OpTesting.class);
+        return new junit.framework.JUnit4TestAdapter(BinaryTreeTesting.class);
     }
     
     BinaryTree testing = null;
@@ -49,6 +51,20 @@ public class OpTesting {
 		assertEquals(ExpressionTypes.NUMBER, testing.returnType("123124.3"));
 		assertEquals(ExpressionTypes.NUMBER, testing.returnType("123"));
 		assertEquals(-1, testing.returnType("hello"));
+	}
+	
+	@Test
+	public void testInsert()
+	{
+		BinaryParseTree tree = new BinaryParseTree();
+		try {
+			tree.parse("2 + 3");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		BinaryTree.TreeNode root = tree.tree.getRoot(); 
+		assertEquals(ExpressionTypes.ADD, root.getType());
 	}
 	
 

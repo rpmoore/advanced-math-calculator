@@ -72,8 +72,15 @@ public class BinaryTree {
 					parent.setRight(newNode);
 				}
 			}
-			root = newNode;
+			if(current.equals(root))
+			{
+				root = newNode;
+			}
 			newNode.setLeft(current);
+		}
+		else if(ret == 0)
+		{
+			
 		}
 
 	}
@@ -167,14 +174,14 @@ public class BinaryTree {
 
 
 	//Used when combining 2 BinaryTrees together
-	private TreeNode getRoot()
+	public TreeNode getRoot()//TODO make this private for release
 	{
 		return root;
 	}
 	/*Protected class for the implementation.
 	 *This class should not be used outside of the BinaryParseTree
 	 */
-	protected class TreeNode
+	public class TreeNode//TODO make this private for release
 	{
 		private String expression;
 		private int type;

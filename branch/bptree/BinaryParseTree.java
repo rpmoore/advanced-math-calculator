@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class BinaryParseTree {
 
 	private Pattern parser = Pattern.compile("\\(.+\\) | \\+ | \\- | \\* | / | \\d+\\.+\\d+ | \\d+ | x{1}+", Pattern.COMMENTS);
-	private BinaryTree tree = null;
+	public BinaryTree tree = null; //TODO make this private for release
 	public BinaryParseTree() {
 		tree = new BinaryTree();
 	}

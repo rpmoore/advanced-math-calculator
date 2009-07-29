@@ -18,6 +18,7 @@ public class BinaryParseTree {
 	 */
 	public void parse(String expression) throws ParseException
 	{
+		tree.clear();//empty the tree if there is anything in it.
 		String temp = null;
 		System.out.println("Parsing the equation: " + expression);
 		Matcher matcher = parser.matcher(expression);
@@ -29,7 +30,7 @@ public class BinaryParseTree {
 				temp = temp.substring(1,temp.length()-1);
 				parse(temp);
 			}
-				tree.insert(temp,tree.returnType(temp));
+				tree.insert(temp,BinaryTree.returnType(temp));
 			System.out.println("The next item in the pattern is: " + temp);
 		}	
 	}	

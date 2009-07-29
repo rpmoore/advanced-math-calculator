@@ -6,28 +6,30 @@ import java.util.HashMap;
 public class BinaryTree {
 
 	private TreeNode root;
-	HashMap<String,Integer> expressionToType;
+	private static HashMap<String,Integer> expressionToType;
 	public BinaryTree()
 	{
 		root = null;
-		expressionToType = new HashMap<String, Integer>();
-		//Fill the hashmap
-		expressionToType.put("e", ExpressionTypes.E);
-		expressionToType.put("pi", ExpressionTypes.PI);
-		expressionToType.put("x", ExpressionTypes.VARIABLE);
-		expressionToType.put("sin", ExpressionTypes.SIN);
-		expressionToType.put("cos", ExpressionTypes.COS);
-		expressionToType.put("tan", ExpressionTypes.TAN);
-		expressionToType.put("sinh", ExpressionTypes.SINH);
-		expressionToType.put("cosh", ExpressionTypes.COSH);
-		expressionToType.put("tanh", ExpressionTypes.TANH);
-		expressionToType.put("log", ExpressionTypes.LOG);
-		expressionToType.put("ln", ExpressionTypes.LN);
-		expressionToType.put("*", ExpressionTypes.MULTIPLY);
-		expressionToType.put("/", ExpressionTypes.DIVIDE);
-		expressionToType.put("+", ExpressionTypes.ADD);
-		expressionToType.put("-",ExpressionTypes.SUBTRACT);
-
+		if(expressionToType == null)
+		{
+			expressionToType = new HashMap<String, Integer>();
+			//Fill the hashmap
+			expressionToType.put("e", ExpressionTypes.E);
+			expressionToType.put("pi", ExpressionTypes.PI);
+			expressionToType.put("x", ExpressionTypes.VARIABLE);
+			expressionToType.put("sin", ExpressionTypes.SIN);
+			expressionToType.put("cos", ExpressionTypes.COS);
+			expressionToType.put("tan", ExpressionTypes.TAN);
+			expressionToType.put("sinh", ExpressionTypes.SINH);
+			expressionToType.put("cosh", ExpressionTypes.COSH);
+			expressionToType.put("tanh", ExpressionTypes.TANH);
+			expressionToType.put("log", ExpressionTypes.LOG);
+			expressionToType.put("ln", ExpressionTypes.LN);
+			expressionToType.put("*", ExpressionTypes.MULTIPLY);
+			expressionToType.put("/", ExpressionTypes.DIVIDE);
+			expressionToType.put("+", ExpressionTypes.ADD);
+			expressionToType.put("-",ExpressionTypes.SUBTRACT);
+		}
 	}
 
 	public void insert(String expression, int type)
@@ -48,14 +50,22 @@ public class BinaryTree {
 		int ret = compType(current.getType(), newNode.getType());
 		if(ret > 0)
 		{
-			if(current.getRight() == null)
-			{
-				current.setRight(newNode);
-			}
 			if(current.getLeft() == null)
 			{
 				current.setLeft(newNode);
+				newNode.setParent(current);
 			}
+			else if(current.getRight() == null)
+			{
+				current.setRight(newNode);
+				newNode.setParent(current);
+			}
+			else
+			{
+				insert(newNode, current.getRight());
+			}
+
+
 		}
 		else if(ret < 0)
 		{
@@ -80,12 +90,30 @@ public class BinaryTree {
 		}
 		else if(ret == 0)
 		{
-			
+
 		}
 
 	}
 
-	public boolean isOp(int type)
+	public boolean isEmpty()
+	{
+		if(root != null)
+		{	
+			return false;
+		}
+		return true;
+	}
+
+	public void clear()
+	{
+		if(!isEmpty())
+		{
+			root = null;
+		}
+	}
+
+
+	public static boolean isOp(int type)
 	{
 		if(type>ExpressionTypes.VARIABLE)
 		{
@@ -96,7 +124,7 @@ public class BinaryTree {
 
 
 
-	public int compType(int type, int type2)
+	public static int compType(int type, int type2)
 	{
 		if(type == type2)
 		{
@@ -135,7 +163,7 @@ public class BinaryTree {
 	 * @param expression A portion of the total expression to check to see if it is a valid symbol.
 	 * @return true if the expression is valid, false otherwise.
 	 */
-	private boolean checkValue(String expression)
+	private static boolean checkValue(String expression)
 	{
 		if(returnType(expression) < -1)
 		{
@@ -144,7 +172,8 @@ public class BinaryTree {
 		return false;
 	}
 
-	public int returnType(String expression)
+
+	public static int returnType(String expression)
 	{
 		Integer value = expressionToType.get(expression);
 		if(value != null)

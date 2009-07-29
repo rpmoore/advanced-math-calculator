@@ -26,46 +26,66 @@ public class BinaryTreeTesting {
 	public void checkOPT()
 	{
 		
-		assertTrue(testing.isOp(ExpressionTypes.ADD));
-		assertTrue(testing.isOp(ExpressionTypes.SUBTRACT));
-		assertFalse(testing.isOp(ExpressionTypes.NUMBER));
+		assertTrue(BinaryTree.isOp(ExpressionTypes.ADD));
+		assertTrue(BinaryTree.isOp(ExpressionTypes.SUBTRACT));
+		assertFalse(BinaryTree.isOp(ExpressionTypes.NUMBER));
 	}
 	
 	@Test
 	public void compOPT()
 	{		
-		assertTrue(testing.compType(ExpressionTypes.NUMBER, ExpressionTypes.ADD) == -1);
-		assertTrue(testing.compType(ExpressionTypes.ADD, ExpressionTypes.NUMBER) == 1);
-		assertEquals(1, testing.compType(ExpressionTypes.ADD, ExpressionTypes.MULTIPLY));
-		assertEquals(1,testing.compType(ExpressionTypes.MULTIPLY, ExpressionTypes.COS));
-		assertEquals(1, testing.compType(ExpressionTypes.COS, ExpressionTypes.E));
-		assertEquals(-1, testing.compType(ExpressionTypes.E, ExpressionTypes.COSH));
-		assertEquals(-1, testing.compType(ExpressionTypes.MULTIPLY,ExpressionTypes.SUBTRACT));
-		assertEquals(-1, testing.compType(ExpressionTypes.COS, ExpressionTypes.DIVIDE));
+		assertTrue(BinaryTree.compType(ExpressionTypes.NUMBER, ExpressionTypes.ADD) == -1);
+		assertTrue(BinaryTree.compType(ExpressionTypes.ADD, ExpressionTypes.NUMBER) == 1);
+		assertEquals(1, BinaryTree.compType(ExpressionTypes.ADD, ExpressionTypes.MULTIPLY));
+		assertEquals(1,BinaryTree.compType(ExpressionTypes.MULTIPLY, ExpressionTypes.COS));
+		assertEquals(1, BinaryTree.compType(ExpressionTypes.COS, ExpressionTypes.E));
+		assertEquals(-1, BinaryTree.compType(ExpressionTypes.E, ExpressionTypes.COSH));
+		assertEquals(-1, BinaryTree.compType(ExpressionTypes.MULTIPLY,ExpressionTypes.SUBTRACT));
+		assertEquals(-1, BinaryTree.compType(ExpressionTypes.COS, ExpressionTypes.DIVIDE));
 	}
 	
 	@Test
 	public void getOPT()
 	{
-		assertEquals(ExpressionTypes.ADD, testing.returnType("+"));
-		assertEquals(ExpressionTypes.NUMBER, testing.returnType("123124.3"));
-		assertEquals(ExpressionTypes.NUMBER, testing.returnType("123"));
-		assertEquals(-1, testing.returnType("hello"));
+		assertEquals(ExpressionTypes.ADD, BinaryTree.returnType("+"));
+		assertEquals(ExpressionTypes.NUMBER, BinaryTree.returnType("123124.3"));
+		assertEquals(ExpressionTypes.NUMBER, BinaryTree.returnType("123"));
+		assertEquals(-1, BinaryTree.returnType("hello"));
 	}
 	
 	@Test
-	public void testInsert()
+	public void testInsertBasic()
 	{
 		BinaryParseTree tree = new BinaryParseTree();
 		try {
 			tree.parse("2 + 3");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		BinaryTree.TreeNode root = tree.tree.getRoot(); 
 		assertEquals(ExpressionTypes.ADD, root.getType());
 		assertEquals("2", root.getLeft().getExpression());
+		assertFalse(tree.tree.isEmpty());
+	}
+	
+	@Test
+	public void testInsertBasicCombined()
+	{
+		BinaryParseTree tree = new BinaryParseTree();
+		try
+		{
+			tree.parse("2 + 3 / x");
+		}
+		catch(ParseException e)
+		{
+			e.printStackTrace();
+		}
+		
+		BinaryTree.TreeNode root = tree.tree.getRoot();
+		assertEquals(ExpressionTypes.ADD, root.getType());
+		assertEquals(ExpressionTypes.DIVIDE,root.getRight().getType());
+		assertEquals("3", root.getRight().getLeft().getExpression());
+		assertEquals("x", root.getRight().getRight().getExpression());
 	}
 	
 

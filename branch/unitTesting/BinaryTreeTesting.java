@@ -57,31 +57,33 @@ public class BinaryTreeTesting {
 	public void testInsertBasic()
 	{
 		BinaryParseTree tree = new BinaryParseTree();
+		BinaryTree btree = null;
 		try {
-			tree.parse("2 + 3");
+			btree = tree.parse("2 + 3");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		BinaryTree.TreeNode root = tree.tree.getRoot(); 
+		BinaryTree.TreeNode root = btree.getRoot(); 
 		assertEquals(ExpressionTypes.ADD, root.getType());
 		assertEquals("2", root.getLeft().getExpression());
-		assertFalse(tree.tree.isEmpty());
+		assertFalse(btree.isEmpty());
 	}
 	
 	@Test
 	public void testInsertBasicCombined()
 	{
 		BinaryParseTree tree = new BinaryParseTree();
+		BinaryTree btree = null;
 		try
 		{
-			tree.parse("2 + 3 / x");
+		btree = tree.parse("2 + 3 / x");
 		}
 		catch(ParseException e)
 		{
 			e.printStackTrace();
 		}
 		
-		BinaryTree.TreeNode root = tree.tree.getRoot();
+		BinaryTree.TreeNode root = btree.getRoot();
 		assertEquals(ExpressionTypes.ADD, root.getType());
 		assertEquals(ExpressionTypes.DIVIDE,root.getRight().getType());
 		assertEquals("3", root.getRight().getLeft().getExpression());

@@ -1,35 +1,11 @@
 package bptree;
 
-import java.util.HashMap;
-
-
 public class BinaryTree {
 
 	private TreeNode root;
-	private static HashMap<String,Integer> expressionToType;
 	public BinaryTree()
 	{
-		root = null;
-		if(expressionToType == null)
-		{
-			expressionToType = new HashMap<String, Integer>();
-			//Fill the hashmap
-			expressionToType.put("e", ExpressionTypes.E);
-			expressionToType.put("pi", ExpressionTypes.PI);
-			expressionToType.put("x", ExpressionTypes.VARIABLE);
-			expressionToType.put("sin", ExpressionTypes.SIN);
-			expressionToType.put("cos", ExpressionTypes.COS);
-			expressionToType.put("tan", ExpressionTypes.TAN);
-			expressionToType.put("sinh", ExpressionTypes.SINH);
-			expressionToType.put("cosh", ExpressionTypes.COSH);
-			expressionToType.put("tanh", ExpressionTypes.TANH);
-			expressionToType.put("log", ExpressionTypes.LOG);
-			expressionToType.put("ln", ExpressionTypes.LN);
-			expressionToType.put("*", ExpressionTypes.MULTIPLY);
-			expressionToType.put("/", ExpressionTypes.DIVIDE);
-			expressionToType.put("+", ExpressionTypes.ADD);
-			expressionToType.put("-",ExpressionTypes.SUBTRACT);
-		}
+		
 	}
 
 	public void insert(String expression, int type)
@@ -47,7 +23,7 @@ public class BinaryTree {
 
 	public void insert(TreeNode newNode, TreeNode current)
 	{
-		int ret = compType(current.getType(), newNode.getType());
+		int ret = ExpressionType.compType(current.getType(), newNode.getType());
 		if(ret > 0)
 		{
 			if(current.getLeft() == null)
@@ -111,96 +87,6 @@ public class BinaryTree {
 			root = null;
 		}
 	}
-
-
-	public static boolean isOp(int type)
-	{
-		if(type>ExpressionTypes.VARIABLE)
-		{
-			return true;
-		}
-		return false;
-	}
-
-
-
-	public static int compType(int type, int type2)
-	{
-		if(type == type2)
-		{
-			return 0;
-		}
-		if(isOp(type) && !isOp(type2))
-		{
-			return 1;
-		}
-		if(type > ExpressionTypes.DIVIDE && type2 > ExpressionTypes.DIVIDE)
-		{
-			return 0;
-		}
-		if(type > ExpressionTypes.DIVIDE && !(type2 > ExpressionTypes.DIVIDE))
-		{
-			return 1;
-		}
-		if(type <=ExpressionTypes.DIVIDE && type2 > ExpressionTypes.DIVIDE)
-		{
-			return -1;
-		}
-		if(type > ExpressionTypes.LN && type2 > ExpressionTypes.LN)
-		{
-			return 0;
-		}
-		if(type > ExpressionTypes.LN && type2 <= ExpressionTypes.LN)
-		{
-			return 1;
-		}
-		return -1;
-	}
-
-	/**
-	 * Checks an subset of an expression to validate that it is a valid mathematical symbol.
-	 * 
-	 * @param expression A portion of the total expression to check to see if it is a valid symbol.
-	 * @return true if the expression is valid, false otherwise.
-	 */
-	private static boolean checkValue(String expression)
-	{
-		if(returnType(expression) < -1)
-		{
-			return true;
-		}
-		return false;
-	}
-
-
-	public static int returnType(String expression)
-	{
-		Integer value = expressionToType.get(expression);
-		if(value != null)
-		{
-			return value;
-		}
-		try
-		{
-			Integer.parseInt(expression);
-			return ExpressionTypes.NUMBER; 
-		}
-		catch(NumberFormatException e)
-		{
-			try
-			{
-				Double.parseDouble(expression);
-				return ExpressionTypes.NUMBER;
-			}
-			catch(NumberFormatException e2)
-			{
-				return -1;
-			}
-		}
-	}
-
-
-
 
 	//Used when combining 2 BinaryTrees together
 	public TreeNode getRoot()//TODO make this private for release

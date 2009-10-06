@@ -15,10 +15,10 @@ import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 
-import bptree.BinaryParseTree;
+import bptree.ParseTree;
 
 public class Main extends JApplet implements Runnable {
-	private BinaryParseTree bpTree = null;
+	private ParseTree bpTree = null;
 	private JPanel jContentPane = null;
 	private JLabel appName = null;
 	private JTextField expression = null;
@@ -47,7 +47,7 @@ public class Main extends JApplet implements Runnable {
 	public void init() {
 		this.setSize(300, 200);
 		this.setContentPane(getJContentPane());
-		bpTree = new BinaryParseTree();
+		bpTree = new ParseTree();
 	}
 
 	/**

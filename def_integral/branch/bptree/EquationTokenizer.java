@@ -16,17 +16,18 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 	private Pattern parser = Pattern.compile("\\( | \\) | \\^ | \\+ | \\- | \\* | / | \\d+\\.+\\d+ | \\d+ | x{1}+ | sin | cos | tan | \\.+ ", Pattern.COMMENTS);
 	
 	private String equation;
-	private int stringPointer;
+	private String leftOver;
+
 	
 	public EquationTokenizer(String equation)
 	{
 		this.equation = equation;
-		this.stringPointer = 0;
+		this.leftOver = equation;
 	}
 	
 	@Override
 	public boolean hasMoreElements() {
-		if(stringPointer > equation.length() || equation.length() == 0)
+		if(leftOver.length() < 1)
 		{
 			return false;
 		}
@@ -37,17 +38,19 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 	public EquationToken nextElement() {
 		// TODO Auto-generated method stub
 		
-		if(stringPointer > equation.length() || equation.length() == 0)//Checks to make sure that the equation is not empty before continuing on.
+		if(hasMoreElements()==false)//Checks to make sure that the equation is not empty before continuing on.
 		{
 			return null;
 		}
 		String temp = null;
-		Matcher matcher = parser.matcher(equation.substring(stringPointer));
+		Matcher matcher = parser.matcher(leftOver);
 		
 		if(matcher.find())
 		{
 			temp = matcher.group();
 			EquationToken ret = new EquationToken(temp,ExpressionType.getType(temp));
+			
+			stringPointer++;
 			return ret;
 		}
 		else

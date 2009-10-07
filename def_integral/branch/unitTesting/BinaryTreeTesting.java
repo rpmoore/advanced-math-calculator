@@ -3,7 +3,9 @@ package unitTesting;
 import java.text.ParseException;
 
 import bptree.*;
+
 import org.junit.*;
+
 import static org.junit.Assert.*;
 
 
@@ -52,10 +54,45 @@ public class BinaryTreeTesting {
 		assertEquals(ExpressionType.NUMBER, ExpressionType.getType("123"));
 		assertEquals(-1, ExpressionType.getType("hello"));
 	}
+
+    @Test
+    public void makeTokensOne()
+    {
+    	EquationTokenizer tokenizer = new EquationTokenizer("+");
+    	assertTrue(tokenizer.hasMoreElements());
+    	EquationToken token = tokenizer.nextElement();
+    	assertTrue(token.getType() == ExpressionType.ADD);
+    	assertFalse(tokenizer.hasMoreElements());
+    }
+
+    @Test
+    public void makeTokensZero()
+    {
+    	EquationTokenizer tokenizer = new EquationTokenizer("");
+    	assertFalse(tokenizer.hasMoreElements());
+    	assertTrue(tokenizer.nextElement() == null);
+    }
+
+    @Test
+    public void makeTokensThree()
+    {
+    	EquationTokenizer tokenizer = new EquationTokenizer("2 + 3");
+    	for(int i = 0; i < 3; i++)
+    	{
+    		assertTrue(tokenizer.hasMoreElements());
+    		EquationToken token = tokenizer.nextElement();
+    		
+    		assertTrue(token.getType() != ExpressionType.OTHER);
+    	}
+    	assertFalse(tokenizer.hasMoreElements());
+    }
+    
 	
 	@Test
 	public void testInsertBasic()
 	{
+		//TODO remove this when testing the insert methods.
+		assertFalse(true);
 		ParseTree tree = new ParseTree();
 		BinaryTree btree = null;
 		try {

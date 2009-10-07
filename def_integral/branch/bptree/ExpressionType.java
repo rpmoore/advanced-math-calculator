@@ -10,7 +10,6 @@ public class ExpressionType {
 	public final static int E = 1;
 	public final static int PI = 2;
 	public final static int VARIABLE = 3;
-	
 
 	public final static int SIN = 6;
 	public final static int COS = 7;
@@ -26,6 +25,9 @@ public class ExpressionType {
 	
 	public final static int ADD = 19;
 	public final static int SUBTRACT = 20;
+	
+	public final static int LEFTPAREN = 22;
+	public final static int RIGHTPAREN = 23;
 	
 	private static HashMap<String,Integer> expressionToType;
 	
@@ -46,7 +48,9 @@ public class ExpressionType {
 		expressionToType.put("*", ExpressionType.MULTIPLY);
 		expressionToType.put("/", ExpressionType.DIVIDE);
 		expressionToType.put("+", ExpressionType.ADD);
-		expressionToType.put("-",ExpressionType.SUBTRACT);		
+		expressionToType.put("-",ExpressionType.SUBTRACT);	
+		expressionToType.put("(", ExpressionType.LEFTPAREN);
+		expressionToType.put(")", ExpressionType.RIGHTPAREN);
 	}
 	
 	public static int compType(int type, int type2)

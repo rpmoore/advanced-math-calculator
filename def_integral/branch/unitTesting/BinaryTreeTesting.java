@@ -86,6 +86,33 @@ public class BinaryTreeTesting {
     	}
     	assertFalse(tokenizer.hasMoreElements());
     }
+    @Test
+    public void makeTokensThreeNoWhitespace()
+    {
+    	EquationTokenizer tokenizer = new EquationTokenizer("2+3");
+    	for(int i = 0; i < 3; i++)
+    	{
+    		assertTrue(tokenizer.hasMoreElements());
+    		EquationToken token = tokenizer.nextElement();
+    		
+    		assertTrue(token.getType() != ExpressionType.OTHER);
+    	}
+    	assertFalse(tokenizer.hasMoreElements());
+    }
+    
+    @Test
+    public void makeTokensSeven()
+    {
+    	EquationTokenizer tokenizer = new EquationTokenizer("(2+3)/2");
+    	for(int i = 0; i < 7; i++)
+    	{
+    		assertTrue(tokenizer.hasMoreElements());
+    		EquationToken token = tokenizer.nextElement();
+    		
+    		assertTrue(token.getType() != ExpressionType.OTHER);
+    	}
+    	assertFalse(tokenizer.hasMoreElements());
+    }
     
 	
 	@Test
@@ -106,9 +133,12 @@ public class BinaryTreeTesting {
 		assertFalse(btree.isEmpty());
 	}
 	
+	
 	@Test
 	public void testInsertBasicCombined()
 	{
+		//TODO remove this when testing the insert methods.
+		assertFalse(true);
 		ParseTree tree = new ParseTree();
 		BinaryTree btree = null;
 		try

@@ -15,13 +15,11 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 
 	private Pattern parser = Pattern.compile("\\( | \\) | \\^ | \\+ | \\- | \\* | / | \\d+\\.+\\d+ | \\d+ | x{1}+ | sin | cos | tan | \\.+ ", Pattern.COMMENTS);
 	
-	private String equation;
 	private String leftOver;
 
 	
 	public EquationTokenizer(String equation)
 	{
-		this.equation = equation;
 		this.leftOver = equation;
 	}
 	
@@ -49,8 +47,8 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 		{
 			temp = matcher.group();
 			EquationToken ret = new EquationToken(temp,ExpressionType.getType(temp));
-			
-			stringPointer++;
+			int index = leftOver.indexOf(temp);
+			leftOver = leftOver.substring(index+temp.length());
 			return ret;
 		}
 		else

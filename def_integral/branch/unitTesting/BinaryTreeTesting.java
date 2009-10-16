@@ -119,7 +119,6 @@ public class BinaryTreeTesting {
 	public void testInsertBasic()
 	{
 		//TODO remove this when testing the insert methods.
-		assertFalse(true);
 		ParseTree tree = new ParseTree();
 		BinaryTree btree = null;
 		try {
@@ -138,12 +137,11 @@ public class BinaryTreeTesting {
 	public void testInsertBasicCombined()
 	{
 		//TODO remove this when testing the insert methods.
-		assertFalse(true);
 		ParseTree tree = new ParseTree();
 		BinaryTree btree = null;
 		try
 		{
-		btree = tree.parse("2 + 3 / x");
+		btree = tree.parse("2+3/x");
 		}
 		catch(ParseException e)
 		{

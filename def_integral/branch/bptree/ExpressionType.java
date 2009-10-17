@@ -20,8 +20,10 @@ public class ExpressionType {
 	public final static int LOG = 12;
 	public final static int LN = 13;
 	
+	public final static int POW = 16;
 	public final static int MULTIPLY = 17;
 	public final static int DIVIDE = 18;
+	
 	
 	public final static int ADD = 19;
 	public final static int SUBTRACT = 20;
@@ -51,6 +53,7 @@ public class ExpressionType {
 		expressionToType.put("-",ExpressionType.SUBTRACT);	
 		expressionToType.put("(", ExpressionType.LEFTPAREN);
 		expressionToType.put(")", ExpressionType.RIGHTPAREN);
+		expressionToType.put("^", ExpressionType.POW);
 	}
 	
 	public static int compType(int type, int type2)

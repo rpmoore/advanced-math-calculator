@@ -205,6 +205,7 @@ public class Main extends JApplet implements Runnable {
 					catch (ParseException exc)
 					{
 						exc.printStackTrace();
+						System.out.println(exc.getErrorOffset());
 					}
 				}
 			});

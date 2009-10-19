@@ -66,7 +66,7 @@ public class ExpressionType {
 		{
 			return 1;
 		}
-		if(type > ExpressionType.DIVIDE && type2 > ExpressionType.DIVIDE)
+		if((type > ExpressionType.DIVIDE && type < ExpressionType.LEFTPAREN) && (type2 < ExpressionType.LEFTPAREN && type2 > ExpressionType.DIVIDE))
 		{
 			return 0;
 		}
@@ -78,11 +78,19 @@ public class ExpressionType {
 		{
 			return -1;
 		}
-		if(type > ExpressionType.LN && type2 > ExpressionType.LN)
+		if((type > ExpressionType.LN && type < ExpressionType.DIVIDE) && (type2 < ExpressionType.DIVIDE && type2 > ExpressionType.LN))
 		{
 			return 0;
 		}
 		if(type > ExpressionType.LN && type2 <= ExpressionType.LN)
+		{
+			return 1;
+		}
+		if(type > ExpressionType.SUBTRACT && type2 > ExpressionType.SUBTRACT )
+		{
+			return 0;
+		}
+		if(type > ExpressionType.SUBTRACT && type2 <= ExpressionType.SUBTRACT)
 		{
 			return 1;
 		}

@@ -3,9 +3,9 @@ package bptree;
 public class BinaryTree {
 
 	private TreeNode root;
+	private String lastInsert;
 	public BinaryTree()
-	{
-		
+	{//This is empty right now.  Don't see a need to have it.
 	}
 
 	public void insert(String expression, int type)
@@ -19,6 +19,7 @@ public class BinaryTree {
 		{
 			insert(newNode,root);
 		}
+		lastInsert = expression;
 	}
 
 	public void insert(TreeNode newNode, TreeNode current)
@@ -40,15 +41,12 @@ public class BinaryTree {
 			{
 				insert(newNode, current.getRight());
 			}
-
-
 		}
 		else if(ret < 0)
 		{
 			TreeNode parent = current.getParent();
 			if(parent != null)
 			{
-
 				if(parent.getLeft().equals(current))
 				{
 					parent.setLeft(newNode);
@@ -66,9 +64,7 @@ public class BinaryTree {
 		}
 		else if(ret == 0)
 		{
-
 		}
-
 	}
 
 	public boolean isEmpty()

@@ -1,10 +1,12 @@
 package unitTesting;
 
+import java.rmi.server.ExportException;
 import java.text.ParseException;
 
 import bptree.*;
 
 import org.junit.*;
+import org.junit.internal.runners.statements.ExpectException;
 
 import static org.junit.Assert.*;
 
@@ -44,6 +46,8 @@ public class BinaryTreeTesting {
 		assertEquals(-1, ExpressionType.compType(ExpressionType.E, ExpressionType.COSH));
 		assertEquals(-1, ExpressionType.compType(ExpressionType.MULTIPLY,ExpressionType.SUBTRACT));
 		assertEquals(-1, ExpressionType.compType(ExpressionType.COS, ExpressionType.DIVIDE));
+		assertEquals(1, ExpressionType.compType(ExpressionType.LEFTPAREN, ExpressionType.SUBTRACT));
+		assertEquals(0, ExpressionType.compType(ExpressionType.LEFTPAREN, ExpressionType.RIGHTPAREN));
 	}
 	
 	@Test

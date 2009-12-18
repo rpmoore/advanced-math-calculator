@@ -3,68 +3,15 @@ package bptree;
 public class BinaryTree {
 
 	private TreeNode root;
-	private String lastInsert;
 	public BinaryTree()
 	{//This is empty right now.  Don't see a need to have it.
 	}
 
-	public void insert(String expression, int type)
-	{
-		TreeNode newNode = new TreeNode(expression,type);
-		if(root == null)
-		{
-			root = newNode;
-		}
-		else
-		{
-			insert(newNode,root);
-		}
-		lastInsert = expression;
-	}
-
 	public void insert(TreeNode newNode, TreeNode current)
 	{
-		int ret = ExpressionType.compType(current.getType(), newNode.getType());
-		if(ret > 0)
-		{
-			if(current.getLeft() == null)
-			{
-				current.setLeft(newNode);
-				newNode.setParent(current);
-			}
-			else if(current.getRight() == null)
-			{
-				current.setRight(newNode);
-				newNode.setParent(current);
-			}
-			else
-			{
-				insert(newNode, current.getRight());
-			}
-		}
-		else if(ret < 0)
-		{
-			TreeNode parent = current.getParent();
-			if(parent != null)
-			{
-				if(parent.getLeft().equals(current))
-				{
-					parent.setLeft(newNode);
-				}
-				else
-				{
-					parent.setRight(newNode);
-				}
-			}
-			if(current.equals(root))
-			{
-				root = newNode;
-			}
-			newNode.setLeft(current);
-		}
-		else if(ret == 0)
-		{
-		}
+		
+		
+		
 	}
 
 	public boolean isEmpty()
@@ -95,11 +42,11 @@ public class BinaryTree {
 	public class TreeNode//TODO make this private for release
 	{
 		private String expression;
-		private int type;
+		private ExpressionType type;
 		private TreeNode left;
 		private TreeNode right;
 		private TreeNode parent;
-		public TreeNode(String expression, int type)
+		public TreeNode(String expression, ExpressionType type)
 		{
 			this.expression = expression;
 			this.type = type;
@@ -132,7 +79,7 @@ public class BinaryTree {
 		{
 			this.expression = expression;
 		}
-		public void setType(int type)
+		public void setType(ExpressionType type)
 		{
 			this.type = type;
 		}
@@ -140,7 +87,7 @@ public class BinaryTree {
 		{
 			return this.expression;
 		}
-		public int getType()
+		public ExpressionType getType()
 		{
 			return type;
 		}

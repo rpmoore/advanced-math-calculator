@@ -2,9 +2,9 @@ package bptree;
 
 public class EquationToken {
 	private String token;
-	private int type;
+	private ExpressionType type;
 	
-	protected EquationToken( String token, int type)
+	protected EquationToken( String token, ExpressionType type)
 	{
 		this.token = token;
 		this.type = type;
@@ -14,7 +14,7 @@ public class EquationToken {
 		return token;
 	}
 
-	public int getType() {
+	public ExpressionType getType() {
 		return type;
 	}
 }

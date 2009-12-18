@@ -1,13 +1,9 @@
 package unitTesting;
 
-import java.rmi.server.ExportException;
-import java.text.ParseException;
 
 import bptree.*;
 
 import org.junit.*;
-import org.junit.internal.runners.statements.ExpectException;
-
 import static org.junit.Assert.*;
 
 
@@ -33,21 +29,6 @@ public class BinaryTreeTesting {
 		assertTrue(ExpressionType.isOp(ExpressionType.ADD));
 		assertTrue(ExpressionType.isOp(ExpressionType.SUBTRACT));
 		assertFalse(ExpressionType.isOp(ExpressionType.NUMBER));
-	}
-	
-	@Test
-	public void compOPT()
-	{		
-		assertTrue(ExpressionType.compType(ExpressionType.NUMBER, ExpressionType.ADD) == -1);
-		assertTrue(ExpressionType.compType(ExpressionType.ADD, ExpressionType.NUMBER) == 1);
-		assertEquals(1, ExpressionType.compType(ExpressionType.ADD, ExpressionType.MULTIPLY));
-		assertEquals(1,ExpressionType.compType(ExpressionType.MULTIPLY, ExpressionType.COS));
-		assertEquals(1, ExpressionType.compType(ExpressionType.COS, ExpressionType.E));
-		assertEquals(-1, ExpressionType.compType(ExpressionType.E, ExpressionType.COSH));
-		assertEquals(-1, ExpressionType.compType(ExpressionType.MULTIPLY,ExpressionType.SUBTRACT));
-		assertEquals(-1, ExpressionType.compType(ExpressionType.COS, ExpressionType.DIVIDE));
-		assertEquals(1, ExpressionType.compType(ExpressionType.LEFTPAREN, ExpressionType.SUBTRACT));
-		assertEquals(0, ExpressionType.compType(ExpressionType.LEFTPAREN, ExpressionType.RIGHTPAREN));
 	}
 	
 	@Test
@@ -123,13 +104,8 @@ public class BinaryTreeTesting {
 	public void testInsertBasic()
 	{
 		//TODO remove this when testing the insert methods.
-		ParseTree tree = new ParseTree();
+		ParseTree tree = new ParseTree("2 + 3");
 		BinaryTree btree = null;
-		try {
-			btree = tree.parse("2 + 3");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 		BinaryTree.TreeNode root = btree.getRoot(); 
 		assertEquals(ExpressionType.ADD, root.getType());
 		assertEquals("2", root.getLeft().getExpression());
@@ -141,16 +117,8 @@ public class BinaryTreeTesting {
 	public void testInsertBasicCombined()
 	{
 		//TODO remove this when testing the insert methods.
-		ParseTree tree = new ParseTree();
+		ParseTree tree = new ParseTree("2+3/x");
 		BinaryTree btree = null;
-		try
-		{
-		btree = tree.parse("2+3/x");
-		}
-		catch(ParseException e)
-		{
-			e.printStackTrace();
-		}
 		
 		BinaryTree.TreeNode root = btree.getRoot();
 		assertEquals(ExpressionType.ADD, root.getType());

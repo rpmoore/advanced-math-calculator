@@ -47,7 +47,6 @@ public class Main extends JApplet implements Runnable {
 	public void init() {
 		this.setSize(300, 200);
 		this.setContentPane(getJContentPane());
-		bpTree = new ParseTree();
 	}
 
 	/**
@@ -105,14 +104,7 @@ public class Main extends JApplet implements Runnable {
 				public void keyPressed(java.awt.event.KeyEvent e) {
 					if(e.getKeyCode() == KeyEvent.VK_ENTER)
 					{
-						try
-						{
-							bpTree.parse(expression.getText()); // TODO Auto-generated Event stub mouseClicked()
-						}
-						catch (ParseException exc)
-						{
-							
-						}
+							bpTree = new ParseTree(expression.getText());
 					}
 				}
 
@@ -198,15 +190,7 @@ public class Main extends JApplet implements Runnable {
 			eval.setText("Eval");
 			eval.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-					try
-					{
-						bpTree.parse(expression.getText()); // TODO Auto-generated Event stub mouseClicked()
-					}
-					catch (ParseException exc)
-					{
-						exc.printStackTrace();
-						System.out.println(exc.getErrorOffset());
-					}
+						bpTree = new ParseTree(expression.getText());
 				}
 			});
 		}

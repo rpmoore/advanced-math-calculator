@@ -43,11 +43,11 @@ public enum ExpressionType {
 	 */
 	public static boolean isOp(ExpressionType type)
 	{
-		if(type == ExpressionType.VARIABLE || type == ExpressionType.E || type == ExpressionType.PI)
+		if(type == ExpressionType.NUMBER || type == ExpressionType.VARIABLE || type == ExpressionType.E || type == ExpressionType.PI)
 		{
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 

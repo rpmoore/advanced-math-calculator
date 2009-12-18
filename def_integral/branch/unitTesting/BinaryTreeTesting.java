@@ -37,7 +37,7 @@ public class BinaryTreeTesting {
 		assertEquals(ExpressionType.ADD, ExpressionType.getType("+"));
 		assertEquals(ExpressionType.NUMBER, ExpressionType.getType("123124.3"));
 		assertEquals(ExpressionType.NUMBER, ExpressionType.getType("123"));
-		assertEquals(-1, ExpressionType.getType("hello"));
+		assertEquals(ExpressionType.OTHER, ExpressionType.getType("hello"));
 	}
 
     @Test
@@ -62,13 +62,15 @@ public class BinaryTreeTesting {
     public void makeTokensThree()
     {
     	EquationTokenizer tokenizer = new EquationTokenizer("2 + 3");
+    	EquationToken token = null;
     	for(int i = 0; i < 3; i++)
     	{
     		assertTrue(tokenizer.hasMoreElements());
-    		EquationToken token = tokenizer.nextElement();
+    		token = tokenizer.nextElement();
     		
     		assertTrue(token.getType() != ExpressionType.OTHER);
     	}
+    	assertEquals("3",token.getToken());
     	assertFalse(tokenizer.hasMoreElements());
     }
     @Test

@@ -10,7 +10,7 @@ public class ParseTree extends BinaryTree implements Calculate {
 	}
 
 	@Override
-	public double eval() {
+	public double eval(double index) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -1,5 +1,5 @@
 package defIntegral;
 
 public interface Calculate {
-	public double eval();
+	public double eval(double index);
 }

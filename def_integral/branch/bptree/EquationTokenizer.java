@@ -32,6 +32,10 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 		return true;
 	}
 
+	/**
+	 * @return EquationToken - returns an EquationToken if there is another token in the equation.
+	 * If there are no more elements in the equation, null is returned.
+	 */
 	@Override
 	public EquationToken nextElement() {
 		// TODO Auto-generated method stub

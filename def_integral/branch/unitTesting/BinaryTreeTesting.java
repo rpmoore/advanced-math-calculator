@@ -108,7 +108,7 @@ public class BinaryTreeTesting {
 		//TODO remove this when testing the insert methods.
 		ParseTree tree = new ParseTree("2 + 3");
 		BinaryTree btree = null;
-		BinaryTree.TreeNode root = btree.getRoot(); 
+		TreeNode root = btree.getRoot(); 
 		assertEquals(ExpressionType.ADD, root.getType());
 		assertEquals("2", root.getLeft().getExpression());
 		assertFalse(btree.isEmpty());
@@ -122,7 +122,7 @@ public class BinaryTreeTesting {
 		ParseTree tree = new ParseTree("2+3/x");
 		BinaryTree btree = null;
 		
-		BinaryTree.TreeNode root = btree.getRoot();
+		TreeNode root = btree.getRoot();
 		assertEquals(ExpressionType.ADD, root.getType());
 		assertEquals(ExpressionType.DIVIDE,root.getRight().getType());
 		assertEquals("3", root.getRight().getLeft().getExpression());

@@ -101,6 +101,21 @@ public class BinaryTreeTesting {
     	assertFalse(tokenizer.hasMoreElements());
     }
     
+    @Test
+    public void testPIandE()
+    {
+    	//This test should pass every time as written.  It is very specific
+    	//and really helps illustrate how the Tokenizer should operate.
+    	EquationTokenizer tokenizer = new EquationTokenizer("e+pi");
+    	EquationToken token = tokenizer.nextElement();
+    	assertEquals(ExpressionType.E, token.getType());
+    	token = tokenizer.nextElement();
+    	assertEquals(ExpressionType.ADD,token.getType());
+    	token = tokenizer.nextElement();
+    	assertEquals(ExpressionType.PI,token.getType());
+    	assertFalse(tokenizer.hasMoreElements());
+    }
+    
 	
 	@Test
 	public void testInsertBasic()

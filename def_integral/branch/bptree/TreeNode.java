@@ -1,54 +1,52 @@
 package bptree;
-public class TreeNode
+/**
+ * The TreeNode class used by the BinaryTree class.  The BinaryTree class 
+ * uses this class extensively so changes to this class will affect the
+ * BinaryTree class, or any classes that use the BinaryTree extensively. 
+ * @author Ryan
+ *
+ * @param <T>
+ */
+public class TreeNode<T>
 	{
-		private String expression;
-		private ExpressionType type;
-		private TreeNode left;
-		private TreeNode right;
-		private TreeNode parent;
-		public TreeNode(String expression, ExpressionType type)
+		private T item;
+		private TreeNode<T> left;
+		private TreeNode<T> right;
+		private TreeNode<T> parent;
+		public TreeNode(T newitem)
 		{
-			this.expression = expression;
-			this.type = type;
+			this.item = newitem;
 		}
-		public void setLeft(TreeNode left)
+		public void setLeft(TreeNode<T> left)
 		{
 			this.left = left;
 		}
-		public void setRight(TreeNode right)
+		public void setRight(TreeNode<T> right)
 		{
 			this.right = right;
 		}
-		public TreeNode getRight()
+		public TreeNode<T> getRight()
 		{
 			return right;
 		}
-		public TreeNode getLeft()
+		public TreeNode<T> getLeft()
 		{
 			return left;
 		}
-		public TreeNode getParent()
+		public TreeNode<T> getParent()
 		{
 			return parent;
 		}
-		public void setParent(TreeNode parent)
+		public void setParent(TreeNode<T> parent)
 		{
 			this.parent = parent;
 		}
-		public void setExpression(String expression)
+		public void setExpression(T newItem)
 		{
-			this.expression = expression;
+			this.item = newItem;
 		}
-		public void setType(ExpressionType type)
+		public T getItem()
 		{
-			this.type = type;
-		}
-		public String getExpression()
-		{
-			return this.expression;
-		}
-		public ExpressionType getType()
-		{
-			return type;
+			return this.item;
 		}
 	}

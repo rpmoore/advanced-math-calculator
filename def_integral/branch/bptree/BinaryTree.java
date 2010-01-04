@@ -1,8 +1,16 @@
 package bptree;
 
-public class BinaryTree {
+/**
+ * A BinaryTree implementation.  It is very open.  Can be extended to be 
+ * used in an BinarySearchTree very easily.  
+ * 
+ * @author Ryan
+ *
+ * @param <T> The Object type that the tree will hold.
+ */
+public class BinaryTree<T> {
 
-	private TreeNode root;
+	private TreeNode<T> root;
 
 	public boolean isEmpty()
 	{
@@ -22,12 +30,12 @@ public class BinaryTree {
 	}
 
 	//Used when combining 2 BinaryTrees together
-	public TreeNode getRoot()//TODO make this private for release
+	public TreeNode<T> getRoot()//TODO make this private for release
 	{
 		return root;
 	}
 	
-	public void setRoot(TreeNode newRoot)
+	public void setRoot(TreeNode<T> newRoot)
 	{
 		this.root = newRoot;
 	}		

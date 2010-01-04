@@ -122,10 +122,10 @@ public class BinaryTreeTesting {
 	{
 		//TODO remove this when testing the insert methods.
 		ParseTree tree = new ParseTree("2 + 3");
-		BinaryTree btree = null;
-		TreeNode root = btree.getRoot(); 
-		assertEquals(ExpressionType.ADD, root.getType());
-		assertEquals("2", root.getLeft().getExpression());
+		BinaryTree<EquationToken> btree = tree.getTree();
+		TreeNode<EquationToken> root = btree.getRoot(); 
+		assertEquals(ExpressionType.ADD, root.getItem().getType());
+		assertEquals("2", root.getLeft().getItem().getToken());
 		assertFalse(btree.isEmpty());
 	}
 	
@@ -135,13 +135,13 @@ public class BinaryTreeTesting {
 	{
 		//TODO remove this when testing the insert methods.
 		ParseTree tree = new ParseTree("2+3/x");
-		BinaryTree btree = null;
+		BinaryTree<EquationToken> btree = tree.getTree();
 		
-		TreeNode root = btree.getRoot();
-		assertEquals(ExpressionType.ADD, root.getType());
-		assertEquals(ExpressionType.DIVIDE,root.getRight().getType());
-		assertEquals("3", root.getRight().getLeft().getExpression());
-		assertEquals("x", root.getRight().getRight().getExpression());
+		TreeNode<EquationToken> root = btree.getRoot();
+		assertEquals(ExpressionType.ADD, root.getItem().getType());
+		assertEquals(ExpressionType.DIVIDE,root.getRight().getItem().getType());
+		assertEquals("3", root.getRight().getLeft().getItem().getToken());
+		assertEquals("x", root.getRight().getRight().getItem().getToken());
 	}
 	
 

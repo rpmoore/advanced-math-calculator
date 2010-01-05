@@ -25,6 +25,14 @@ public class TreeNode<T>
 		{
 			this.right = right;
 		}
+		public void setLeft(BinaryTree<T> leftTree)
+		{
+			this.left = leftTree.getRoot();	
+		}
+		public void setRight(BinaryTree<T> rightTree)
+		{
+			this.right = rightTree.getRoot();
+		}
 		public TreeNode<T> getRight()
 		{
 			return right;

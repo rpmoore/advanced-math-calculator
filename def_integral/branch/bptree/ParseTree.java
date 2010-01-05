@@ -14,9 +14,8 @@ import defIntegral.Calculate;
  */
 public class ParseTree implements Calculate {
 	private String expression;
-	private BinaryTree<EquationToken> bTree;
-	private TreeNode<EquationToken> lastNode;
-	private TreeNode<EquationToken> rootNode;
+	private BinaryTree<EquationToken> bTree;//This is the final tree
+	private EquationTokenizer tokenizer;
 	
 	public static ParseTree makeTree(String expression,boolean optimize) throws ParseException
 	{
@@ -66,7 +65,7 @@ public class ParseTree implements Calculate {
 	 */
 	private void parseToTree() {
 		EquationToken currentToken = null;
-		EquationTokenizer tokenizer = new EquationTokenizer(this.expression);
+		tokenizer = new EquationTokenizer(this.expression);
 		
 
 	}

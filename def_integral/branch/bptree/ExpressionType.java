@@ -43,13 +43,46 @@ public enum ExpressionType {
 	 */
 	public static boolean isOp(ExpressionType type)
 	{
-		if(type == ExpressionType.NUMBER || type == ExpressionType.VARIABLE || type == ExpressionType.E || type == ExpressionType.PI)
+		if(type == ExpressionType.MULTIPLY || type == ExpressionType.DIVIDE || 
+		   type == ExpressionType.ADD || type == ExpressionType.SUBTRACT ||
+		   type == ExpressionType.POW)
 		{
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public static boolean isFunction(ExpressionType type)
+	{
+		if(type == ExpressionType.SIN || type == ExpressionType.SINH || 
+		   type == ExpressionType.COS || type == ExpressionType.COSH || 
+		   type == ExpressionType.TAN || type == ExpressionType.TANH || 
+		   type == ExpressionType.LOG || type == ExpressionType.LN)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public static boolean isTerm(ExpressionType type)
+	{
+		if(type == ExpressionType.E || type == ExpressionType.PI ||
+		   type == ExpressionType.NUMBER || type == ExpressionType.VARIABLE)
+		{
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * 

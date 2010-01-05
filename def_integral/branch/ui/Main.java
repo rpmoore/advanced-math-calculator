@@ -104,7 +104,12 @@ public class Main extends JApplet implements Runnable {
 				public void keyPressed(java.awt.event.KeyEvent e) {
 					if(e.getKeyCode() == KeyEvent.VK_ENTER)
 					{
-							bpTree = new ParseTree(expression.getText());
+							try {
+								bpTree = ParseTree.makeTree(expression.getText(),true);
+							} catch (ParseException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 					}
 				}
 
@@ -190,7 +195,12 @@ public class Main extends JApplet implements Runnable {
 			eval.setText("Eval");
 			eval.addMouseListener(new java.awt.event.MouseAdapter() {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
-						bpTree = new ParseTree(expression.getText());
+						try {
+							bpTree = ParseTree.makeTree(expression.getText(),true);
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 				}
 			});
 		}

@@ -1,6 +1,8 @@
 package unitTesting;
 
 
+import java.text.ParseException;
+
 import bptree.*;
 
 import org.junit.*;
@@ -14,12 +16,12 @@ public class BinaryTreeTesting {
         return new junit.framework.JUnit4TestAdapter(BinaryTreeTesting.class);
     }
     
-    BinaryTree testing = null;
+    BinaryTree<EquationToken> testing = null;
     
     @Before
     public void startup()
     {
-    	testing = new BinaryTree();
+    	testing = new BinaryTree<EquationToken>();
     }
     
 	@Test
@@ -121,7 +123,13 @@ public class BinaryTreeTesting {
 	public void testInsertBasic()
 	{
 		//TODO remove this when testing the insert methods.
-		ParseTree tree = new ParseTree("2 + 3");
+		ParseTree tree= null;
+		try {
+			tree = ParseTree.makeTree("2 + 3",true);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BinaryTree<EquationToken> btree = tree.getTree();
 		TreeNode<EquationToken> root = btree.getRoot(); 
 		assertEquals(ExpressionType.ADD, root.getItem().getType());
@@ -134,7 +142,13 @@ public class BinaryTreeTesting {
 	public void testInsertBasicCombined()
 	{
 		//TODO remove this when testing the insert methods.
-		ParseTree tree = new ParseTree("2+3/x");
+		ParseTree tree = null;
+		try {
+			tree = ParseTree.makeTree("2+3/x",true);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BinaryTree<EquationToken> btree = tree.getTree();
 		
 		TreeNode<EquationToken> root = btree.getRoot();

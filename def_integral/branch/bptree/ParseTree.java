@@ -1,5 +1,7 @@
 package bptree;
 
+import java.text.ParseException;
+
 import defIntegral.Calculate;
 
 /**
@@ -16,13 +18,20 @@ public class ParseTree implements Calculate {
 	private TreeNode<EquationToken> lastNode;
 	private TreeNode<EquationToken> rootNode;
 	
+	public static ParseTree makeTree(String expression,boolean optimize) throws ParseException
+	{
+		
+		
+		return new ParseTree(expression,optimize);
+	}
+	
 	/**
 	 * Creates a ParseTree object that has a unique expression.  Once 
 	 * constructed the tree is generated and optimized.
 	 * 
 	 * @param expression The mathematical expression to be parsed into a binary tree.
 	 */
-	public ParseTree(String expression) {
+	private ParseTree(String expression) {
 		this(expression,true);
 	}
 	
@@ -33,7 +42,7 @@ public class ParseTree implements Calculate {
 	 * @param expression The mathematical expression to be parsed into a binary tree.
 	 * @param optimize A boolean stating weather the expression tree should be optimized or not.
 	 */
-	public ParseTree(String expression, boolean optimize)
+	private ParseTree(String expression, boolean optimize)
 	{
 		this.expression = expression;
 		bTree = new BinaryTree<EquationToken>();
@@ -59,20 +68,13 @@ public class ParseTree implements Calculate {
 		EquationToken currentToken = null;
 		EquationTokenizer tokenizer = new EquationTokenizer(this.expression);
 		
-		while(tokenizer.hasMoreElements())
-		{
-			currentToken = tokenizer.nextElement();
-			insertIntoTree(currentToken);
-		}
+
 	}
 
-	private void insertIntoTree(EquationToken currentToken) {
-		if(bTree.isEmpty())
-		{
-			
-		}
-		
-	}
+	
+	
+	
+	
 
 	/**
 	 * Computes a value by replacing every variable in the tree with the passed in index.

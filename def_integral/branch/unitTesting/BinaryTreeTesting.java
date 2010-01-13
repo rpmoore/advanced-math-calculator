@@ -144,7 +144,7 @@ public class BinaryTreeTesting {
 		//TODO remove this when testing the insert methods.
 		ParseTree tree = null;
 		try {
-			tree = ParseTree.makeTree("2+3/x",true);
+			tree = ParseTree.makeTree("2+3/x",false);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,5 +158,25 @@ public class BinaryTreeTesting {
 		assertEquals("x", root.getRight().getRight().getItem().getToken());
 	}
 	
+	@Test
+	public void testOptimizingOne()
+	{
+		ParseTree tree = null;
+		try
+		{
+			tree = ParseTree.makeTree("3+5*5", true);
+		}
+		catch (ParseException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		BinaryTree<EquationToken> btree = tree.getTree();
+		
+		TreeNode<EquationToken> root = btree.getRoot();
+		
+		assertEquals(28, root.getItem().getToken());
+		assertNull(root.getLeft());
+		assertNull(root.getRight());
+	}
 
 }

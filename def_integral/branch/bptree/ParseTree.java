@@ -64,7 +64,6 @@ public class ParseTree implements Calculate {
 	 * Creates a tree from the expression that the tree is created with.
 	 */
 	private void parseToTree() {
-		EquationToken currentToken = null;
 		tokenizer = new EquationTokenizer(this.expression);
 		
 
@@ -74,7 +73,10 @@ public class ParseTree implements Calculate {
 	
 	
 	
-
+	private BinaryTree<EquationToken> rootLevel()
+	{
+		return null;
+	}
 	/**
 	 * Computes a value by replacing every variable in the tree with the passed in index.
 	 * 

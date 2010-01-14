@@ -186,5 +186,16 @@ public class BinaryTreeTesting {
 		assertEquals(4,answer,0);
 	}
 	
+	@Test
+	public void testBasicDiagnalSimpsionsRuleTwo()
+	{
+		DiagnalLine line = new DiagnalLine();
+		
+		double answer = SimpsonsRule.compute(line, -(.5), 4.5);
+		
+		assertEquals(122.5,answer,1);
+		assertEquals(122.5,answer,0);
+	}
+	
 
 }

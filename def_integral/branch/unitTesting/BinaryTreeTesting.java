@@ -6,6 +6,8 @@ import java.text.ParseException;
 import bptree.*;
 
 import org.junit.*;
+
+import defIntegral.SimpsonsRule;
 import static org.junit.Assert.*;
 
 
@@ -178,5 +180,16 @@ public class BinaryTreeTesting {
 		assertNull(root.getLeft());
 		assertNull(root.getRight());
 	}
+	
+	@Test
+	public void testBasicSimpsionsRuleOne()
+	{
+		Line2 line = new Line2();
+		
+		double answer = SimpsonsRule.compute(line,2,4);
+		
+		assertEquals(4,answer,0);
+	}
+	
 
 }

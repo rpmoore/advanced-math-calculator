@@ -7,9 +7,9 @@ public enum ExpressionType {
 	OTHER,NUMBER,E,PI,VARIABLE,SIN,COS,TAN,SINH,
 	COSH,TANH,LOG,LN,POW,MULTIPLY,DIVIDE,ADD,SUBTRACT,
 	LEFTPAREN,RIGHTPAREN;
-	
+
 	private static HashMap<String, ExpressionType> expressionToType;
-	
+
 	/**
 	 * Static constructor used to initaize the hashmap.
 	 */
@@ -35,7 +35,7 @@ public enum ExpressionType {
 		expressionToType.put(")", ExpressionType.RIGHTPAREN);
 		expressionToType.put("^", ExpressionType.POW);
 	}
-	
+
 	/**
 	 * 
 	 * @param 
@@ -44,14 +44,14 @@ public enum ExpressionType {
 	public static boolean isOp(ExpressionType type)
 	{
 		if(type == ExpressionType.MULTIPLY || type == ExpressionType.DIVIDE || 
-		   type == ExpressionType.ADD || type == ExpressionType.SUBTRACT ||
-		   type == ExpressionType.POW)
+				type == ExpressionType.ADD || type == ExpressionType.SUBTRACT ||
+				type == ExpressionType.POW)
 		{
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * @param type
@@ -60,15 +60,15 @@ public enum ExpressionType {
 	public static boolean isFunction(ExpressionType type)
 	{
 		if(type == ExpressionType.SIN || type == ExpressionType.SINH || 
-		   type == ExpressionType.COS || type == ExpressionType.COSH || 
-		   type == ExpressionType.TAN || type == ExpressionType.TANH || 
-		   type == ExpressionType.LOG || type == ExpressionType.LN)
+				type == ExpressionType.COS || type == ExpressionType.COSH || 
+				type == ExpressionType.TAN || type == ExpressionType.TANH || 
+				type == ExpressionType.LOG || type == ExpressionType.LN)
 		{
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * @param type
@@ -77,7 +77,7 @@ public enum ExpressionType {
 	public static boolean isTerm(ExpressionType type)
 	{
 		if(type == ExpressionType.E || type == ExpressionType.PI ||
-		   type == ExpressionType.NUMBER || type == ExpressionType.VARIABLE)
+				type == ExpressionType.NUMBER || type == ExpressionType.VARIABLE)
 		{
 			return true;
 		}
@@ -113,6 +113,48 @@ public enum ExpressionType {
 				return OTHER;
 			}
 		}
+	}
+
+	/**
+	 * Performs all the arthimitic operations.  This will get called a lot.
+	 * @param type
+	 * @param left
+	 * @param right
+	 * @return
+	 */
+	public static double eval(EquationToken token, double left, double right, double index) 
+	{
+		//TODO Add the rest of the functionality for the other functions.
+		double ret = 0.0;
+
+		switch(token.getType())
+		{
+		case E:
+			ret = Math.E;
+			break;
+		case PI:
+			ret = Math.PI;
+			break;
+		case VARIABLE:
+			ret = index;
+			break;
+		case NUMBER:
+			ret = Double.parseDouble(token.getToken());
+			break;
+		case ADD: 
+			ret = left+ right; 
+			break;
+		case SUBTRACT:
+			ret = left - right;
+			break;
+		case MULTIPLY:
+			ret = left * right;
+			break;
+		case DIVIDE:
+			ret = left / right;
+			break;
+		}
+		return ret;
 	}
 
 }

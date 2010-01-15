@@ -157,6 +157,49 @@ public class BinaryTreeTesting {
 	}
 	
 	@Test
+	public void testBasicEval()
+	{
+		ParseTree tree = null;
+		try {
+			tree = ParseTree.makeTree("2+3/x",false);
+		} catch (ParseTreeGenerationException e) {
+			e.printStackTrace();
+		}
+		
+		assertEquals(3, tree.eval(3),0);
+	}
+	
+	@Test
+	public void testBasicEvalTwo()
+	{
+		ParseTree tree = null;
+		try
+		{
+			tree = ParseTree.makeTree("3+5*5", false);
+		}
+		catch (ParseTreeGenerationException e) {
+			e.printStackTrace();
+		}
+
+		assertEquals(28.0, tree.eval(0), 0);
+	}
+	
+	@Test
+	public void testBasicEvalThree()
+	{
+		ParseTree tree = null;
+		try
+		{
+			tree = ParseTree.makeTree("e+pi", false);
+		}
+		catch (ParseTreeGenerationException e) {
+			e.printStackTrace();
+		}
+
+		assertEquals((Math.E + Math.PI), tree.eval(0), 0);
+	}
+	
+	@Test
 	public void testOptimizingOne()
 	{
 		ParseTree tree = null;

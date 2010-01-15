@@ -19,8 +19,6 @@ public class ParseTree implements Calculate {
 	
 	public static ParseTree makeTree(String expression,boolean optimize) throws ParseTreeGenerationException
 	{
-		
-		
 		return new ParseTree(expression,optimize);
 	}
 	
@@ -89,14 +87,15 @@ public class ParseTree implements Calculate {
 		BinaryTree<EquationToken> t;//temp binary tree that
 				  				    //will be returned up.
 		t = secondLevel();
-		EquationToken next = nextToken();
-		while(next.getType().equals(ExpressionType.ADD) || 
-			  next.getType().equals(ExpressionType.SUBTRACT))
+		EquationToken next = tokenizer.peek();
+		while(next != null && (next.getType().equals(ExpressionType.ADD) || 
+			  next.getType().equals(ExpressionType.SUBTRACT)))
 		{
-			
+			next = nextToken();	
 			BinaryTree<EquationToken> t1 = secondLevel();
 			t = mkNode(next,t,t1);
-			next = nextToken();
+			
+			next = tokenizer.peek();//get the next item in the list.
 		}
 		
 		return t;
@@ -108,15 +107,18 @@ public class ParseTree implements Calculate {
 		BinaryTree<EquationToken> t;
 		
 		t = thirdLevel();
-		EquationToken next = nextToken();
-		while(next.getType().equals(ExpressionType.MULTIPLY) ||
-			  next.getType().equals(ExpressionType.DIVIDE))
+		EquationToken next = tokenizer.peek();
+		while(next != null && (next.getType().equals(ExpressionType.MULTIPLY) ||
+			  next.getType().equals(ExpressionType.DIVIDE)))
 		{
+			next = nextToken();
 			BinaryTree<EquationToken> t1 = thirdLevel();
 			t = mkNode(next, t, t1);
-			next = nextToken();
+			
+			
+			next = tokenizer.peek();//get the next item in the list.
 		}
-		return null;
+		return t;
 	}
 	
 	private BinaryTree<EquationToken> thirdLevel() throws ParseTreeGenerationException
@@ -124,9 +126,10 @@ public class ParseTree implements Calculate {
 		BinaryTree<EquationToken> t;
 		
 		t = fourthLevel();
-		EquationToken next = nextToken();
-		if(next.getType().equals(ExpressionType.POW))
+		EquationToken next = tokenizer.peek();//this next
+		if(next != null && next.getType().equals(ExpressionType.POW))
 		{
+			next = nextToken();				  //and this next should be the same.
 			BinaryTree<EquationToken> t1 = fourthLevel();
 			return mkNode(next, t, t1);
 		}
@@ -140,14 +143,16 @@ public class ParseTree implements Calculate {
 	{
 		BinaryTree<EquationToken> t;
 		
-		EquationToken next = nextToken();
+		EquationToken next = tokenizer.peek();
 		if(ExpressionType.isTerm(next.getType()))
 		{
+			next = nextToken();
 			t = mkNode(next);
 			return t;
 		}
 		else if(next.getType().equals(ExpressionType.LEFTPAREN))
 		{
+			next = nextToken();
 			t = rootLevel();
 			next = nextToken();
 			if(!next.getType().equals(ExpressionType.RIGHTPAREN))
@@ -158,6 +163,7 @@ public class ParseTree implements Calculate {
 		}
 		else if(next.getType().equals(ExpressionType.SUBTRACT))
 		{
+			next = nextToken();
 			t = thirdLevel();
 			//uniary minus sign... need to figure out how to code this one up.
 			return t;
@@ -197,8 +203,24 @@ public class ParseTree implements Calculate {
 	 * @param index The index to compute a value on given the expression that the tree is created with.
 	 */
 	public double eval(double index) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return eval(index,bTree.getRoot());
+	}
+	
+	private double eval(double index, TreeNode<EquationToken> current)
+	{
+		double left = 0.0;
+		double right = 0.0;
+		if(current.getLeft()!= null)
+		{
+			left = eval(index,current.getLeft());
+		}
+		if(current.getRight() != null)
+		{
+			right = eval(index, current.getRight());
+		}
+		
+		return ExpressionType.eval(current.getItem(),left, right,index);
 	}
 	
 	public BinaryTree<EquationToken> getTree()

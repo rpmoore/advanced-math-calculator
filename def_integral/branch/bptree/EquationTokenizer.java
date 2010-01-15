@@ -16,7 +16,7 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 	private Pattern parser = Pattern.compile("\\( | \\) | \\^ | \\+ | \\- | \\* | / | \\d+\\.+\\d+ | \\d+ | x{1}+ | e{1}+ | pi | sin | cos | tan | \\.+ ", Pattern.COMMENTS);
 	
 	private String leftOver;
-
+	private EquationToken nextToken;
 	
 	public EquationTokenizer(String equation)
 	{
@@ -33,13 +33,40 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 	}
 
 	/**
-	 * @return EquationToken - returns an EquationToken if there is another token in the equation.
+	 * @return EquationToken - returns an EquationToken if there is another token in the equation, and consumes it.
 	 * If there are no more elements in the equation, null is returned.
 	 */
 	@Override
 	public EquationToken nextElement() {
-		// TODO Auto-generated method stub
-		
+		EquationToken retToken;
+		if(nextToken != null)
+		{	
+			retToken = nextToken;
+			nextToken = null;
+		}
+		else
+		{
+			retToken = getNext();
+		}
+		return retToken;
+
+
+	}
+	/**
+	 * 
+	 * @return Returns the next EquationToken, but does not consume the token.
+	 */
+	public EquationToken peek()
+	{
+		if(nextToken == null)
+		{
+			nextToken = getNext();
+		}
+		return nextToken;
+	}
+	
+	private EquationToken getNext()
+	{
 		if(hasMoreElements()==false)//Checks to make sure that the equation is not empty before continuing on.
 		{
 			return null;
@@ -58,6 +85,6 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 		else
 		{	//This should only get hit if the equation is empty.
 			return null;
-		}
+		}		
 	}
 }

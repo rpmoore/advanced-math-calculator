@@ -237,5 +237,22 @@ public class BinaryTreeTesting {
 		assertEquals(122.5,answer,0);
 	}
 	
+	@Test
+	public void testIntegrationSimpsionsParseTree()
+	{		
+		ParseTree tree = null;
+		try
+		{
+			tree = ParseTree.makeTree("12*x+.5", false);
+		}
+		catch (ParseTreeGenerationException e) {
+			e.printStackTrace();
+		}	
+		
+		double answer = SimpsonsRule.compute(tree, .5, 5.5);		
+		assertEquals(122.5,answer,1);
+		assertEquals(122.5,answer,0);
+	}
+	
 
 }

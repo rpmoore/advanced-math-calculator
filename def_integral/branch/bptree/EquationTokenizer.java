@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  */
 public class EquationTokenizer implements Enumeration<EquationToken> {
 
-	private Pattern parser = Pattern.compile("\\( | \\) | \\^ | \\+ | \\- | \\* | / | \\d+\\.+\\d+ | \\d+ | x{1}+ | e{1}+ | pi | sin | cos | tan | \\.+ ", Pattern.COMMENTS);
+	private Pattern parser = Pattern.compile("\\( | \\) | \\^ | \\+ | \\- | \\* | / | \\d*\\.+\\d+ | \\d+ | x{1}+ | e{1}+ | pi | sin | cos | tan | \\.+ ", Pattern.COMMENTS);
 	
 	private String leftOver;
 	private EquationToken nextToken;

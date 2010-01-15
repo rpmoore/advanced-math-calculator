@@ -127,7 +127,7 @@ public class BinaryTreeTesting {
 		ParseTree tree= null;
 		try {
 			tree = ParseTree.makeTree("2 + 3",true);
-		} catch (ParseException e) {
+		} catch (ParseTreeGenerationException e) {
 			e.printStackTrace();
 		}
 		BinaryTree<EquationToken> btree = tree.getTree();
@@ -144,7 +144,7 @@ public class BinaryTreeTesting {
 		ParseTree tree = null;
 		try {
 			tree = ParseTree.makeTree("2+3/x",false);
-		} catch (ParseException e) {
+		} catch (ParseTreeGenerationException e) {
 			e.printStackTrace();
 		}
 		BinaryTree<EquationToken> btree = tree.getTree();
@@ -164,7 +164,7 @@ public class BinaryTreeTesting {
 		{
 			tree = ParseTree.makeTree("3+5*5", true);
 		}
-		catch (ParseException e) {
+		catch (ParseTreeGenerationException e) {
 			e.printStackTrace();
 		}
 		BinaryTree<EquationToken> btree = tree.getTree();

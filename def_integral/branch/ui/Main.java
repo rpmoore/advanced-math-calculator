@@ -1,21 +1,20 @@
 package ui;
 
-import javax.swing.JPanel;
-import javax.swing.JApplet;
-import javax.swing.PopupFactory;
-
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import java.awt.Dimension;
-import javax.swing.JButton;
+import java.awt.GridBagLayout;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 
 import javax.swing.ImageIcon;
+import javax.swing.JApplet;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import bptree.ParseTree;
+import bptree.ParseTreeGenerationException;
 
 public class Main extends JApplet implements Runnable {
 	private ParseTree bpTree = null;
@@ -106,7 +105,7 @@ public class Main extends JApplet implements Runnable {
 					{
 							try {
 								bpTree = ParseTree.makeTree(expression.getText(),true);
-							} catch (ParseException e1) {
+							} catch (ParseTreeGenerationException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
@@ -197,7 +196,7 @@ public class Main extends JApplet implements Runnable {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 						try {
 							bpTree = ParseTree.makeTree(expression.getText(),true);
-						} catch (ParseException e1) {
+						} catch (ParseTreeGenerationException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}

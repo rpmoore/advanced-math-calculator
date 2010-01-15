@@ -1,6 +1,5 @@
 package bptree;
 
-import java.text.ParseException;
 
 import defIntegral.Calculate;
 
@@ -16,8 +15,9 @@ public class ParseTree implements Calculate {
 	private String expression;
 	private BinaryTree<EquationToken> bTree;//This is the final tree
 	private EquationTokenizer tokenizer;
+	private EquationToken lastToken;
 	
-	public static ParseTree makeTree(String expression,boolean optimize) throws ParseException
+	public static ParseTree makeTree(String expression,boolean optimize) throws ParseTreeGenerationException
 	{
 		
 		
@@ -52,6 +52,13 @@ public class ParseTree implements Calculate {
 		}
 	}
 
+	private EquationToken nextToken()
+	{
+		EquationToken next = tokenizer.nextElement();
+		lastToken = next;
+		return next;
+	}
+	
 	/**
 	 * Attempts to optimize the tree to reduce the time when computing a value in the tree.
 	 */
@@ -65,18 +72,79 @@ public class ParseTree implements Calculate {
 	 */
 	private void parseToTree() {
 		tokenizer = new EquationTokenizer(this.expression);
-		
-
+		bTree = rootLevel();//Tree should be parsed at this point.
 	}
 
 	
-	
-	
-	
+	//Base level for parsing the math equation.
 	private BinaryTree<EquationToken> rootLevel()
 	{
+		BinaryTree<EquationToken> t;//temp binary tree that
+													   //will be returned up.
+		t = secondLevel();
+		EquationToken next = nextToken();
+		while(next.getType().equals(ExpressionType.ADD) || 
+			  next.getType().equals(ExpressionType.SUBTRACT))
+		{
+			
+			BinaryTree<EquationToken> t1 = secondLevel();
+			t = mkNode(next,t,t1);
+			next = nextToken();
+		}
+		
+		return t;
+	}
+	
+
+	private BinaryTree<EquationToken> secondLevel()
+	{
+		BinaryTree<EquationToken> t;
+		
+		t = thirdLevel();
+		EquationToken next = nextToken();
+		while(next.getType().equals(ExpressionType.MULTIPLY) ||
+			  next.getType().equals(ExpressionType.DIVIDE))
+		{
+			BinaryTree<EquationToken> t1 = thirdLevel();
+			
+			
+			
+			next = nextToken();
+		}
 		return null;
 	}
+	
+	private BinaryTree<EquationToken> thirdLevel()
+	{
+	
+		return null;
+	}
+	
+	private BinaryTree<EquationToken> fourthLevel()
+	{
+		
+		return null;
+	}
+	
+	/**
+	 * Creates a subtree where next is the root, t is the left subtree, and t1 is the right subtree.
+	 * @param next
+	 * @param t
+	 * @param t1
+	 * @return A new BinayTree reflecting the equation generated so far.
+	 */
+	private BinaryTree<EquationToken> mkNode(EquationToken next,
+			BinaryTree<EquationToken> t, BinaryTree<EquationToken> t1) 
+	{
+
+		BinaryTree<EquationToken> retTree = new BinaryTree<EquationToken>();
+		TreeNode<EquationToken> newNode = new TreeNode<EquationToken>(next);
+		newNode.setLeft(t);
+		newNode.setRight(t1);
+		retTree.setRoot(newNode);
+		return retTree;
+	}
+	
 	/**
 	 * Computes a value by replacing every variable in the tree with the passed in index.
 	 * 

@@ -29,8 +29,9 @@ public class ParseTree implements Calculate {
 	 * constructed the tree is generated and optimized.
 	 * 
 	 * @param expression The mathematical expression to be parsed into a binary tree.
+	 * @throws ParseTreeGenerationException 
 	 */
-	private ParseTree(String expression) {
+	private ParseTree(String expression) throws ParseTreeGenerationException {
 		this(expression,true);
 	}
 	
@@ -40,8 +41,9 @@ public class ParseTree implements Calculate {
 	 * 
 	 * @param expression The mathematical expression to be parsed into a binary tree.
 	 * @param optimize A boolean stating weather the expression tree should be optimized or not.
+	 * @throws ParseTreeGenerationException 
 	 */
-	private ParseTree(String expression, boolean optimize)
+	private ParseTree(String expression, boolean optimize) throws ParseTreeGenerationException
 	{
 		this.expression = expression;
 		bTree = new BinaryTree<EquationToken>();
@@ -52,9 +54,13 @@ public class ParseTree implements Calculate {
 		}
 	}
 
-	private EquationToken nextToken()
+	private EquationToken nextToken() throws ParseTreeGenerationException
 	{
 		EquationToken next = tokenizer.nextElement();
+		if(next == null)
+		{
+			throw new ParseTreeGenerationException(lastToken.getToken());
+		}
 		lastToken = next;
 		return next;
 	}
@@ -69,18 +75,19 @@ public class ParseTree implements Calculate {
 
 	/**
 	 * Creates a tree from the expression that the tree is created with.
+	 * @throws ParseTreeGenerationException 
 	 */
-	private void parseToTree() {
+	private void parseToTree() throws ParseTreeGenerationException {
 		tokenizer = new EquationTokenizer(this.expression);
 		bTree = rootLevel();//Tree should be parsed at this point.
 	}
 
 	
 	//Base level for parsing the math equation.
-	private BinaryTree<EquationToken> rootLevel()
+	private BinaryTree<EquationToken> rootLevel() throws ParseTreeGenerationException
 	{
 		BinaryTree<EquationToken> t;//temp binary tree that
-													   //will be returned up.
+				  				    //will be returned up.
 		t = secondLevel();
 		EquationToken next = nextToken();
 		while(next.getType().equals(ExpressionType.ADD) || 
@@ -96,7 +103,7 @@ public class ParseTree implements Calculate {
 	}
 	
 
-	private BinaryTree<EquationToken> secondLevel()
+	private BinaryTree<EquationToken> secondLevel() throws ParseTreeGenerationException
 	{
 		BinaryTree<EquationToken> t;
 		
@@ -106,26 +113,65 @@ public class ParseTree implements Calculate {
 			  next.getType().equals(ExpressionType.DIVIDE))
 		{
 			BinaryTree<EquationToken> t1 = thirdLevel();
-			
-			
-			
+			t = mkNode(next, t, t1);
 			next = nextToken();
 		}
 		return null;
 	}
 	
-	private BinaryTree<EquationToken> thirdLevel()
+	private BinaryTree<EquationToken> thirdLevel() throws ParseTreeGenerationException
 	{
-	
-		return null;
-	}
-	
-	private BinaryTree<EquationToken> fourthLevel()
-	{
+		BinaryTree<EquationToken> t;
 		
-		return null;
+		t = fourthLevel();
+		EquationToken next = nextToken();
+		if(next.getType().equals(ExpressionType.POW))
+		{
+			BinaryTree<EquationToken> t1 = fourthLevel();
+			return mkNode(next, t, t1);
+		}
+		else
+		{
+			return t;
+		}
 	}
 	
+	private BinaryTree<EquationToken> fourthLevel() throws ParseTreeGenerationException
+	{
+		BinaryTree<EquationToken> t;
+		
+		EquationToken next = nextToken();
+		if(ExpressionType.isTerm(next.getType()))
+		{
+			t = mkNode(next);
+			return t;
+		}
+		else if(next.getType().equals(ExpressionType.LEFTPAREN))
+		{
+			t = rootLevel();
+			next = nextToken();
+			if(!next.getType().equals(ExpressionType.RIGHTPAREN))
+			{
+				throw new ParseTreeGenerationException(lastToken.getToken());
+			}
+			return t;
+		}
+		else if(next.getType().equals(ExpressionType.SUBTRACT))
+		{
+			t = thirdLevel();
+			//uniary minus sign... need to figure out how to code this one up.
+			return t;
+		}
+		else
+		{
+			throw new ParseTreeGenerationException(lastToken.getToken());
+		}
+	}
+	
+	private BinaryTree<EquationToken> mkNode(EquationToken next) {
+		return mkNode(next,null,null);
+	}
+
 	/**
 	 * Creates a subtree where next is the root, t is the left subtree, and t1 is the right subtree.
 	 * @param next

@@ -1,8 +1,5 @@
 package unitTesting;
 
-
-import java.text.ParseException;
-
 import bptree.*;
 
 import org.junit.*;
@@ -234,7 +231,7 @@ public class BinaryTreeTesting {
 	{
 		DiagnalLine line = new DiagnalLine();
 		
-		double answer = SimpsonsRule.compute(line, -(.5), 4.5);
+		double answer = SimpsonsRule.compute(line, .5, 5.5);
 		
 		assertEquals(122.5,answer,1);
 		assertEquals(122.5,answer,0);

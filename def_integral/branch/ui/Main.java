@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import defIntegral.SimpsonsRule;
+
 import bptree.ParseTree;
 import bptree.ParseTreeGenerationException;
 
@@ -109,6 +111,7 @@ public class Main extends JApplet implements Runnable {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
+							System.out.println(SimpsonsRule.compute(bpTree, Double.parseDouble(lowerbound.getText()), Double.parseDouble(upperbound.getText())));
 					}
 				}
 
@@ -200,6 +203,7 @@ public class Main extends JApplet implements Runnable {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+						System.out.println(SimpsonsRule.compute(bpTree, Double.parseDouble(lowerbound.getText()), Double.parseDouble(upperbound.getText())));
 				}
 			});
 		}

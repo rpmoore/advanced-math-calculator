@@ -153,6 +153,9 @@ public enum ExpressionType {
 		case DIVIDE:
 			ret = left / right;
 			break;
+		case POW:
+			ret = Math.pow(left, right);
+			break;
 		}
 		return ret;
 	}

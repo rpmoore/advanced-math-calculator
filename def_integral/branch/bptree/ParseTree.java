@@ -70,6 +70,14 @@ public class ParseTree implements Calculate {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private int optimize(double value, TreeNode<EquationToken> current) throws OptimizeException
+	{
+		if(current.getLeft() != null)
+		{
+			
+		}
+	}
 
 	/**
 	 * Creates a tree from the expression that the tree is created with.

@@ -82,9 +82,6 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 			leftOver = leftOver.substring(index+temp.length());
 			return ret;
 		}
-		else
-		{	//This should only get hit if the equation is empty.
-			return null;
-		}		
+		return null;//This should not happen.
 	}
 }

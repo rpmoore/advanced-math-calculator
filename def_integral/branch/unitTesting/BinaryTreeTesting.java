@@ -197,6 +197,21 @@ public class BinaryTreeTesting {
 	}
 	
 	@Test
+	public void testBasicEvalFour()
+	{
+		ParseTree tree = null;
+		try
+		{
+			tree = ParseTree.makeTree("(12-8)^2/2", false);
+		}
+		catch (ParseTreeGenerationException e) {
+			e.printStackTrace();
+		}
+
+		assertEquals(4, tree.eval(0), 0);
+	}
+	
+	@Test
 	public void testOptimizingOne()
 	{
 		ParseTree tree = null;
@@ -231,7 +246,7 @@ public class BinaryTreeTesting {
 	{
 		DiagnalLine line = new DiagnalLine();
 		
-		double answer = SimpsonsRule.compute(line, .5, 5.5);
+		double answer = SimpsonsRule.compute(line, -.5, 4.5);
 		
 		assertEquals(122.5,answer,1);
 		assertEquals(122.5,answer,0);
@@ -250,8 +265,8 @@ public class BinaryTreeTesting {
 		}	
 		
 		double answer = SimpsonsRule.compute(tree, .5, 5.5);		
-		assertEquals(122.5,answer,1);
-		assertEquals(122.5,answer,0);
+		assertEquals(182.5,answer,1);
+		assertEquals(182.5,answer,0);
 	}
 	
 

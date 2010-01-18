@@ -68,17 +68,79 @@ public class ParseTree implements Calculate {
 	 */
 	private void optimizeTree() {
 		// TODO Auto-generated method stub
+	
+		try {
+			double retVal = optimize(bTree.getRoot());
+			TreeNode<EquationToken> tempNode = new TreeNode<EquationToken>(new EquationToken("" + retVal, ExpressionType.NUMBER));
+			bTree.setRoot(tempNode);
+		} catch (OptimizeException e) {
+			// TODO Auto-generated catch block
+			//I should not need to do anything, This just means that not all of the
+			//tree could be optimized away.
+			return;
+		}
 		
 	}
 	
-	private int optimize(double value, TreeNode<EquationToken> current) throws OptimizeException
+	private double optimize(TreeNode<EquationToken> current) throws OptimizeException
 	{
-		if(current.getLeft() != null)
+		boolean isException = false;
+		double leftRet = 0.0;
+		double rightRet = 0.0;
+		OptimizeException retException = null;
+		if(current.getLeft() == null && current.getRight() == null)
 		{
-			
+			if(current.getItem().getType().equals(ExpressionType.VARIABLE))
+			{
+				throw new OptimizeException();
+			}
+			else
+			{
+				return ExpressionType.eval(current.getItem(), 0, 0, 0);//This should only be
+																	   //numeric values that 
+																	   //do not need any other data.
+			}
 		}
+		else
+		{
+			if(current.getLeft() != null)
+			{
+				try
+				{
+					leftRet = optimize(current.getLeft());
+				}
+				catch(OptimizeException e)
+				{
+					retException = e;
+					isException = true;
+				}
+			}
+			if(current.getRight() != null)
+			{
+				try
+				{
+					rightRet = optimize(current.getRight());
+					if(isException)
+					{
+						TreeNode<EquationToken> tempNode = new TreeNode<EquationToken>(new EquationToken("" + rightRet, ExpressionType.NUMBER));						
+						current.setRight(tempNode);
+						throw retException;
+					}
+				}
+				catch(OptimizeException e)
+				{
+					if(!isException)
+					{
+						TreeNode<EquationToken> tempNode = new TreeNode<EquationToken>(new EquationToken("" + leftRet, ExpressionType.NUMBER));
+						current.setLeft(tempNode);
+					}
+					throw e;
+				} //End catch OptimizeException
+			} //End if rightNode != null
+			return ExpressionType.eval(current.getItem(), leftRet, rightRet, 0); // There should be no index.
+		} //end else	
 	}
-
+	
 	/**
 	 * Creates a tree from the expression that the tree is created with.
 	 * @throws ParseTreeGenerationException 

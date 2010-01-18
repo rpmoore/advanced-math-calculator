@@ -123,7 +123,7 @@ public class BinaryTreeTesting {
 	{
 		ParseTree tree= null;
 		try {
-			tree = ParseTree.makeTree("2 + 3",true);
+			tree = ParseTree.makeTree("2 + 3",false);
 		} catch (ParseTreeGenerationException e) {
 			e.printStackTrace();
 		}
@@ -226,7 +226,7 @@ public class BinaryTreeTesting {
 		
 		TreeNode<EquationToken> root = btree.getRoot();
 		
-		assertEquals(28, root.getItem().getToken());
+		assertEquals(28.0, Double.parseDouble(root.getItem().getToken()),0);
 		assertNull(root.getLeft());
 		assertNull(root.getRight());
 	}

@@ -147,7 +147,7 @@ public enum ExpressionType {
 			ret = left+ right; 
 			break;
 		case SUBTRACT:
-			if(left == Double.NaN)
+			if(new Double(left).isNaN())
 			{
 				ret = -right;
 			}

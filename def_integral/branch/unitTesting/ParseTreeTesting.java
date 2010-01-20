@@ -238,7 +238,7 @@ public class ParseTreeTesting {
 			e.printStackTrace();
 		}
 		
-		assertEquals(1.0/3.0, tree.eval(3),0);
+		assertEquals(-1.0, tree.eval(3),0);
 	}
 	
 	@Test

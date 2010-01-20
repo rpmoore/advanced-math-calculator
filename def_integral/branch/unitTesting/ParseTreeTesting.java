@@ -154,7 +154,7 @@ public class ParseTreeTesting {
 	}
 	
 	@Test
-	public void testBasicEval()
+	public void testBasicEvalOne()
 	{
 		ParseTree tree = null;
 		try {
@@ -227,6 +227,18 @@ public class ParseTreeTesting {
 
 		assertEquals(8, treeOptOn.eval(0), 0);
 		assertEquals(8, treeOptOff.eval(0),0);
+	}
+	@Test
+	public void testBasicEvalSix()
+	{
+		ParseTree tree = null;
+		try {
+			tree = ParseTree.makeTree("-2+3/x",false);
+		} catch (ParseTreeGenerationException e) {
+			e.printStackTrace();
+		}
+		
+		assertEquals(1.0/3.0, tree.eval(3),0);
 	}
 	
 	@Test

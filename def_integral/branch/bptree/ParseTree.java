@@ -234,10 +234,10 @@ public class ParseTree implements Calculate {
 		else if(next.getType().equals(ExpressionType.SUBTRACT))
 		{
 			next = nextToken();
-			t = thirdLevel();
+			t = secondLevel();
 			//uniary minus sign... need to figure out how to code this one up.
 			
-			return t;
+			return mkNode(next,t);
 		}
 		else
 		{
@@ -247,6 +247,13 @@ public class ParseTree implements Calculate {
 	
 	private BinaryTree<EquationToken> mkNode(EquationToken next) {
 		return mkNode(next,null,null);
+	}
+	
+	private BinaryTree<EquationToken> mkNode(EquationToken next,BinaryTree<EquationToken> t)
+	{
+		BinaryTree<EquationToken> t1 = new BinaryTree<EquationToken>();
+		t1.setRoot(new TreeNode<EquationToken>(new EquationToken("Nan", ExpressionType.NAN)));
+		return mkNode(next,t1,t);
 	}
 
 	/**

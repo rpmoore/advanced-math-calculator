@@ -6,7 +6,7 @@ public enum ExpressionType {
 
 	OTHER,NUMBER,E,PI,VARIABLE,SIN,COS,TAN,SINH,
 	COSH,TANH,LOG,LN,POW,MULTIPLY,DIVIDE,ADD,SUBTRACT,
-	LEFTPAREN,RIGHTPAREN;
+	LEFTPAREN,RIGHTPAREN, NAN;
 
 	private static HashMap<String, ExpressionType> expressionToType;
 
@@ -34,6 +34,7 @@ public enum ExpressionType {
 		expressionToType.put("(", ExpressionType.LEFTPAREN);
 		expressionToType.put(")", ExpressionType.RIGHTPAREN);
 		expressionToType.put("^", ExpressionType.POW);
+		expressionToType.put("Nan", ExpressionType.NAN);
 	}
 
 	/**
@@ -77,7 +78,8 @@ public enum ExpressionType {
 	public static boolean isTerm(ExpressionType type)
 	{
 		if(type == ExpressionType.E || type == ExpressionType.PI ||
-				type == ExpressionType.NUMBER || type == ExpressionType.VARIABLE)
+				type == ExpressionType.NUMBER || type == ExpressionType.VARIABLE ||
+				type == ExpressionType.NAN)
 		{
 			return true;
 		}
@@ -145,7 +147,14 @@ public enum ExpressionType {
 			ret = left+ right; 
 			break;
 		case SUBTRACT:
-			ret = left - right;
+			if(left == Double.NaN)
+			{
+				ret = -right;
+			}
+			else
+			{
+				ret = left - right;
+			}
 			break;
 		case MULTIPLY:
 			ret = left * right;
@@ -155,6 +164,9 @@ public enum ExpressionType {
 			break;
 		case POW:
 			ret = Math.pow(left, right);
+			break;
+		case NAN:
+			ret = Double.NaN;
 			break;
 		}
 		return ret;

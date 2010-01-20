@@ -9,10 +9,10 @@ import static org.junit.Assert.*;
 
 
 
-public class BinaryTreeTesting {
+public class ParseTreeTesting {
 	
     public static junit.framework.Test suite() {
-        return new junit.framework.JUnit4TestAdapter(BinaryTreeTesting.class);
+        return new junit.framework.JUnit4TestAdapter(ParseTreeTesting.class);
     }
     
     BinaryTree<EquationToken> testing = null;
@@ -208,7 +208,25 @@ public class BinaryTreeTesting {
 			e.printStackTrace();
 		}
 
-		assertEquals(4, tree.eval(0), 0);
+		assertEquals(8, tree.eval(0), 0);
+	}
+	
+	@Test
+	public void testBasicEvalFive()
+	{
+		ParseTree treeOptOn = null;
+		ParseTree treeOptOff = null;		
+		try
+		{
+			treeOptOn = ParseTree.makeTree("(12-8)^2/2", true);
+			treeOptOff = ParseTree.makeTree("(12-8)^2/2", false);
+		}
+		catch (ParseTreeGenerationException e) {
+			e.printStackTrace();
+		}
+
+		assertEquals(8, treeOptOn.eval(0), 0);
+		assertEquals(8, treeOptOff.eval(0),0);
 	}
 	
 	@Test
@@ -269,5 +287,19 @@ public class BinaryTreeTesting {
 		assertEquals(182.5,answer,0);
 	}
 	
+	@Test
+	public void testBadEquationInputOne()
+	{
+		ParseTree tree = null;		
+		try
+		{
+			tree = ParseTree.makeTree("(12-8)^2/", false);
+		}
+		catch (ParseTreeGenerationException e) {
+			assertNull(tree);
+			assertTrue(true);
+		}
 
+		assertTrue(false);
+	}
 }

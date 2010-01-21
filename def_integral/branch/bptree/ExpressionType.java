@@ -93,7 +93,7 @@ public enum ExpressionType {
 	 */
 	public static ExpressionType getType(String expression)
 	{
-		ExpressionType value = expressionToType.get(expression);
+		ExpressionType value = expressionToType.get(expression.toLowerCase());
 		if(value != null)
 		{
 			return value;

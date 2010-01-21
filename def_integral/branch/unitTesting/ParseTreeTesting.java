@@ -6,9 +6,6 @@ import org.junit.*;
 
 import defIntegral.SimpsonsRule;
 import static org.junit.Assert.*;
-
-
-
 public class ParseTreeTesting {
 	
     public static junit.framework.Test suite() {
@@ -228,6 +225,7 @@ public class ParseTreeTesting {
 		assertEquals(8, treeOptOn.eval(0), 0);
 		assertEquals(8, treeOptOff.eval(0),0);
 	}
+	
 	@Test
 	public void testBasicEvalSix()
 	{
@@ -239,6 +237,32 @@ public class ParseTreeTesting {
 		}
 		
 		assertEquals(-1.0, tree.eval(3),0);
+	}
+	
+	@Test
+	public void testBasicEvalSeven()
+	{
+		ParseTree tree = null;
+		try {
+			tree = ParseTree.makeTree("12x + 4",false);
+		} catch (ParseTreeGenerationException e) {
+			e.printStackTrace();
+		}
+		
+		assertEquals(16.0, tree.eval(1),0);
+	}
+	
+	@Test
+	public void testBasicEvalEight()
+	{
+		ParseTree tree = null;
+		try {
+			tree = ParseTree.makeTree("3PIx",false);
+		} catch (ParseTreeGenerationException e) {
+			e.printStackTrace();
+		}
+		
+		assertEquals(3 * Math.PI * 2, tree.eval(2),0);
 	}
 	
 	@Test
@@ -306,12 +330,42 @@ public class ParseTreeTesting {
 		try
 		{
 			tree = ParseTree.makeTree("(12-8)^2/", false);
+			assertTrue(false);
 		}
 		catch (ParseTreeGenerationException e) {
 			assertNull(tree);
 			assertTrue(true);
 		}
 
-		assertTrue(false);
+	}
+	
+	@Test
+	public void testBadEquationInputTwo()
+	{
+		ParseTree tree = null;		
+		try
+		{
+			tree = ParseTree.makeTree("Bad", false);
+			assertTrue(false);
+		}
+		catch (ParseTreeGenerationException e) {
+			assertNull(tree);
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testBadEquationInputThree()
+	{
+		ParseTree tree = null;		
+		try
+		{
+			tree = ParseTree.makeTree("Bad + x", false);
+			assertTrue(false);
+		}
+		catch (ParseTreeGenerationException e) {
+			assertNull(tree);
+			assertTrue(true);
+		}
 	}
 }

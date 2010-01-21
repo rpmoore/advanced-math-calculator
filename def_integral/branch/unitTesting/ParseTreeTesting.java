@@ -1,5 +1,7 @@
 package unitTesting;
 
+import DataStructures.BinaryTree;
+import DataStructures.TreeNode;
 import bptree.*;
 
 import org.junit.*;

@@ -1,4 +1,4 @@
-package bptree;
+package DataStructures;
 /**
  * The TreeNode class used by the BinaryTree class.  The BinaryTree class 
  * uses this class extensively so changes to this class will affect the

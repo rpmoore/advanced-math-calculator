@@ -1,4 +1,4 @@
-package bptree;
+package DataStructures;
 
 /**
  * A BinaryTree implementation.  It is very open.  Can be extended to be 

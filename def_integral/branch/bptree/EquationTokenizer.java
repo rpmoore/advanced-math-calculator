@@ -77,7 +77,7 @@ public class EquationTokenizer implements Enumeration<EquationToken> {
 		if(matcher.find())
 		{
 			temp = matcher.group();
-			EquationToken ret = new EquationToken(temp,ExpressionType.getType(temp));
+			EquationToken ret = new EquationToken(temp,ExpressionType.getType(temp),matcher.start());
 			int index = leftOver.indexOf(temp);
 			leftOver = leftOver.substring(index+temp.length());
 			return ret;

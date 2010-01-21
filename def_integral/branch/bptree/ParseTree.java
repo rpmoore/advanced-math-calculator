@@ -1,6 +1,8 @@
 package bptree;
 
 
+import DataStructures.BinaryTree;
+import DataStructures.TreeNode;
 import defIntegral.Calculate;
 
 /**

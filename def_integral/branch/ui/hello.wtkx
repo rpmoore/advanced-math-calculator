@@ -1,8 +1,15 @@
-<Window title="Hello WTKX!" maximized="true"
+<Window title="Calc Help" maximized="true"
 	xmlns:wtkx="http://pivot.apache.org/wtkx"
 	xmlns="org.apache.pivot.wtk">
-	<content>
-		<Label text="Hello World!"
-			styles="{font:'Arial bold 24',color:'#ff0000',horizontalAlignment:'center', verticalAlignment:'center'}"/>
-	</content>
-</Window>
+	<content><BoxPane>
+					<TabPane wtkx:id="tabPane">
+						<tabs>
+							
+							<StackPane TabPane.label="Definite Integral">
+	<ImageView image="@46px-WPint.png" styles="{preserveAspectRatio:true,horizontalAlignment:'left', verticalAlignment:'center'}"></ImageView>
+	<Label text="DefInt" styles="{font:'Helvetica bold 64', color:'#000000', wrapText:true,"></Label></StackPane><BoxPane TabPane.label="Series">
+								<Border>
+									<content>
+										<Label text="Series Calculations here" preferredHeight="180" preferredWidth="240" styles="{horizontalAlignment:'center',verticalAlignment:'center'}">
+										</Label></content></Border></BoxPane></tabs></TabPane></BoxPane></content>
+	</Window>

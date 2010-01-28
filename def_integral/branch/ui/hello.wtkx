@@ -5,11 +5,28 @@
 					<TabPane wtkx:id="tabPane">
 						<tabs>
 							
-							<StackPane TabPane.label="Definite Integral">
-	<ImageView image="@46px-WPint.png" styles="{preserveAspectRatio:true,horizontalAlignment:'left', verticalAlignment:'center'}"></ImageView>
-	<Label text="DefInt" styles="{font:'Helvetica bold 64', color:'#000000', wrapText:true,"></Label></StackPane><BoxPane TabPane.label="Series">
+							<BoxPane TabPane.label="Definite Integral" orientation="vertical">
+								<BoxPane styles="{verticalAlignment:'center'}"><ImageView image="@46px-WPint.png" styles="{preserveAspectRatio:true,horizontalAlignment:'left', verticalAlignment:'center'}"></ImageView>
+									<TextInput wtkx:id="def_equation"
+										textSize="19">
+									</TextInput></BoxPane>
+								<BoxPane>
+									<BoxPane styles="{verticalAlignment:'center'}">
+										<Label text="Lower Bound:"></Label>
+										<TextInput textSize="3"
+											wtkx:id="def_lowerBound">
+										</TextInput>
+									</BoxPane>
+									<BoxPane styles="{verticalAlignment:'center'}">
+										<Label text="Upper Bound:"></Label>
+										<TextInput textSize="3"
+											wtkx:id="def_upperBound">
+										</TextInput>
+									</BoxPane></BoxPane><PushButton wtkx:id="def_solve" buttonData="Compute">
+									</PushButton></BoxPane><BoxPane TabPane.label="Series">
 								<Border>
 									<content>
 										<Label text="Series Calculations here" preferredHeight="180" preferredWidth="240" styles="{horizontalAlignment:'center',verticalAlignment:'center'}">
-										</Label></content></Border></BoxPane></tabs></TabPane></BoxPane></content>
+										</Label></content></Border></BoxPane>
+							</tabs></TabPane></BoxPane></content>
 	</Window>

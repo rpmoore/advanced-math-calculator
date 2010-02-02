@@ -1,6 +1,5 @@
 package bptree;
 
-import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,7 +10,7 @@ import java.util.regex.Pattern;
  * @author Ryan Moore
  *
  */
-public class EquationTokenizer implements Enumeration<EquationToken> {
+public class EquationTokenizer implements Lexar<EquationToken> {
 
 	private Pattern parser = Pattern.compile("\\( | \\) | \\^ | \\+ | \\- | \\* | / | \\d*\\.+\\d+ | \\d+ | x{1}+ | e{1}+ | (?i)pi | (?i)sin | (?i)cos | (?i)tan | \\.+ ", Pattern.COMMENTS);
 	

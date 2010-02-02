@@ -288,44 +288,6 @@ public class ParseTreeTesting {
 	}
 	
 	@Test
-	public void testBasicSimpsionsRuleOne()
-	{
-		Line2 line = new Line2();
-		
-		double answer = SimpsonsRule.compute(line,2,4);
-		
-		assertEquals(4,answer,0);
-	}
-	
-	@Test
-	public void testBasicDiagnalSimpsionsRuleTwo()
-	{
-		DiagnalLine line = new DiagnalLine();
-		
-		double answer = SimpsonsRule.compute(line, -.5, 4.5);
-		
-		assertEquals(122.5,answer,1);
-		assertEquals(122.5,answer,0);
-	}
-	
-	@Test
-	public void testIntegrationSimpsionsParseTree()
-	{		
-		ParseTree tree = null;
-		try
-		{
-			tree = ParseTree.makeTree("12*x+.5", false);
-		}
-		catch (ParseTreeGenerationException e) {
-			e.printStackTrace();
-		}	
-		
-		double answer = SimpsonsRule.compute(tree, .5, 5.5);		
-		assertEquals(182.5,answer,1);
-		assertEquals(182.5,answer,0);
-	}
-	
-	@Test
 	public void testBadEquationInputOne()
 	{
 		ParseTree tree = null;		

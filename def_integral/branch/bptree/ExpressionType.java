@@ -6,7 +6,7 @@ public enum ExpressionType {
 
 	OTHER,NUMBER,E,PI,VARIABLE,SIN,COS,TAN,SINH,
 	COSH,TANH,LOG,LN,POW,MULTIPLY,DIVIDE,ADD,SUBTRACT,
-	LEFTPAREN,RIGHTPAREN, NAN,EOF;
+	LEFTPAREN,RIGHTPAREN, NAN,BAD_TOKEN,EOF;
 
 	private static HashMap<String, ExpressionType> expressionToType;
 

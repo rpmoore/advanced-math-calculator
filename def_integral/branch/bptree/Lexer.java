@@ -2,6 +2,6 @@ package bptree;
 
 import java.util.Enumeration;
 
-public interface Lexar<E> extends Enumeration<E> {
+public interface Lexer<E> extends Enumeration<E> {
 	E peek();
 }

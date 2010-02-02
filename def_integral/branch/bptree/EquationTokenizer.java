@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @author Ryan Moore
  *
  */
-public class EquationTokenizer implements Lexar<EquationToken> {
+public class EquationTokenizer implements Lexer<EquationToken> {
 
 	private Pattern parser = Pattern.compile("\\( | \\) | \\^ | \\+ | \\- | \\* | / | \\d*\\.+\\d+ | \\d+ | x{1}+ | e{1}+ | (?i)pi | (?i)sin | (?i)cos | (?i)tan | \\.+ ", Pattern.COMMENTS);
 	

@@ -6,7 +6,6 @@ import bptree.*;
 
 import org.junit.*;
 
-import defIntegral.SimpsonsRule;
 import static org.junit.Assert.*;
 public class ParseTreeTesting {
 	

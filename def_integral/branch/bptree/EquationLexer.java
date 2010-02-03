@@ -8,20 +8,20 @@ import java.text.ParseException;
 
 
 public class EquationLexer implements Lexer<EquationToken> {
-	
+
 	PushbackReader buffer;
 	StringBuilder lexeme;
 	EquationToken next;
 	int lookahead;
 	int position;
-	
+
 	public EquationLexer(String equation) throws IOException
 	{
 		buffer = new PushbackReader(new StringReader(equation));
 		lookahead = buffer.read();
 		next = getNext();
 	}
-	
+
 	@Override
 	public EquationToken peek() {
 		// TODO Auto-generated method stub
@@ -44,7 +44,7 @@ public class EquationLexer implements Lexer<EquationToken> {
 		next = getNext();
 		return token;
 	}
-	
+
 	/**
 	 * Instead of throwing a ParseException I will return a <ExpressionType>.<BAD_TOKEN>.
 	 * 
@@ -52,36 +52,41 @@ public class EquationLexer implements Lexer<EquationToken> {
 	 */
 	private EquationToken getNext()
 	{
-		
+
 		switch(lookahead)
 		{
 		case '+':
-		
+
 			break;
 		case '-':
-			
+
 			break;
 		case '*':
-			
+
 			break;
 		case '/':
-			
+
 			break;
 		case '^':
-			
+
 			break;
 		case 'x':
-			
+
 			break;
 		case 'e':
-			
+
 			break;
-	
-		
-		
+
+
 		}
-		
+
 		return null;
 	}
 
+
+	private String match(String string)
+	{
+
+		return null;
+	}
 }

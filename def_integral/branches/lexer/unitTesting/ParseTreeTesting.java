@@ -12,15 +12,7 @@ public class ParseTreeTesting {
     public static junit.framework.Test suite() {
         return new junit.framework.JUnit4TestAdapter(ParseTreeTesting.class);
     }
-    
-    BinaryTree<EquationToken> testing = null;
-    
-    @Before
-    public void startup()
-    {
-    	testing = new BinaryTree<EquationToken>();
-    }
-    
+   
 	@Test
 	public void checkOPT()
 	{

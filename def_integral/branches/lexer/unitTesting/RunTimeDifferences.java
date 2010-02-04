@@ -6,7 +6,7 @@ import bptree.ParseTreeNewLexer;
 
 public class RunTimeDifferences {
 	public static final String equation = "3+4*x/(5^(6*x))-(10*x-5^(x+7))";
-	public static final int upperBound = 1000000;
+	public static final int upperBound = 100000;
 	public static void main(String args[])
 	{
 
@@ -15,16 +15,6 @@ public class RunTimeDifferences {
 		Thread c = new Thread(new NewParseRunner(true));
 		Thread d = new Thread(new OldParseRunner(true));		
 
-		a.start();
-		b.start();
-
-		try {
-			a.join();
-			b.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 		c.start();
 		d.start();
@@ -37,6 +27,16 @@ public class RunTimeDifferences {
 			e.printStackTrace();
 		}
 
+		try {
+			a.join();
+			b.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		a.start();
+		b.start();
 	}
 }
 
@@ -62,7 +62,7 @@ class NewParseRunner implements Runnable
 			}
 		}
 		
-		System.out.println("NewParseRunner: Total Time " + (System.currentTimeMillis() - startTime)/60);
+		System.out.println("NewParseRunner: Total Time " + (System.currentTimeMillis() - startTime)/1000);
 	}
 }
 
@@ -88,6 +88,6 @@ class OldParseRunner implements Runnable
 				e.printStackTrace();
 			}
 		}
-		System.out.println("OldParseRunner: Total Time " + (System.currentTimeMillis() - startTime)/60);
+		System.out.println("OldParseRunner: Total Time " + (System.currentTimeMillis() - startTime)/1000);
 	}		
 }

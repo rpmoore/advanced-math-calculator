@@ -23,4 +23,9 @@ public class EquationToken {
 	public ExpressionType getType() {
 		return type;
 	}
+	
+	public int getPosition()
+	{
+		return index;
+	}
 }

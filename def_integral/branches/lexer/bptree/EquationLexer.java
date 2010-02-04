@@ -132,7 +132,7 @@ public class EquationLexer implements Lexer<EquationToken> {
 				}
 				else
 				{
-					retToken = new EquationToken("Unknown start of token: " + lexeme.toString() , ExpressionType.BAD_TOKEN,position);
+					retToken = new EquationToken("Unknown token starting with (" + lexeme.toString() + ")" , ExpressionType.BAD_TOKEN,position);
 				}
 				break;
 			}

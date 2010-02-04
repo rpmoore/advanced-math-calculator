@@ -1,5 +1,7 @@
 package ui;
 
+import java.text.ParseException;
+
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Application;
 import org.apache.pivot.wtk.Button;
@@ -17,10 +19,8 @@ import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtkx.WTKXSerializer;
 
-import defIntegral.SimpsonsRule;
-
 import bptree.ParseTree;
-import bptree.ParseTreeGenerationException;
+import defIntegral.SimpsonsRule;
 
 public class PMain implements Application, ButtonPressListener, ComponentKeyListener{
 	private ParseTree pTree = null;
@@ -136,9 +136,9 @@ public class PMain implements Application, ButtonPressListener, ComponentKeyList
 			try {
 				pTree = ParseTree.makeTree(def_equation.getText(), true);
 				Prompt.prompt(MessageType.INFO,"The answer to 'f(x)=" + def_equation.getText() + "' is: " + SimpsonsRule.compute(pTree, lower, upper),window);
-			} catch (ParseTreeGenerationException e) {
+			} catch (ParseException e) {
 				// TODO Auto-generated catch block
-				Prompt.prompt(MessageType.ERROR, e.getMessage(), window);
+				Prompt.prompt(MessageType.ERROR, e.getMessage() + " at position " + e.getErrorOffset() + ".", window);
 			}
 		}
 	}

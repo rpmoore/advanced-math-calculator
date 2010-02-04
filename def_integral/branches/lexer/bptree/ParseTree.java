@@ -1,6 +1,8 @@
 package bptree;
 
 
+import java.text.ParseException;
+
 import DataStructures.BinaryTree;
 import DataStructures.TreeNode;
 import defIntegral.Calculate;
@@ -16,10 +18,10 @@ import defIntegral.Calculate;
 public class ParseTree implements Calculate {
 	private String expression;
 	private BinaryTree<EquationToken> bTree;//This is the final tree
-	private EquationTokenizer tokenizer;
+	private EquationLexer tokenizer;
 	private EquationToken lastToken;
 
-	public static ParseTree makeTree(String expression,boolean optimize) throws ParseTreeGenerationException
+	public static ParseTree makeTree(String expression,boolean optimize) throws ParseException
 	{
 		return new ParseTree(expression,optimize);
 	}
@@ -31,7 +33,7 @@ public class ParseTree implements Calculate {
 	 * @param expression The mathematical expression to be parsed into a binary tree.
 	 * @throws ParseTreeGenerationException 
 	 */
-	private ParseTree(String expression) throws ParseTreeGenerationException {
+	private ParseTree(String expression) throws ParseException {
 		this(expression,true);
 	}
 
@@ -43,7 +45,7 @@ public class ParseTree implements Calculate {
 	 * @param optimize A boolean stating weather the expression tree should be optimized or not.
 	 * @throws ParseTreeGenerationException 
 	 */
-	private ParseTree(String expression, boolean optimize) throws ParseTreeGenerationException
+	private ParseTree(String expression, boolean optimize) throws ParseException
 	{
 		this.expression = expression;
 		bTree = new BinaryTree<EquationToken>();
@@ -54,14 +56,24 @@ public class ParseTree implements Calculate {
 		}
 	}
 
-	private EquationToken nextToken() throws ParseTreeGenerationException
+	private EquationToken nextToken() throws ParseException
 	{
 		EquationToken next = tokenizer.nextElement();
-		if(next == null)
+		if(next.getType() == ExpressionType.BAD_TOKEN)
 		{
-			throw new ParseTreeGenerationException(lastToken.getToken(),ParseTreeGenerationExceptionEnum.END);
+			throw new ParseException(next.getToken(), next.getPosition());
 		}
 		lastToken = next;
+		return next;
+	}
+	
+	private EquationToken peek() throws ParseException
+	{
+		EquationToken next = tokenizer.peek();
+		if(next.getType() == ExpressionType.BAD_TOKEN)
+		{
+			throw new ParseException(next.getToken(), next.getPosition());
+		}
 		return next;
 	}
 
@@ -147,19 +159,19 @@ public class ParseTree implements Calculate {
 	 * Creates a tree from the expression that the tree is created with.
 	 * @throws ParseTreeGenerationException 
 	 */
-	private void parseToTree() throws ParseTreeGenerationException {
-		tokenizer = new EquationTokenizer(this.expression);
+	private void parseToTree() throws ParseException {
+		tokenizer = new EquationLexer(this.expression);
 		bTree = rootLevel();//Tree should be parsed at this point.
 	}
 
 
 	//Base level for parsing the math equation.
-	private BinaryTree<EquationToken> rootLevel() throws ParseTreeGenerationException
+	private BinaryTree<EquationToken> rootLevel() throws ParseException
 	{
 		BinaryTree<EquationToken> t;//temp binary tree that
 		//will be returned up.
 		t = secondLevel();
-		EquationToken next = tokenizer.peek();
+		EquationToken next = peek();
 		while(next != null && (next.getType().equals(ExpressionType.ADD) || 
 				next.getType().equals(ExpressionType.SUBTRACT)))
 		{
@@ -167,19 +179,19 @@ public class ParseTree implements Calculate {
 			BinaryTree<EquationToken> t1 = secondLevel();
 			t = mkNode(next,t,t1);
 
-			next = tokenizer.peek();//get the next item in the list.
+			next = peek();//get the next item in the list.
 		}
 
 		return t;
 	}
 
 
-	private BinaryTree<EquationToken> secondLevel() throws ParseTreeGenerationException
+	private BinaryTree<EquationToken> secondLevel() throws ParseException
 	{
 		BinaryTree<EquationToken> t;
 
 		t = thirdLevel();
-		EquationToken next = tokenizer.peek();
+		EquationToken next = peek();
 		while(next != null && (next.getType().equals(ExpressionType.MULTIPLY) ||
 				next.getType().equals(ExpressionType.DIVIDE)))
 		{
@@ -188,17 +200,17 @@ public class ParseTree implements Calculate {
 			t = mkNode(next, t, t1);
 
 
-			next = tokenizer.peek();//get the next item in the list.
+			next = peek();//get the next item in the list.
 		}
 		return t;
 	}
 
-	private BinaryTree<EquationToken> thirdLevel() throws ParseTreeGenerationException
+	private BinaryTree<EquationToken> thirdLevel() throws ParseException
 	{
 		BinaryTree<EquationToken> t;
 
 		t = fourthLevel();
-		EquationToken next = tokenizer.peek();//this next
+		EquationToken next = peek();//this next
 		if(next != null && next.getType().equals(ExpressionType.POW))
 		{
 			next = nextToken();				  //and this next should be the same.
@@ -211,15 +223,15 @@ public class ParseTree implements Calculate {
 		}
 	}
 
-	private BinaryTree<EquationToken> fourthLevel() throws ParseTreeGenerationException
+	private BinaryTree<EquationToken> fourthLevel() throws ParseException
 	{
 		BinaryTree<EquationToken> t;
 
-		EquationToken next = tokenizer.peek();
+		EquationToken next = peek();
 		if(next != null && ExpressionType.isTerm(next.getType()))
 		{
 			next = nextToken();//This must happen before the next if statement.
-			EquationToken tempNext = tokenizer.peek();
+			EquationToken tempNext = peek();
 			if(tempNext != null && ExpressionType.isTerm(tempNext.getType()))
 			{
 				BinaryTree<EquationToken> t2 = fourthLevel();
@@ -238,7 +250,7 @@ public class ParseTree implements Calculate {
 			next = nextToken();
 			if(!next.getType().equals(ExpressionType.RIGHTPAREN))
 			{
-				throw new ParseTreeGenerationException(lastToken.getToken(),ParseTreeGenerationExceptionEnum.EXPECTED);
+				throw new ParseException("Expected " + ExpressionType.RIGHTPAREN + " but got " + lastToken.getToken()+ "." ,lastToken.getPosition());
 			}
 			return t;
 		}
@@ -252,16 +264,7 @@ public class ParseTree implements Calculate {
 		}
 		else
 		{
-
-			if(lastToken != null)
-			{
-				throw new ParseTreeGenerationException(lastToken.getToken(),ParseTreeGenerationExceptionEnum.END);
-			}
-			if(next != null)
-			{
-				throw new ParseTreeGenerationException(next.getToken(),ParseTreeGenerationExceptionEnum.UNKNOWNTOKEN);
-			}
-			throw new ParseTreeGenerationException("", ParseTreeGenerationExceptionEnum.NONE);
+			throw new ParseException("Unexpected token " + lastToken.getToken() ,lastToken.getPosition());
 		}
 	}
 

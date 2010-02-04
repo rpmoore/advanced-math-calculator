@@ -55,7 +55,12 @@ public class ParseTree implements Calculate {
 			optimizeTree();
 		}
 	}
-
+	
+	/**
+	 * Gets the next token from the lexer.
+	 * @return Returns the next token.
+	 * @throws ParseException If EOF throws ParseException.
+	 */
 	private EquationToken nextToken() throws ParseException
 	{
 		EquationToken next = tokenizer.nextElement();
@@ -67,6 +72,11 @@ public class ParseTree implements Calculate {
 		return next;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws ParseException
+	 */
 	private EquationToken peek() throws ParseException
 	{
 		EquationToken next = tokenizer.peek();

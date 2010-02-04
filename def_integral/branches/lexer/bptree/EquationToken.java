@@ -28,4 +28,9 @@ public class EquationToken {
 	{
 		return index;
 	}
+	
+	public String toString()
+	{
+		return "" + type + " - " + token + " - " + index;
+		}
 }

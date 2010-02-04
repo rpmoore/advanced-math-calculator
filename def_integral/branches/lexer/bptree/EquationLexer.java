@@ -97,7 +97,71 @@ public class EquationLexer implements Lexer<EquationToken> {
 				retToken = new EquationToken(lexeme.toString(), ExpressionType.RIGHTPAREN, position);
 				break;
 			case 's'://sin and sinh
-				
+				pushBackChar();
+				matchString("sin");
+				current = nextChar();
+				if(current == 'h')
+				{
+					retToken = new EquationToken(lexeme.toString(), ExpressionType.SINH,position);
+				}
+				else
+				{
+					pushBackChar();
+					retToken = new EquationToken(lexeme.toString(), ExpressionType.SIN,position);
+				}
+				break;
+			case 'c':
+				pushBackChar();
+				matchString("cos");
+				current = nextChar();
+				if(current == 'h')
+				{
+					retToken = new EquationToken(lexeme.toString(), ExpressionType.COSH,position);
+				}
+				else
+				{
+					pushBackChar();
+					retToken = new EquationToken(lexeme.toString(), ExpressionType.COS,position);
+				}				
+				break;
+			case 't':
+				pushBackChar();
+				matchString("tan");
+				current = nextChar();
+				if(current == 'h')
+				{
+					retToken = new EquationToken(lexeme.toString(), ExpressionType.TANH,position);
+				}
+				else
+				{
+					pushBackChar();
+					retToken = new EquationToken(lexeme.toString(), ExpressionType.TAN,position);
+				}				
+				break;
+			case 'l':
+				current = nextChar();
+				if(current == 'n')
+				{
+					retToken = new EquationToken(lexeme.toString(), ExpressionType.LN, position);
+				}
+				else
+				{
+					if(current == 'o')
+					{
+						if((current = nextChar()) == 'g')
+						{
+							retToken = new EquationToken(lexeme.toString(), ExpressionType.LOG,position);							
+						}
+						else
+						{
+							retToken = new EquationToken("Unknown token: " + lexeme.toString(), ExpressionType.BAD_TOKEN,position);
+						}
+					}
+					else
+					{
+						retToken = new EquationToken("Unknown token: " + lexeme.toString(), ExpressionType.BAD_TOKEN,position);
+					}
+				}
 				break;
 			case -1:
 				retToken = new EquationToken("EOF", ExpressionType.EOF, position);
@@ -141,7 +205,7 @@ public class EquationLexer implements Lexer<EquationToken> {
 			retToken = new EquationToken("ERROR: IO", ExpressionType.BAD_TOKEN, position);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			retToken = new EquationToken("Unknown token: " + lexeme.toString(), ExpressionType.BAD_TOKEN,position);
 		}
 		return retToken;
 	}

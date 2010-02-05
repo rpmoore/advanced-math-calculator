@@ -23,10 +23,6 @@
 											wtkx:id="def_upperBound">
 										</TextInput>
 									</BoxPane></BoxPane><PushButton wtkx:id="def_solve" buttonData="Compute">
-									</PushButton></BoxPane><BoxPane TabPane.label="Series">
-								<Border>
-									<content>
-										<Label text="Series Calculations here" preferredHeight="180" preferredWidth="240" styles="{horizontalAlignment:'center',verticalAlignment:'center'}">
-										</Label></content></Border></BoxPane>
+									</PushButton></BoxPane>
 							</tabs></TabPane></BoxPane></content>
 	</Window>

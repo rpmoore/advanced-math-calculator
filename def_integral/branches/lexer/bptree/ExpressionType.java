@@ -71,7 +71,7 @@ public enum ExpressionType {
 	}
 
 	/**
-	 * 
+	 * E, PI, NUMBER, VARIABLE and NAN are all terminals
 	 * @param type
 	 * @return
 	 */

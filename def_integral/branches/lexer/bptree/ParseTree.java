@@ -49,13 +49,48 @@ public class ParseTree implements Calculate {
 	{
 		this.expression = expression;
 		bTree = new BinaryTree<EquationToken>();
+		makeExplicit();
 		parseToTree();
 		if(optimize)
 		{
 			optimizeTree();
 		}
 	}
-	
+
+	/**
+	 * Removes implicit multiplication from the expression and makes it explicit.
+	 * Edits expression.
+	 */
+	private void makeExplicit() {
+		EquationLexer lexer = new EquationLexer(this.expression);
+		EquationToken current = null;
+		EquationToken next = null;
+		StringBuilder newExpression = new StringBuilder();
+		while(lexer.hasMoreElements())
+		{
+			current = lexer.nextElement();
+			newExpression.append(current.getToken() + " ");
+			if(ExpressionType.isTerm(current.getType()))
+			{
+				next = lexer.peek();
+				if(ExpressionType.isTerm(next.getType()) || ExpressionType.isTerm(next.getType()) || next.getType() == ExpressionType.LEFTPAREN)
+				{
+					newExpression.append("* ");
+				}
+			}
+			else if(current.getType() == ExpressionType.RIGHTPAREN)
+			{
+				next = lexer.peek();
+				if(next.getType() == ExpressionType.LEFTPAREN)
+				{
+					newExpression.append("* ");
+				}
+			}
+		}
+		
+		this.expression = newExpression.toString();
+	}
+
 	/**
 	 * Gets the next token from the lexer.
 	 * @return Returns the next token.
@@ -71,7 +106,7 @@ public class ParseTree implements Calculate {
 		lastToken = next;
 		return next;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -241,16 +276,8 @@ public class ParseTree implements Calculate {
 		if(next != null && ExpressionType.isTerm(next.getType()))
 		{
 			next = nextToken();//This must happen before the next if statement.
-			EquationToken tempNext = peek();
-			if(tempNext != null && ExpressionType.isTerm(tempNext.getType()))
-			{
-				BinaryTree<EquationToken> t2 = fourthLevel();
-				t = mkMultNode(next, t2);
-			}
-			else
-			{
-				t = mkNode(next);
-			}
+			t = mkNode(next);
+
 			return t;
 		}
 		else if(next != null &&next.getType().equals(ExpressionType.LEFTPAREN))
@@ -300,18 +327,6 @@ public class ParseTree implements Calculate {
 		return mkNode(next,t1,t);
 	}
 
-	/**
-	 * Creates a subtree where the middle node is 
-	 * @param left
-	 * @param right
-	 * @return
-	 */
-	private BinaryTree<EquationToken> mkMultNode(EquationToken left, BinaryTree<EquationToken> right)
-	{
-		BinaryTree<EquationToken> t1 = new BinaryTree<EquationToken>();
-		t1.setRoot(new TreeNode<EquationToken>(left));
-		return mkNode(new EquationToken("*", ExpressionType.MULTIPLY),t1,right);
-	}
 	/**
 	 * Creates a subtree where next is the root, t is the left subtree, and t1 is the right subtree.
 	 * @param next

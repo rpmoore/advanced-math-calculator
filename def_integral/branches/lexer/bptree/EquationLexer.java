@@ -9,11 +9,11 @@ import java.text.ParseException;
 
 public class EquationLexer implements Lexer<EquationToken> {
 
-	PushbackReader buffer;
-	StringBuilder lexeme;
-	EquationToken next;
-	int current;
-	int position;
+	private PushbackReader buffer;
+	private StringBuilder lexeme;
+	private EquationToken next;
+	private int current;
+	private int position;
 
 	public EquationLexer(String equation)
 	{

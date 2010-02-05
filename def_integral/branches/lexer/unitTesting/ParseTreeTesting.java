@@ -9,6 +9,8 @@ import java.text.ParseException;
 
 import org.junit.Test;
 
+import defIntegral.SimpsonsRule;
+
 import DataStructures.BinaryTree;
 import DataStructures.TreeNode;
 import bptree.EquationLexer;
@@ -253,6 +255,7 @@ public class ParseTreeTesting {
 		assertEquals(16.0, tree.eval(1),0);
 	}
 	
+	
 	@Test
 	public void testBasicEvalEight()
 	{
@@ -264,6 +267,21 @@ public class ParseTreeTesting {
 		}
 		
 		assertEquals(3 * Math.PI * 2, tree.eval(2),0);
+	}
+	
+	@Test
+	public void testBasicEvalNine()
+	{
+		ParseTree tree = null;
+		ParseTree tree2 = null;
+		try {
+			tree = ParseTree.makeTree("2x^2",false);
+			tree2 = ParseTree.makeTree("2*x^2",false);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		assertEquals(SimpsonsRule.compute(tree2, 1, 2), SimpsonsRule.compute(tree, 1, 2),0);
 	}
 	
 	@Test

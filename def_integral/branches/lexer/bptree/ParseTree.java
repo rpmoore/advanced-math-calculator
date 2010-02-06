@@ -19,7 +19,6 @@ import defIntegral.Calculate;
 public class ParseTree implements Calculate {
 	private String expression;
 	private BinaryTree<EquationToken> bTree;//This is the final tree
-	private EquationLexer tokenizer;
 	private EquationToken lastToken;
 	private LinkedBlockingQueue<EquationToken> queue;
 
@@ -217,7 +216,6 @@ public class ParseTree implements Calculate {
 	 * @throws ParseTreeGenerationException 
 	 */
 	private void parseToTree() throws ParseException {
-		tokenizer = new EquationLexer(this.expression);
 		bTree = rootLevel();//Tree should be parsed at this point.
 	}
 

@@ -2,6 +2,7 @@ package bptree;
 
 
 import java.text.ParseException;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import DataStructures.BinaryTree;
 import DataStructures.TreeNode;
@@ -20,6 +21,7 @@ public class ParseTree implements Calculate {
 	private BinaryTree<EquationToken> bTree;//This is the final tree
 	private EquationLexer tokenizer;
 	private EquationToken lastToken;
+	private LinkedBlockingQueue<EquationToken> queue;
 
 	public static ParseTree makeTree(String expression,boolean optimize) throws ParseException
 	{
@@ -49,7 +51,8 @@ public class ParseTree implements Calculate {
 	{
 		this.expression = expression;
 		bTree = new BinaryTree<EquationToken>();
-		makeExplicit();
+		this.queue = new LinkedBlockingQueue<EquationToken>();
+		enqueue();
 		parseToTree();
 		if(optimize)
 		{
@@ -61,7 +64,7 @@ public class ParseTree implements Calculate {
 	 * Removes implicit multiplication from the expression and makes it explicit.
 	 * Edits expression.
 	 */
-	private void makeExplicit() {
+	private void enqueue() {
 		EquationLexer lexer = new EquationLexer(this.expression);
 		EquationToken current = null;
 		EquationToken next = null;
@@ -69,13 +72,13 @@ public class ParseTree implements Calculate {
 		while(lexer.hasMoreElements())
 		{
 			current = lexer.nextElement();
-			newExpression.append(current.getToken() + " ");
+			queue.add(current);
 			if(ExpressionType.isTerm(current.getType()))
 			{
 				next = lexer.peek();
 				if(ExpressionType.isTerm(next.getType()) || ExpressionType.isTerm(next.getType()) || next.getType() == ExpressionType.LEFTPAREN)
 				{
-					newExpression.append("* ");
+					queue.add(new EquationToken("*", ExpressionType.MULTIPLY));
 				}
 			}
 			else if(current.getType() == ExpressionType.RIGHTPAREN)
@@ -83,7 +86,7 @@ public class ParseTree implements Calculate {
 				next = lexer.peek();
 				if(next.getType() == ExpressionType.LEFTPAREN)
 				{
-					newExpression.append("* ");
+					queue.add(new EquationToken("*", ExpressionType.MULTIPLY));
 				}
 			}
 		}
@@ -98,7 +101,12 @@ public class ParseTree implements Calculate {
 	 */
 	private EquationToken nextToken() throws ParseException
 	{
-		EquationToken next = tokenizer.nextElement();
+		EquationToken next;
+		next = queue.poll();
+		if(next == null)
+		{
+			return null;
+		}
 		if(next.getType() == ExpressionType.BAD_TOKEN)
 		{
 			throw new ParseException(next.getToken(), next.getPosition());
@@ -114,7 +122,11 @@ public class ParseTree implements Calculate {
 	 */
 	private EquationToken peek() throws ParseException
 	{
-		EquationToken next = tokenizer.peek();
+		EquationToken next = queue.peek();
+		if(next == null)
+		{
+			return null;
+		}
 		if(next.getType() == ExpressionType.BAD_TOKEN)
 		{
 			throw new ParseException(next.getToken(), next.getPosition());

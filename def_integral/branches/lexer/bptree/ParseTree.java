@@ -292,6 +292,29 @@ public class ParseTree implements Calculate {
 
 			return t;
 		}
+		else if(next != null && ExpressionType.isFunction(next.getType()))
+		{
+			next = nextToken();
+			EquationToken tempNext = peek();
+			if(tempNext.getType() == ExpressionType.LEFTPAREN)
+			{
+				tempNext = nextToken();//get rid of the LEFTPAREN
+				t = rootLevel();
+				tempNext = nextToken();
+				if(tempNext.getType() != ExpressionType.RIGHTPAREN)
+				{
+					throw new ParseException("Expected " + ExpressionType.RIGHTPAREN + " but got " + tempNext.getToken(),tempNext.getPosition());
+				}
+			
+				return mkNode(next, t);
+			}
+			else
+			{
+				throw new ParseException("Expected " + ExpressionType.LEFTPAREN + " but got " + tempNext.getToken(),tempNext.getPosition());
+				
+			}
+			
+		}
 		else if(next != null &&next.getType().equals(ExpressionType.LEFTPAREN))
 		{
 			next = nextToken();
@@ -299,7 +322,7 @@ public class ParseTree implements Calculate {
 			next = nextToken();
 			if(!next.getType().equals(ExpressionType.RIGHTPAREN))
 			{
-				throw new ParseException("Expected " + ExpressionType.RIGHTPAREN + " but got " + lastToken.getToken()+ "." ,lastToken.getPosition());
+				throw new ParseException("Expected " + ExpressionType.RIGHTPAREN + " but got " + lastToken.getToken(),lastToken.getPosition());
 			}
 			return t;
 		}
@@ -327,7 +350,7 @@ public class ParseTree implements Calculate {
 	}
 
 	/**
-	 * Creates a subtree where the first left child is Double.Nan for computing the unary - value.
+	 * Creates a subtree where the first left child is Double.Nan for computing the unary - value, and for functions.
 	 * @param next
 	 * @param t
 	 * @return

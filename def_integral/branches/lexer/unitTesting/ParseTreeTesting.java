@@ -360,7 +360,7 @@ public class ParseTreeTesting {
 			assertTrue(false);
 
 		} catch (ParseException e) {
-			//assertEquals(2, e.getErrorOffset());//The offset has changed since the first token was made.
+			assertEquals(2, e.getErrorOffset());//The offset has changed since the first token was made.
 			assertTrue(true);//This is the correct case to hit.
 		}
 		

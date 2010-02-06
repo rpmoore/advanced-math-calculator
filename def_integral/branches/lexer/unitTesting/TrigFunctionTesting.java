@@ -107,4 +107,56 @@ public class TrigFunctionTesting {
 			assertTrue(false);
 		}
     }
+    @Test
+    public void LexSinEval()
+    {
+    	try {
+			ParseTree tree = ParseTree.makeTree("sin(x)", false);
+			
+			assertEquals(Math.sin(5), tree.eval(5),0);
+    	} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			assertTrue(false);
+		}
+    }
+    @Test
+    public void LexCosEval()
+    {
+    	try {
+			ParseTree tree = ParseTree.makeTree("cos(x)", false);
+			
+			assertEquals(Math.cos(5), tree.eval(5),0);
+    	} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			assertTrue(false);
+		}
+    }
+    @Test
+    public void LexTanEval()
+    {
+    	try {
+			ParseTree tree = ParseTree.makeTree("tan(x)", false);
+			
+			assertEquals(Math.tan(5), tree.eval(5),0);
+    	} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			assertTrue(false);
+		}
+    }
+    @Test
+    public void LexLNEval()
+    {
+    	try {
+			ParseTree tree = ParseTree.makeTree("ln(x)", false);
+			
+			assertEquals(Math.log(5), tree.eval(5),0);
+    	} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			assertTrue(false);
+		}
+    }
 }

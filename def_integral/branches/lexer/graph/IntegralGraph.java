@@ -12,15 +12,15 @@ import defIntegral.Calculate;
  *
  * @param <T> An equation to graph the integral of.
  */
-public class IntegralGraph<T extends Calculate> extends Canvas {
+public class IntegralGraph<T extends Calculate> extends Graph {
 	
-	private T equation;
 	private double left;
 	private double right;
 	
+	@SuppressWarnings("unchecked")
 	public IntegralGraph(T equation,double left, double right)
 	{
-		this.equation = equation;
+		super(equation);
 		this.left = left;
 		this.right = right;
 	}

@@ -1,4 +1,4 @@
-package graph;
+package graphing;
 
 import org.apache.pivot.wtk.media.drawing.Canvas;
 
@@ -12,17 +12,33 @@ import defIntegral.Calculate;
  *
  * @param <T> An equation to graph the integral of.
  */
-public class IntegralGraph<T extends Calculate> extends Graph {
+public class IntegralGraph<T extends Calculate> extends LineGraph<T> {
 	
 	private double left;
 	private double right;
 	
-	@SuppressWarnings("unchecked")
+	/**
+	 * 
+	 * @param equation
+	 * @param left
+	 * @param right
+	 */
 	public IntegralGraph(T equation,double left, double right)
 	{
 		super(equation);
 		this.left = left;
 		this.right = right;
+	}
+	
+	/**
+	 * Creates a graph without the area filled in for the integral.  Would be the same as
+	 * creating a LineGraph.
+	 * @param equation
+	 */
+	public IntegralGraph(T equation)
+	{
+		this(equation,0,0);
+			
 	}
 
 }

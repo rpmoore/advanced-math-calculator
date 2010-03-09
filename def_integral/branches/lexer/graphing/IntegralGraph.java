@@ -23,9 +23,8 @@ public class IntegralGraph<T extends Calculate> extends LineGraph<T> {
 	 * @param left
 	 * @param right
 	 */
-	public IntegralGraph(T equation,double left, double right)
+	public IntegralGraph(double left, double right)
 	{
-		super(equation);
 		this.left = left;
 		this.right = right;
 	}
@@ -37,8 +36,6 @@ public class IntegralGraph<T extends Calculate> extends LineGraph<T> {
 	 */
 	public IntegralGraph(T equation)
 	{
-		this(equation,0,0);
-			
+		this(0,0);
 	}
-
 }

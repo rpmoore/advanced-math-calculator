@@ -1,4 +1,4 @@
-package graphing;
+package ui.graphing;
 
 import org.apache.pivot.wtk.media.drawing.Canvas;
 

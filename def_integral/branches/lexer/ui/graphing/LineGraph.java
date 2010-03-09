@@ -6,7 +6,6 @@ import java.util.Iterator;
 import org.apache.pivot.collections.HashMap;
 import org.apache.pivot.wtk.media.drawing.Canvas;
 import org.apache.pivot.wtk.media.drawing.Ellipse;
-import org.apache.pivot.wtk.media.drawing.Line;
 
 import defIntegral.Calculate;
 

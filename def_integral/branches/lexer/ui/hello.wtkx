@@ -1,7 +1,7 @@
 <Window title="Calc Help" maximized="true"
 	xmlns:wtkx="http://pivot.apache.org/wtkx"
 	xmlns="org.apache.pivot.wtk" xmlns:media="org.apache.pivot.wtk.media">
-	<content><BoxPane>
+	<content><BoxPane styles="{backgroundColor:'#ecce9e'}">
 					<TabPane wtkx:id="tabPane">
 						<tabs>
 							

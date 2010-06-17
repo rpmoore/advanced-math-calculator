@@ -27,7 +27,7 @@ public class AddService {
 	 * @param b The right argument for the addition.
 	 * @return The result of the vector addition..
 	 */
-	public static Vector add(Vector a, Vector b) throws VectorSizeIncorrect
+	public static Vector addConcurrent(Vector a, Vector b) throws VectorSizeIncorrect
 	{
 		if(a == null || b == null)
 		{
@@ -37,6 +37,20 @@ public class AddService {
 		{
 			throw new VectorSizeIncorrect();
 		}
+		
+		return null;
+	}
+	
+	public static Vector addSerial(Vector a, Vector b) throws VectorSizeIncorrect
+	{
+		if(a == null || b == null)
+		{
+			return null;
+		}
+		if(a.size() != b.size())
+		{
+			throw new VectorSizeIncorrect();
+		}		
 		
 		return null;
 	}

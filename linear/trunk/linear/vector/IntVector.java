@@ -10,7 +10,7 @@ import linear.util.HelperMathFunctions;
 public class IntVector implements Vector {
 	
 	
-	private final ArrayList<Integer> backingArray;
+
 	
 	public IntVector()
 	{

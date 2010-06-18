@@ -1,8 +1,12 @@
-package linear.vectorService;
+package linear.services.vector;
 
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import linear.type.Type;
+import linear.type.ops.MathOp;
+import linear.type.ops.Op;
 import linear.vector.Vector;
 import linear.vector.VectorSizeIncorrect;
 
@@ -17,6 +21,7 @@ import linear.vector.VectorSizeIncorrect;
 public class AddService {
 
 	private static final ExecutorService threadPool = Executors.newCachedThreadPool();
+	private static final HashMap<Type, HashMap<MathOp,Op>> operations = new HashMap<Type, Op>();
 	
 	/**
 	 * This performs a vector addition of vector a and vector b concurrently.  While the computation is
@@ -27,8 +32,9 @@ public class AddService {
 	 * @param b The right argument for the addition.
 	 * @return The result of the vector addition..
 	 */
-	public static Vector addConcurrent(Vector a, Vector b) throws VectorSizeIncorrect
+	public static <U> Vector<U> addConcurrent(Vector<U> a, Vector<U> b,Type type) throws VectorSizeIncorrect
 	{
+		
 		if(a == null || b == null)
 		{
 			return null;
@@ -41,7 +47,7 @@ public class AddService {
 		return null;
 	}
 	
-	public static Vector addSerial(Vector a, Vector b) throws VectorSizeIncorrect
+	public static <U> Vector<U> addSerial(Vector<U> a, Vector<U> b,Type type) throws VectorSizeIncorrect
 	{
 		if(a == null || b == null)
 		{
@@ -51,6 +57,11 @@ public class AddService {
 		{
 			throw new VectorSizeIncorrect();
 		}		
+		final Vector<U> vec = new Vector<U>();
+		for(int i =0; i < a.size();++i)
+		{
+			
+		}
 		
 		return null;
 	}

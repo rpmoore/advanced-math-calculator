@@ -8,10 +8,10 @@ public class IntVectorTests extends TestCase {
 	
 	public void testBasicIntAdd() throws VectorSizeIncorrect
 	{
-		int[] list1 = {1,1,1};
-		int[] list2 = {1,2,3};
-		Vector vector1 = new IntVector(list1);
-		Vector vector2 = new IntVector(list2);
+		Integer[] list1 = {1,1,1};
+		Integer[] list2 = {1,2,3};
+		Vector<Integer> vector1 = new Vector<Integer>(list1);
+		Vector<Integer> vector2 = new Vector<Integer>(list2);
 		
 		Vector resultVec = vector1.add(vector2);
 		for(int i = 0; i < resultVec.size();++i)
@@ -22,10 +22,10 @@ public class IntVectorTests extends TestCase {
 	
 	public void testInvalidSize()
 	{
-		int[] list1 = {1,1,1};
-		Vector resultVector = null;
-		Vector vector1 = new IntVector(list1);
-		Vector vector2 = new IntVector();
+		Integer[] list1 = {1,1,1};
+		Vector<Integer> resultVector = null;
+		Vector<Integer> vector1 = new Vector<Integer>(list1);
+		Vector<Integer> vector2 = new Vector<Integer>();
 		
 		try {
 			resultVector = vector1.add(vector2);
@@ -38,45 +38,45 @@ public class IntVectorTests extends TestCase {
 	
 	public void testSingleMultInt()
 	{
-		int[] list = {1,2,3};
-		Vector vector = new IntVector(list);
-		Vector resultVector = vector.mult(2);
+		Integer[] list = {1,2,3};
+		Vector<Integer> vector = new Vector<Integer>(list);
+		Vector<Integer> resultVector = vector.mult(2);
 		
 		for(int i = 0; i < vector.size();++i)
 		{
-			assertEquals((i+1)*2, resultVector.get(i));
+			assertEquals(new Integer((i+1)*2), resultVector.get(i));
 		}
 	}
 	
 	public void testSingleMultDouble()
 	{
-		int[] list = {1,2,3};
-		Vector vector = new IntVector(list);
-		Vector resultVector = vector.mult(2.2);
+		Integer[] list = {1,2,3};
+		Vector<Integer> vector = new Vector<Integer>(list);
+		Vector<Integer> resultVector = vector.mult(2.2);
 		
 		for(int i = 0; i < vector.size();++i)
 		{
-			assertEquals(HelperMathFunctions.floor((i+1)*2.2), resultVector.get(i));
+			assertEquals(new Integer(HelperMathFunctions.floor((i+1)*2.2)), resultVector.get(i));
 		}
 	}
 
 	public void testDotProduct() throws VectorSizeIncorrect
 	{
-		int[] list1 = {1,2,3};
-		int[] list2 = {2,2,2};
-		Vector vector1 = new IntVector(list1);
-		Vector vector2 = new IntVector(list2);
-		Vector resultVector = vector1.mult(vector2);
+		Integer[] list1 = {1,2,3};
+		Integer[] list2 = {2,2,2};
+		Vector<Integer> vector1 = new Vector<Integer>(list1);
+		Vector<Integer> vector2 = new Vector<Integer>(list2);
+		Vector<Integer> resultVector = vector1.mult(vector2);
 		
 		for(int i = 0; i < resultVector.size();++i)
 		{
-			assertEquals((i+1)*2,resultVector.get(i));
+			assertEquals(new Integer((i+1)*2),resultVector.get(i));
 		}
 	}
 	
 	public void testNullInput() throws VectorSizeIncorrect
 	{
-		Vector vect = new IntVector();
+		Vector<Integer> vect = new Vector<Integer>();
 		
 		assertNull(vect.add(null));
 		assertNull(vect.mult(null));

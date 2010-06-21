@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import linear.exceptions.VectorEmptyException;
+import linear.exceptions.VectorSizeIncorrect;
 import linear.services.vector.AddService;
+import linear.services.vector.MultService;
 
 /**  
  *  
@@ -13,18 +16,10 @@ import linear.services.vector.AddService;
  */
 public class Vector<T> implements java.lang.Iterable<T>  {
 	private final ArrayList<T> backingArray;
-	private final Class<T> classType;
-	
-	@SuppressWarnings("unchecked")
+
 	public Vector()
 	{
 		backingArray = new ArrayList<T>();
-		T temp = (T) new Object(); //This is not really safe, 
-		//but need to do it to get the type for the type making
-		//for the ops.
-		classType = (Class<T>) temp.getClass();
-		
-		
 	}
 	
 	public Vector(T[] list)
@@ -42,22 +37,25 @@ public class Vector<T> implements java.lang.Iterable<T>  {
 		backingArray.addAll(list);
 	}
 	
-	public Vector<T> add(Vector<T> obj) throws VectorSizeIncorrect
+	public Vector<T> add(Vector<T> obj) throws VectorSizeIncorrect, VectorEmptyException
 	{
-		return AddService.<T>addSerial(this, obj,getClassType());
+		return AddService.<T>addSerial(this, obj);
 	}
-	public Vector<T> mult(Vector<T> obj) throws VectorSizeIncorrect
+	public Vector<T> mult(Vector<T> obj) throws VectorSizeIncorrect, VectorEmptyException
 	{
-		return null;		
+		return MultService.multSerial(this, obj);		
 	}
-	public Vector<T> mult(double val)
+
+	public Vector<T> multSameConstant(T obj)throws VectorEmptyException
 	{
-		return null;
+		return MultService.multSerialSame(obj, this);
 	}
-	public Vector<T> mult(int val)
+
+	public Vector<T> multOtherConstant(Object obj)throws VectorEmptyException
 	{
-		return null;	
+		return MultService.multSerialDifferent(obj, this);
 	}
+	
 	public Vector<T> sub(Vector<T> obj) throws VectorSizeIncorrect
 	{
 		return null;	
@@ -111,8 +109,33 @@ public class Vector<T> implements java.lang.Iterable<T>  {
 		backingArray.set(index, value);
 	}
 	
-	private Class getClassType()
+	public boolean equals(Object obj)
 	{
-		return classType;
+		if(obj == null)
+		{
+			return false;
+		}
+		if(!(obj instanceof Vector))
+		{
+			return false;
+		}
+		
+		Vector objVec = (Vector) obj;
+		
+		if(objVec.size() != this.size())
+		{
+			return false;	
+		}
+		
+		for(int i = 0; i < this.size();++i)
+		{
+			//If the items do not match at any point, return false.
+			if(!(this.get(i).equals(objVec.get(i))))
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

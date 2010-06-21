@@ -1,4 +1,4 @@
-package linear.vector;
+package linear.exceptions;
 
 public class VectorException extends Exception {
 	

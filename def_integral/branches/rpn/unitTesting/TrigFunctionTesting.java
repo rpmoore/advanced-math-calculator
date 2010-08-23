@@ -2,20 +2,18 @@ package unitTesting;
 
 import java.text.ParseException;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
-import bptree.EquationLexer;
-import bptree.ExpressionType;
-import bptree.ParseTree;
+import parser.EquationLexer;
+import parser.ExpressionType;
+import parser.ParseTree;
 
-public class TrigFunctionTesting {
-    public static junit.framework.Test suite() {
-        return new junit.framework.JUnit4TestAdapter(TrigFunctionTesting.class);
-    }
+
+
+public class TrigFunctionTesting extends TestCase {
     
-    @Test
-    public void LexSin()
+    
+    public void testLexSin()
     {
     	EquationLexer lexer = new EquationLexer("sin(x)");
     	
@@ -24,8 +22,8 @@ public class TrigFunctionTesting {
     	assertEquals(ExpressionType.VARIABLE, lexer.nextElement().getType());
     	assertEquals(ExpressionType.RIGHTPAREN, lexer.nextElement().getType());
     }
-    @Test    
-    public void LexCos()
+        
+    public void testLexCos()
     {
     	EquationLexer lexer = new EquationLexer("cos(x)");
     	
@@ -34,8 +32,8 @@ public class TrigFunctionTesting {
     	assertEquals(ExpressionType.VARIABLE, lexer.nextElement().getType());
     	assertEquals(ExpressionType.RIGHTPAREN, lexer.nextElement().getType());
     }
-    @Test
-    public void LexTan()
+    
+    public void testLexTan()
     {
     	EquationLexer lexer = new EquationLexer("tan(x)");
     	
@@ -44,8 +42,8 @@ public class TrigFunctionTesting {
     	assertEquals(ExpressionType.VARIABLE, lexer.nextElement().getType());
     	assertEquals(ExpressionType.RIGHTPAREN, lexer.nextElement().getType());
     }
-    @Test
-    public void LexSinh()
+    
+    public void testLexSinh()
     {
     	EquationLexer lexer = new EquationLexer("sinh(x)");
     	
@@ -54,8 +52,8 @@ public class TrigFunctionTesting {
     	assertEquals(ExpressionType.VARIABLE, lexer.nextElement().getType());
     	assertEquals(ExpressionType.RIGHTPAREN, lexer.nextElement().getType());
     }
-    @Test
-    public void LexCosh()
+    
+    public void testLexCosh()
     {
     	EquationLexer lexer = new EquationLexer("cosh(x)");
     	
@@ -64,8 +62,8 @@ public class TrigFunctionTesting {
     	assertEquals(ExpressionType.VARIABLE, lexer.nextElement().getType());
     	assertEquals(ExpressionType.RIGHTPAREN, lexer.nextElement().getType());
     }
-    @Test
-    public void LexTanh()
+    
+    public void testLexTanh()
     {
     	EquationLexer lexer = new EquationLexer("tanh(x)");
     	
@@ -74,8 +72,8 @@ public class TrigFunctionTesting {
     	assertEquals(ExpressionType.VARIABLE, lexer.nextElement().getType());
     	assertEquals(ExpressionType.RIGHTPAREN, lexer.nextElement().getType());
     }
-    @Test
-    public void LexLn()
+    
+    public void testLexLn()
     {
     	EquationLexer lexer = new EquationLexer("ln(x)");
     	
@@ -84,8 +82,8 @@ public class TrigFunctionTesting {
     	assertEquals(ExpressionType.VARIABLE, lexer.nextElement().getType());
     	assertEquals(ExpressionType.RIGHTPAREN, lexer.nextElement().getType());
     }
-    @Test
-    public void LexLog()
+    
+    public void testLexLog()
     {
     	EquationLexer lexer = new EquationLexer("log(x)");
     	
@@ -94,8 +92,8 @@ public class TrigFunctionTesting {
     	assertEquals(ExpressionType.VARIABLE, lexer.nextElement().getType());
     	assertEquals(ExpressionType.RIGHTPAREN, lexer.nextElement().getType());
     }
-    @Test
-    public void LexLogEval()
+    
+    public void testLexLogEval()
     {
     	try {
 			ParseTree tree = ParseTree.makeTree("log(x)", false);
@@ -107,8 +105,8 @@ public class TrigFunctionTesting {
 			assertTrue(false);
 		}
     }
-    @Test
-    public void LexSinEval()
+    
+    public void testLexSinEval()
     {
     	try {
 			ParseTree tree = ParseTree.makeTree("sin(x)", false);
@@ -120,8 +118,8 @@ public class TrigFunctionTesting {
 			assertTrue(false);
 		}
     }
-    @Test
-    public void LexCosEval()
+    
+    public void testLexCosEval()
     {
     	try {
 			ParseTree tree = ParseTree.makeTree("cos(x)", false);
@@ -133,8 +131,8 @@ public class TrigFunctionTesting {
 			assertTrue(false);
 		}
     }
-    @Test
-    public void LexTanEval()
+    
+    public void testLexTanEval()
     {
     	try {
 			ParseTree tree = ParseTree.makeTree("tan(x)", false);
@@ -146,8 +144,8 @@ public class TrigFunctionTesting {
 			assertTrue(false);
 		}
     }
-    @Test
-    public void LexLNEval()
+    
+    public void testLexLNEval()
     {
     	try {
 			ParseTree tree = ParseTree.makeTree("ln(x)", false);

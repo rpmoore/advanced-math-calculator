@@ -3,7 +3,7 @@ package unitTesting;
 import defIntegral.Calculate;
 /**
  * Test class of a linear line of y=2.
- * @author Ryan
+ * @author Ryan Moore
  *
  */
 public class Line2 implements Calculate {
@@ -13,5 +13,4 @@ public class Line2 implements Calculate {
 		// TODO Auto-generated method stub
 		return 2;
 	}
-
 }

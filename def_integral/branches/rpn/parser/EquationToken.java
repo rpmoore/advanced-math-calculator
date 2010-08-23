@@ -1,4 +1,4 @@
-package bptree;
+package parser;
 
 public class EquationToken {
 	private String token;

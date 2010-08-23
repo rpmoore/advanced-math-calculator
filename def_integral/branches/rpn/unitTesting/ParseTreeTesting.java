@@ -1,39 +1,27 @@
 package unitTesting;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.text.ParseException;
 
-import org.junit.Test;
+import junit.framework.TestCase;
 
-import defIntegral.SimpsonsRule;
-
+import parser.EquationLexer;
+import parser.EquationToken;
+import parser.ExpressionType;
+import parser.ParseTree;
 import DataStructures.BinaryTree;
 import DataStructures.TreeNode;
-import bptree.EquationLexer;
-import bptree.EquationToken;
-import bptree.ExpressionType;
-import bptree.ParseTree;
-public class ParseTreeTesting {
-	
-    public static junit.framework.Test suite() {
-        return new junit.framework.JUnit4TestAdapter(ParseTreeTesting.class);
-    }
+import defIntegral.SimpsonsRule;
+
+public class ParseTreeTesting extends TestCase {
    
-	@Test
-	public void checkOPT()
+	public void testcheckOPT()
 	{
-		
 		assertTrue(ExpressionType.isOp(ExpressionType.ADD));
 		assertTrue(ExpressionType.isOp(ExpressionType.SUBTRACT));
 		assertFalse(ExpressionType.isOp(ExpressionType.NUMBER));
 	}
 	
-	@Test
-	public void getOPT()
+	public void testgetOPT()
 	{
 		assertEquals(ExpressionType.ADD, ExpressionType.getType("+"));
 		assertEquals(ExpressionType.NUMBER, ExpressionType.getType("123124.3"));
@@ -41,8 +29,7 @@ public class ParseTreeTesting {
 		assertEquals(ExpressionType.OTHER, ExpressionType.getType("hello"));
 	}
 
-    @Test
-    public void makeTokensOne()
+    public void testmakeTokensOne()
     {
     	EquationLexer tokenizer = new EquationLexer("+");
     	assertTrue(tokenizer.hasMoreElements());
@@ -51,16 +38,16 @@ public class ParseTreeTesting {
     	assertFalse(tokenizer.hasMoreElements());
     }
 
-    @Test
-    public void makeTokensZero()
+   
+    public void testmakeTokensZero()
     {
     	EquationLexer tokenizer = new EquationLexer("");
     	assertFalse(tokenizer.hasMoreElements());
     	assertTrue(tokenizer.nextElement().getType() == ExpressionType.EOF);
     }
 
-    @Test
-    public void makeTokensThree()
+    
+    public void testmakeTokensThree()
     {
     	EquationLexer tokenizer = new EquationLexer("2 + 3");
     	EquationToken token = null;
@@ -74,8 +61,8 @@ public class ParseTreeTesting {
     	assertEquals("3",token.getToken());
     	assertFalse(tokenizer.hasMoreElements());
     }
-    @Test
-    public void makeTokensThreeNoWhitespace()
+    
+    public void testmakeTokensThreeNoWhitespace()
     {
     	EquationLexer tokenizer = new EquationLexer("2+3");
     	for(int i = 0; i < 3; i++)
@@ -88,8 +75,8 @@ public class ParseTreeTesting {
     	assertFalse(tokenizer.hasMoreElements());
     }
     
-    @Test
-    public void makeTokensSeven()
+    
+    public void testmakeTokensSeven()
     {
     	EquationLexer tokenizer = new EquationLexer("(2+3)/2");
     	for(int i = 0; i < 7; i++)
@@ -102,7 +89,7 @@ public class ParseTreeTesting {
     	assertFalse(tokenizer.hasMoreElements());
     }
     
-    @Test
+    
     public void testPIandE()
     {
     	//This test should pass every time as written.  It is very specific
@@ -118,7 +105,7 @@ public class ParseTreeTesting {
     }
     
 	
-	@Test
+	
 	public void testInsertBasic()
 	{
 		ParseTree tree= null;
@@ -135,7 +122,7 @@ public class ParseTreeTesting {
 	}
 	
 	
-	@Test
+	
 	public void testInsertBasicCombined()
 	{
 		ParseTree tree = null;
@@ -153,7 +140,7 @@ public class ParseTreeTesting {
 		assertEquals("x", root.getRight().getRight().getItem().getToken());
 	}
 	
-	@Test
+	
 	public void testBasicEvalOne()
 	{
 		ParseTree tree = null;
@@ -166,7 +153,7 @@ public class ParseTreeTesting {
 		assertEquals(3, tree.eval(3),0);
 	}
 	
-	@Test
+	
 	public void testBasicEvalTwo()
 	{
 		ParseTree tree = null;
@@ -181,7 +168,7 @@ public class ParseTreeTesting {
 		assertEquals(28.0, tree.eval(0), 0);
 	}
 	
-	@Test
+	
 	public void testBasicEvalThree()
 	{
 		ParseTree tree = null;
@@ -196,7 +183,7 @@ public class ParseTreeTesting {
 		assertEquals((Math.E + Math.PI), tree.eval(0), 0);
 	}
 	
-	@Test
+	
 	public void testBasicEvalFour()
 	{
 		ParseTree tree = null;
@@ -211,7 +198,7 @@ public class ParseTreeTesting {
 		assertEquals(8, tree.eval(0), 0);
 	}
 	
-	@Test
+	
 	public void testBasicEvalFive()
 	{
 		ParseTree treeOptOn = null;
@@ -229,7 +216,7 @@ public class ParseTreeTesting {
 		assertEquals(8, treeOptOff.eval(0),0);
 	}
 	
-	@Test
+	
 	public void testBasicEvalSix()
 	{
 		ParseTree tree = null;
@@ -242,7 +229,7 @@ public class ParseTreeTesting {
 		assertEquals(-1.0, tree.eval(3),0);
 	}
 	
-	@Test
+	
 	public void testBasicEvalSeven()
 	{
 		ParseTree tree = null;
@@ -256,7 +243,7 @@ public class ParseTreeTesting {
 	}
 	
 	
-	@Test
+	
 	public void testBasicEvalEight()
 	{
 		ParseTree tree = null;
@@ -269,7 +256,7 @@ public class ParseTreeTesting {
 		assertEquals(3 * Math.PI * 2, tree.eval(2),0);
 	}
 	
-	@Test
+	
 	public void testBasicEvalNine()
 	{
 		ParseTree tree = null;
@@ -284,7 +271,7 @@ public class ParseTreeTesting {
 		assertEquals(SimpsonsRule.compute(tree2, 1, 2), SimpsonsRule.compute(tree, 1, 2),0);
 	}
 	
-	@Test
+	
 	public void testOptimizingOne()
 	{
 		ParseTree tree = null;
@@ -304,7 +291,7 @@ public class ParseTreeTesting {
 		assertNull(root.getRight());
 	}
 	
-	@Test
+	
 	public void testBadEquationInputOne()
 	{
 		ParseTree tree = null;		
@@ -320,7 +307,7 @@ public class ParseTreeTesting {
 
 	}
 	
-	@Test
+	
 	public void testBadEquationInputTwo()
 	{
 		ParseTree tree = null;		
@@ -336,7 +323,7 @@ public class ParseTreeTesting {
 		}
 	}
 	
-	@Test
+	
 	public void testBadEquationInputThree()
 	{
 		ParseTree tree = null;		
@@ -350,7 +337,7 @@ public class ParseTreeTesting {
 			assertNull(tree);
 			assertTrue(true);
 		}
-	}	@Test
+	}	
 	public void testBadEquationInputFour()
 	{
 		ParseTree tree = null;

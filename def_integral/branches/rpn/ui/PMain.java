@@ -20,9 +20,10 @@ import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtkx.WTKXSerializer;
 
+import parser.ParseTree;
+
 import ui.graphing.LineGraph;
 
-import bptree.ParseTree;
 import defIntegral.SimpsonsRule;
 
 public class PMain implements Application, ButtonPressListener, ComponentKeyListener{

@@ -1,4 +1,4 @@
-package bptree;
+package parser;
 
 import java.io.IOException;
 import java.io.PushbackReader;

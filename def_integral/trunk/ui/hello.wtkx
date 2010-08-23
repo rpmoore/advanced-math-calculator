@@ -1,7 +1,7 @@
 <Window title="Calc Help" maximized="true"
 	xmlns:wtkx="http://pivot.apache.org/wtkx"
-	xmlns="org.apache.pivot.wtk">
-	<content><BoxPane>
+	xmlns="org.apache.pivot.wtk" xmlns:media="org.apache.pivot.wtk.media">
+	<content><BoxPane styles="{backgroundColor:'#ecce9e'}">
 					<TabPane wtkx:id="tabPane">
 						<tabs>
 							
@@ -23,10 +23,11 @@
 											wtkx:id="def_upperBound">
 										</TextInput>
 									</BoxPane></BoxPane><PushButton wtkx:id="def_solve" buttonData="Compute">
-									</PushButton></BoxPane><BoxPane TabPane.label="Series">
-								<Border>
-									<content>
-										<Label text="Series Calculations here" preferredHeight="180" preferredWidth="240" styles="{horizontalAlignment:'center',verticalAlignment:'center'}">
-										</Label></content></Border></BoxPane>
+									</PushButton>
+								
+								<ImageView>
+									<image>
+										<media:Drawing>
+											<canvas><LineGraph xmlns="ui.graphing" wtkx:id="graph"></LineGraph></canvas></media:Drawing></image></ImageView></BoxPane>
 							</tabs></TabPane></BoxPane></content>
 	</Window>

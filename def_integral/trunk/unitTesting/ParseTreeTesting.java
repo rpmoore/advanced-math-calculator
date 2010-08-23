@@ -1,26 +1,28 @@
 package unitTesting;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.text.ParseException;
+
+import org.junit.Test;
+
+import defIntegral.SimpsonsRule;
+
 import DataStructures.BinaryTree;
 import DataStructures.TreeNode;
-import bptree.*;
-
-import org.junit.*;
-
-import static org.junit.Assert.*;
+import bptree.EquationLexer;
+import bptree.EquationToken;
+import bptree.ExpressionType;
+import bptree.ParseTree;
 public class ParseTreeTesting {
 	
     public static junit.framework.Test suite() {
         return new junit.framework.JUnit4TestAdapter(ParseTreeTesting.class);
     }
-    
-    BinaryTree<EquationToken> testing = null;
-    
-    @Before
-    public void startup()
-    {
-    	testing = new BinaryTree<EquationToken>();
-    }
-    
+   
 	@Test
 	public void checkOPT()
 	{
@@ -42,7 +44,7 @@ public class ParseTreeTesting {
     @Test
     public void makeTokensOne()
     {
-    	EquationTokenizer tokenizer = new EquationTokenizer("+");
+    	EquationLexer tokenizer = new EquationLexer("+");
     	assertTrue(tokenizer.hasMoreElements());
     	EquationToken token = tokenizer.nextElement();
     	assertTrue(token.getType() == ExpressionType.ADD);
@@ -52,15 +54,15 @@ public class ParseTreeTesting {
     @Test
     public void makeTokensZero()
     {
-    	EquationTokenizer tokenizer = new EquationTokenizer("");
+    	EquationLexer tokenizer = new EquationLexer("");
     	assertFalse(tokenizer.hasMoreElements());
-    	assertTrue(tokenizer.nextElement() == null);
+    	assertTrue(tokenizer.nextElement().getType() == ExpressionType.EOF);
     }
 
     @Test
     public void makeTokensThree()
     {
-    	EquationTokenizer tokenizer = new EquationTokenizer("2 + 3");
+    	EquationLexer tokenizer = new EquationLexer("2 + 3");
     	EquationToken token = null;
     	for(int i = 0; i < 3; i++)
     	{
@@ -75,7 +77,7 @@ public class ParseTreeTesting {
     @Test
     public void makeTokensThreeNoWhitespace()
     {
-    	EquationTokenizer tokenizer = new EquationTokenizer("2+3");
+    	EquationLexer tokenizer = new EquationLexer("2+3");
     	for(int i = 0; i < 3; i++)
     	{
     		assertTrue(tokenizer.hasMoreElements());
@@ -89,7 +91,7 @@ public class ParseTreeTesting {
     @Test
     public void makeTokensSeven()
     {
-    	EquationTokenizer tokenizer = new EquationTokenizer("(2+3)/2");
+    	EquationLexer tokenizer = new EquationLexer("(2+3)/2");
     	for(int i = 0; i < 7; i++)
     	{
     		assertTrue(tokenizer.hasMoreElements());
@@ -105,7 +107,7 @@ public class ParseTreeTesting {
     {
     	//This test should pass every time as written.  It is very specific
     	//and really helps illustrate how the Tokenizer should operate.
-    	EquationTokenizer tokenizer = new EquationTokenizer("e+pi");
+    	EquationLexer tokenizer = new EquationLexer("e+pi");
     	EquationToken token = tokenizer.nextElement();
     	assertEquals(ExpressionType.E, token.getType());
     	token = tokenizer.nextElement();
@@ -122,7 +124,7 @@ public class ParseTreeTesting {
 		ParseTree tree= null;
 		try {
 			tree = ParseTree.makeTree("2 + 3",false);
-		} catch (ParseTreeGenerationException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		BinaryTree<EquationToken> btree = tree.getTree();
@@ -139,7 +141,7 @@ public class ParseTreeTesting {
 		ParseTree tree = null;
 		try {
 			tree = ParseTree.makeTree("2+3/x",false);
-		} catch (ParseTreeGenerationException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		BinaryTree<EquationToken> btree = tree.getTree();
@@ -157,7 +159,7 @@ public class ParseTreeTesting {
 		ParseTree tree = null;
 		try {
 			tree = ParseTree.makeTree("2+3/x",false);
-		} catch (ParseTreeGenerationException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
@@ -172,7 +174,7 @@ public class ParseTreeTesting {
 		{
 			tree = ParseTree.makeTree("3+5*5", false);
 		}
-		catch (ParseTreeGenerationException e) {
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 
@@ -187,7 +189,7 @@ public class ParseTreeTesting {
 		{
 			tree = ParseTree.makeTree("e+pi", false);
 		}
-		catch (ParseTreeGenerationException e) {
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 
@@ -202,7 +204,7 @@ public class ParseTreeTesting {
 		{
 			tree = ParseTree.makeTree("(12-8)^2/2", false);
 		}
-		catch (ParseTreeGenerationException e) {
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 
@@ -219,7 +221,7 @@ public class ParseTreeTesting {
 			treeOptOn = ParseTree.makeTree("(12-8)^2/2", true);
 			treeOptOff = ParseTree.makeTree("(12-8)^2/2", false);
 		}
-		catch (ParseTreeGenerationException e) {
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 
@@ -233,7 +235,7 @@ public class ParseTreeTesting {
 		ParseTree tree = null;
 		try {
 			tree = ParseTree.makeTree("-2+3/x",false);
-		} catch (ParseTreeGenerationException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
@@ -246,24 +248,40 @@ public class ParseTreeTesting {
 		ParseTree tree = null;
 		try {
 			tree = ParseTree.makeTree("12x + 4",false);
-		} catch (ParseTreeGenerationException e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
 		assertEquals(16.0, tree.eval(1),0);
 	}
 	
+	
 	@Test
 	public void testBasicEvalEight()
 	{
 		ParseTree tree = null;
 		try {
-			tree = ParseTree.makeTree("3PIx",false);
-		} catch (ParseTreeGenerationException e) {
+			tree = ParseTree.makeTree("3pix",false);
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
 		assertEquals(3 * Math.PI * 2, tree.eval(2),0);
+	}
+	
+	@Test
+	public void testBasicEvalNine()
+	{
+		ParseTree tree = null;
+		ParseTree tree2 = null;
+		try {
+			tree = ParseTree.makeTree("2x^2",false);
+			tree2 = ParseTree.makeTree("2*x^2",false);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		assertEquals(SimpsonsRule.compute(tree2, 1, 2), SimpsonsRule.compute(tree, 1, 2),0);
 	}
 	
 	@Test
@@ -274,7 +292,7 @@ public class ParseTreeTesting {
 		{
 			tree = ParseTree.makeTree("3+5*5", true);
 		}
-		catch (ParseTreeGenerationException e) {
+		catch (ParseException e) {
 			e.printStackTrace();
 		}
 		BinaryTree<EquationToken> btree = tree.getTree();
@@ -295,7 +313,7 @@ public class ParseTreeTesting {
 			tree = ParseTree.makeTree("(12-8)^2/", false);
 			assertTrue(false);
 		}
-		catch (ParseTreeGenerationException e) {
+		catch (ParseException e) {
 			assertNull(tree);
 			assertTrue(true);
 		}
@@ -311,7 +329,8 @@ public class ParseTreeTesting {
 			tree = ParseTree.makeTree("Bad", false);
 			assertTrue(false);
 		}
-		catch (ParseTreeGenerationException e) {
+		catch (ParseException e) {
+			assertEquals(1, e.getErrorOffset());
 			assertNull(tree);
 			assertTrue(true);
 		}
@@ -326,9 +345,24 @@ public class ParseTreeTesting {
 			tree = ParseTree.makeTree("Bad + x", false);
 			assertTrue(false);
 		}
-		catch (ParseTreeGenerationException e) {
+		catch (ParseException e) {
+			assertEquals(1, e.getErrorOffset());
 			assertNull(tree);
 			assertTrue(true);
 		}
+	}	@Test
+	public void testBadEquationInputFour()
+	{
+		ParseTree tree = null;
+		try {
+			tree = ParseTree.makeTree("3PIx",false); //PI should be lower case.
+			tree.eval(4);//just have this to get rid of the warning.
+			assertTrue(false);
+
+		} catch (ParseException e) {
+			assertEquals(2, e.getErrorOffset());//The offset has changed since the first token was made.
+			assertTrue(true);//This is the correct case to hit.
+		}
+		
 	}
 }

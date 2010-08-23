@@ -1,11 +1,12 @@
 package unitTesting;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.text.ParseException;
 
 import org.junit.Test;
 
 import bptree.ParseTree;
-import bptree.ParseTreeGenerationException;
 import defIntegral.SimpsonsRule;
 
 public class IntegralTesting {
@@ -24,7 +25,7 @@ public class IntegralTesting {
 			result1 = SimpsonsRule.compute(ParseTree.makeTree("3x^2", true), 2, 3);
 			assertEquals(19.0,result1,0);
 			
-		} catch (ParseTreeGenerationException e) {
+		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -59,7 +60,7 @@ public class IntegralTesting {
 		{
 			tree = ParseTree.makeTree("12*x+.5", false);
 		}
-		catch (ParseTreeGenerationException e) {
+		catch (ParseException e) {
 			e.printStackTrace();
 		}	
 		

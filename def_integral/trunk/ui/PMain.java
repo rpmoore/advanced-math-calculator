@@ -1,5 +1,8 @@
 package ui;
 
+import java.awt.Color;
+import java.text.ParseException;
+
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Application;
 import org.apache.pivot.wtk.Button;
@@ -17,10 +20,10 @@ import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtkx.WTKXSerializer;
 
-import defIntegral.SimpsonsRule;
+import ui.graphing.LineGraph;
 
 import bptree.ParseTree;
-import bptree.ParseTreeGenerationException;
+import defIntegral.SimpsonsRule;
 
 public class PMain implements Application, ButtonPressListener, ComponentKeyListener{
 	private ParseTree pTree = null;
@@ -29,6 +32,7 @@ public class PMain implements Application, ButtonPressListener, ComponentKeyList
 	private TextInput def_upperBound = null;
 	private TextInput def_lowerBound = null;
 	private PushButton def_Button = null;
+	private LineGraph<ParseTree> graph = null;
 	/**
 	 * @param args
 	 */
@@ -38,6 +42,7 @@ public class PMain implements Application, ButtonPressListener, ComponentKeyList
 
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void startup(Display display, Map<String, String> arg1)
 			throws Exception {
@@ -51,6 +56,8 @@ public class PMain implements Application, ButtonPressListener, ComponentKeyList
 		def_lowerBound.getComponentKeyListeners().add(this);
 		def_Button = (PushButton) wtkxSerializer.get("def_solve");
 		def_Button.getButtonPressListeners().add(this);
+		LineGraph<ParseTree> lineGraph = (LineGraph<ParseTree>) wtkxSerializer.get("graph");
+		graph = lineGraph;
 		window.open(display);
 	}
 	
@@ -103,6 +110,7 @@ public class PMain implements Application, ButtonPressListener, ComponentKeyList
 	
 	private void processIntegral()
 	{
+		graph.clear();
 		double lower,upper;
 		if(def_equation.getText().isEmpty())
 		{
@@ -135,10 +143,12 @@ public class PMain implements Application, ButtonPressListener, ComponentKeyList
 			}
 			try {
 				pTree = ParseTree.makeTree(def_equation.getText(), true);
+				graph.addEquation(pTree, Color.RED);
+				graph.generatePoints(lower, upper);
 				Prompt.prompt(MessageType.INFO,"The answer to 'f(x)=" + def_equation.getText() + "' is: " + SimpsonsRule.compute(pTree, lower, upper),window);
-			} catch (ParseTreeGenerationException e) {
+			} catch (ParseException e) {
 				// TODO Auto-generated catch block
-				Prompt.prompt(MessageType.ERROR, e.getMessage(), window);
+				Prompt.prompt(MessageType.ERROR, e.getMessage() + " at position " + e.getErrorOffset() + ".", window);
 			}
 		}
 	}

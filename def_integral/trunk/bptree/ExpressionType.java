@@ -71,7 +71,7 @@ public enum ExpressionType {
 	}
 
 	/**
-	 * 
+	 * E, PI, NUMBER, VARIABLE and NAN are all terminals
 	 * @param type
 	 * @return
 	 */
@@ -164,6 +164,30 @@ public enum ExpressionType {
 			break;
 		case POW:
 			ret = Math.pow(left, right);
+			break;
+		case COS:
+			ret = Math.cos(right);
+			break;
+		case SIN:
+			ret = Math.sin(right);
+			break;
+		case TAN:
+			ret = Math.tan(right);
+			break;
+		case COSH:
+			ret = Math.cosh(right);
+			break;
+		case SINH:
+			ret = Math.sinh(right);
+			break;
+		case TANH:
+			ret = Math.tanh(right);
+			break;
+		case LN:
+			ret = Math.log(right);
+			break;
+		case LOG:
+			ret = Math.log10(right);
 			break;
 		case NAN:
 			ret = Double.NaN;

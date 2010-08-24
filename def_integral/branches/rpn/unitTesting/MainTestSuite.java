@@ -6,8 +6,8 @@ public class MainTestSuite {
 
 	public static junit.framework.Test suite()
 	{
-		@SuppressWarnings("rawtypes")
-		Class testClass[] = {ParseTreeTesting.class,TrigFunctionTesting.class,IntegralTesting.class};
+		
+		Class testClass[] = {ParseTreeTesting.class,TrigFunctionTesting.class,IntegralTesting.class,StackTest.class};
 		TestSuite suite = new TestSuite(testClass);
 		return suite;
 	}

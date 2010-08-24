@@ -11,7 +11,7 @@ public enum ExpressionType {
 	private static HashMap<String, ExpressionType> expressionToType;
 
 	/**
-	 * Static constructor used to initaize the hashmap.
+	 * Static constructor used to initalize the hashmap.
 	 */
 	static {
 		expressionToType = new HashMap<String, ExpressionType>();
@@ -195,5 +195,4 @@ public enum ExpressionType {
 		}
 		return ret;
 	}
-
 }

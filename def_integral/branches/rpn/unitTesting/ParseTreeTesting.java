@@ -2,14 +2,15 @@ package unitTesting;
 
 import java.text.ParseException;
 
+import DataStructures.BinaryTree;
+import DataStructures.TreeNode;
+
 import junit.framework.TestCase;
 
 import parser.EquationLexer;
 import parser.EquationToken;
 import parser.ExpressionType;
 import parser.ParseTree;
-import DataStructures.BinaryTree;
-import DataStructures.TreeNode;
 import defIntegral.SimpsonsRule;
 
 public class ParseTreeTesting extends TestCase {

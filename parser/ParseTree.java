@@ -1,4 +1,4 @@
-package bptree;
+package parser;
 
 
 import java.text.ParseException;
@@ -6,6 +6,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import DataStructures.BinaryTree;
 import DataStructures.TreeNode;
+
 import defIntegral.Calculate;
 
 /**

@@ -1,21 +1,18 @@
 package unitTesting;
 
-import static org.junit.Assert.assertEquals;
-
 import java.text.ParseException;
 
-import org.junit.Test;
+import junit.framework.TestCase;
 
-import bptree.ParseTree;
+import parser.ParseTree;
 import defIntegral.SimpsonsRule;
 
-public class IntegralTesting {
+public class IntegralTesting extends TestCase {
 	public static junit.framework.Test suite() {
         return new junit.framework.JUnit4TestAdapter(IntegralTesting.class);
     }
 	
-	@Test
-	public void EquivalentStatements()
+	public void testEquivalentStatements()
 	{
 		try {
 			double result1 = SimpsonsRule.compute(ParseTree.makeTree("3*x^2", true), 2, 3);
@@ -31,7 +28,7 @@ public class IntegralTesting {
 		}
 		
 	}
-	@Test
+	
 	public void testBasicSimpsionsRuleOne()
 	{
 		Line2 line = new Line2();
@@ -41,7 +38,7 @@ public class IntegralTesting {
 		assertEquals(4,answer,0);
 	}
 	
-	@Test
+	
 	public void testBasicDiagnalSimpsionsRuleTwo()
 	{
 		DiagnalLine line = new DiagnalLine();
@@ -52,7 +49,7 @@ public class IntegralTesting {
 		assertEquals(122.5,answer,0);
 	}
 	
-	@Test
+	
 	public void testIntegrationSimpsionsParseTree()
 	{		
 		ParseTree tree = null;

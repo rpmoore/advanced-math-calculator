@@ -1,4 +1,4 @@
-#summary Current work currently in development
+#summary Work currently in development
 #labels Featured,Phase-Requirements,Phase-Implementation
 
 = Overview =

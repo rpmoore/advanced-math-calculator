@@ -1,4 +1,7 @@
-package defIntegral;
+package bptree;
+
+import defIntegral.Calculate;
+
 /*
  * Copyright 2010 Ryan Moore
  *
@@ -15,6 +18,20 @@ package defIntegral;
  * limitations under the License.
  *  
  */
-public interface Calculate {
-	public double eval(double index);
+
+/**
+ * Implements the Shunting Yard algorithm to convert an Infix expression into an
+ * rpn expression which will be faster to compute on.  Also has O(n) complexity on 
+ * equations and is faster than a recursive decent parser.
+ * @author Ryan Moore
+ *
+ */
+public class RPN implements Calculate {
+
+	@Override
+	public double eval(double index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

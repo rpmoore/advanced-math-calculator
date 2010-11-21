@@ -22,7 +22,8 @@ public class MainTestSuite {
 	public static junit.framework.Test suite()
 	{
 		
-		Class testClass[] = {ParseTreeTesting.class,TrigFunctionTesting.class,IntegralTesting.class,StackTest.class};
+		@SuppressWarnings("rawtypes")
+		Class testClass[] = {ParseTreeTesting.class,TrigFunctionTesting.class,IntegralTesting.class,StackTest.class,RPNTesting.class};
 		TestSuite suite = new TestSuite(testClass);
 		return suite;
 	}

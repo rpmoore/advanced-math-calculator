@@ -21,6 +21,7 @@ import java.util.Iterator;
 import DataStructures.Stack;
 import defIntegral.Calculate;
 
+
 /**
  * @author Ryan Moore
  */
@@ -37,9 +38,58 @@ public final class RPN implements Calculate {
 		infixToRPN(expression);
 	}
 	
-	public void infixToRPN(String expression)
+	/**
+	 * Constructs the stack based off of the shunting-yard algorithm.
+	 * @param expression The math express to parse.
+	 */
+	
+	private void infixToRPN(String expression)//tokenize string.
 	{
+		final EquationLexer lexer = new EquationLexer(expression);
+		final Stack<EquationToken> tempStack = new Stack<EquationToken>();
+		while(lexer.hasMoreElements())
+		{
+			EquationToken currToken = lexer.nextElement();
+			switch(currToken.getType())
+			{
+				//these are all number cases.
+				case NUMBER:
+				case PI:
+				case E:
+				case VARIABLE:
+				{
+					exprStack.push(currToken);
+				}
+				break;
+				case COS:
+				case COSH:
+				case LN:
+				case LOG:
+				case POW:
+				case SIN:
+				case SINH:
+				case TAN:
+				case TANH:
+				{
+					tempStack.push(currToken);
+				}
+				break;
+				case ADD:
+				case DIVIDE:
+				case MULTIPLY:
+				case SUBTRACT:
+				{
+					
+				}
+				break;
+			}
+		}
 		
+		Iterator<EquationToken> iter = tempStack.iterator();
+		while(iter.hasNext())
+		{
+			exprStack.push(iter.next());
+		}
 	}
 	
 	@Override

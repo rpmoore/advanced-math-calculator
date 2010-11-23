@@ -15,16 +15,18 @@ package unitTesting;
  * limitations under the License.
  *  
  */
-import junit.framework.TestSuite;
 
-public class MainTestSuite {
+import parser.ExpressionType;
 
-	public static junit.framework.Test suite()
+import junit.framework.TestCase;
+
+
+public class ExpressionTypePrecedenceTesting extends TestCase {
+
+	public void testFunc()
 	{
-		
-		@SuppressWarnings("rawtypes")
-		Class testClass[] = {ParseTreeTesting.class,TrigFunctionTesting.class,IntegralTesting.class,StackTest.class,ExpressionTypePrecedenceTesting.class,RPNTesting.class};
-		TestSuite suite = new TestSuite(testClass);
-		return suite;
+		assertEquals(0, ExpressionType.getPrecedence(ExpressionType.COS, ExpressionType.COS));
+		assertEquals(0, ExpressionType.getPrecedence(ExpressionType.COS, ExpressionType.COSH));
+		assertEquals(0, ExpressionType.getPrecedence(ExpressionType.LN, ExpressionType.COS));
 	}
 }

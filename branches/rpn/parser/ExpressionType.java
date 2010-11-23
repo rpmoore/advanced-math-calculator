@@ -26,7 +26,7 @@ public enum ExpressionType {
 	private static HashMap<String, ExpressionType> expressionToType;
 
 	/**
-	 * Static constructor used to initalize the hashmap.
+	 * Static constructor used to initialize the hashmap.
 	 */
 	static {
 		expressionToType = new HashMap<String, ExpressionType>();
@@ -102,7 +102,7 @@ public enum ExpressionType {
 	}
 
 	/**
-	 * 
+	 * Determines the Expression Type for a given string.
 	 * @param expression 
 	 * @return
 	 */
@@ -131,9 +131,36 @@ public enum ExpressionType {
 			}
 		}
 	}
+	
+	/**
+	 * Compares the precedence of the left ExpressionType to the right ExpressionType.
+	 * If the left ExpressionType is less than the right it returns < 0. If the left and right are
+	 * equal it returns 0. If the left is greater than the right it returns > 0.
+	 * @param left
+	 * @param right
+	 * @return
+	 */
+	public static int getPrecedence(ExpressionType left, ExpressionType right)
+	{
+		boolean leftFunc = isFunction(left);
+		boolean rightFunc = isFunction(right);
+		if(leftFunc && rightFunc)
+		{
+			return 0;
+		}
+		else if(leftFunc)
+		{
+			return 1;
+		}
+		else
+		{
+			return -1;
+		}
+		
+	}
 
 	/**
-	 * Performs all the arthimitic operations.  This will get called a lot.
+	 * Performs all the arithmetic operations.  This will get called a lot.
 	 * @param type
 	 * @param left
 	 * @param right

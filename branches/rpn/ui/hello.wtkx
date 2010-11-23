@@ -1,33 +1,46 @@
 <Window title="Calc Help" maximized="true"
 	xmlns:wtkx="http://pivot.apache.org/wtkx"
 	xmlns="org.apache.pivot.wtk" xmlns:media="org.apache.pivot.wtk.media">
-	<content><BoxPane styles="{backgroundColor:'#ecce9e'}">
-					<TabPane wtkx:id="tabPane">
-						<tabs>
+	<content>
+		<BoxPane styles="{backgroundColor:'#ecce9e'}">
+				<TabPane wtkx:id="tabPane">
+					<tabs>
 							
-							<BoxPane TabPane.label="Definite Integral" orientation="vertical">
-								<BoxPane styles="{verticalAlignment:'center'}"><ImageView image="@46px-WPint.png" styles="{preserveAspectRatio:true,horizontalAlignment:'left', verticalAlignment:'center'}"></ImageView>
-									<TextInput wtkx:id="def_equation"
-										textSize="19">
-									</TextInput></BoxPane>
-								<BoxPane>
-									<BoxPane styles="{verticalAlignment:'center'}">
-										<Label text="Lower Bound:"></Label>
-										<TextInput textSize="3"
-											wtkx:id="def_lowerBound">
-										</TextInput>
-									</BoxPane>
-									<BoxPane styles="{verticalAlignment:'center'}">
-										<Label text="Upper Bound:"></Label>
-										<TextInput textSize="3"
-											wtkx:id="def_upperBound">
-										</TextInput>
-									</BoxPane></BoxPane><PushButton wtkx:id="def_solve" buttonData="Compute">
-									</PushButton>
-								
-								<ImageView>
-									<image>
-										<media:Drawing>
-											<canvas><LineGraph xmlns="ui.graphing" wtkx:id="graph"></LineGraph></canvas></media:Drawing></image></ImageView></BoxPane>
-							</tabs></TabPane></BoxPane></content>
+						<BoxPane TabPane.label="Definite Integral" orientation="vertical">
+							<BoxPane styles="{verticalAlignment:'center'}"><ImageView image="@46px-WPint.png" styles="{preserveAspectRatio:true,horizontalAlignment:'left', verticalAlignment:'center'}"></ImageView>
+								<TextInput wtkx:id="def_equation"
+									textSize="19">
+								</TextInput>
+							</BoxPane>
+							<BoxPane>
+								<BoxPane styles="{verticalAlignment:'center'}">
+									<Label text="Lower Bound:"></Label>
+									<TextInput textSize="3"
+										wtkx:id="def_lowerBound">
+									</TextInput>
+								</BoxPane>
+								<BoxPane styles="{verticalAlignment:'center'}">
+									<Label text="Upper Bound:"></Label>
+									<TextInput textSize="3"
+										wtkx:id="def_upperBound">
+									</TextInput>
+								</BoxPane>
+							</BoxPane>
+							<PushButton wtkx:id="def_solve" buttonData="Compute">
+							</PushButton>
+							
+							<!--	
+							<ImageView>
+								<image>
+									<media:Drawing>
+										<canvas><LineGraph xmlns="ui.graphing" wtkx:id="graph"></LineGraph></canvas>
+									</media:Drawing>
+								</image>
+							</ImageView>
+							-->
+						</BoxPane>
+					</tabs>
+				</TabPane>
+			</BoxPane>
+		</content>
 	</Window>

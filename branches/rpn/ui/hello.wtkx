@@ -2,7 +2,8 @@
 	xmlns:wtkx="http://pivot.apache.org/wtkx"
 	xmlns="org.apache.pivot.wtk" xmlns:media="org.apache.pivot.wtk.media">
 	<content>
-		<BoxPane styles="{backgroundColor:'#ecce9e'}">
+		<!--<BoxPane styles="{backgroundColor:'#ecce9e'}"> -->
+		<BoxPane styles="{backgroundColor:'#ffffff', padding:6}">
 				<TabPane wtkx:id="tabPane">
 					<tabs>
 							

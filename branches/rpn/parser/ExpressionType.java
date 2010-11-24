@@ -70,6 +70,16 @@ public enum ExpressionType {
 
 	/**
 	 * 
+	 * 
+	 * @return
+	 */
+	public boolean isOp()
+	{
+		return isOp(this);
+	}
+	
+	/**
+	 * 
 	 * @param type
 	 * @return
 	 */
@@ -83,6 +93,14 @@ public enum ExpressionType {
 			return true;
 		}
 		return false;
+	}
+	/**
+	 * 
+	 * @param type
+	 */	
+	public boolean isFunction()
+	{
+		return isFunction(this);
 	}
 
 	/**
@@ -99,6 +117,15 @@ public enum ExpressionType {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * E, PI, NUMBER, VARIABLE and NAN are all terminals
+	 * @return
+	 */
+	public boolean isTerm()
+	{
+		return isTerm(this);
 	}
 
 	/**
@@ -140,25 +167,59 @@ public enum ExpressionType {
 	 * @param right
 	 * @return
 	 */
-	public static int getPrecedence(ExpressionType left, ExpressionType right)
+	public static int comparePrecedence(ExpressionType left, ExpressionType right)
 	{
-		boolean leftFunc = isFunction(left);
-		boolean rightFunc = isFunction(right);
-		if(leftFunc && rightFunc)
+		int leftPrec = getPrecedence(left);
+		int rightPrec = getPrecedence(right);
+		if(leftPrec < rightPrec)
 		{
-			return 0;
+			return -1;
 		}
-		else if(leftFunc)
+		else if(leftPrec > rightPrec)
 		{
 			return 1;
 		}
 		else
 		{
-			return -1;
+			return 0;
 		}
-		
 	}
 
+	//precedence levels are as follows.
+	// 0 = terms
+	// 1 = add sub
+	// 2 = mult divide
+	// 3 = exponent
+	// 4 = functions
+	// 5 = parans
+	public static int getPrecedence(ExpressionType type)
+	{
+		if(type.isFunction())
+		{
+			return 4;
+		}
+		if(type.isTerm())
+		{
+			return 0;
+		}
+		switch(type)
+		{
+		case ADD:
+		case SUBTRACT:
+			return 1;
+		case MULTIPLY:
+		case DIVIDE:
+			return 2;
+		case POW:
+			return 4;
+		case LEFTPAREN:
+		case RIGHTPAREN:
+			return 5;
+		default:
+			return -1;
+		}
+	}
+	
 	/**
 	 * Performs all the arithmetic operations.  This will get called a lot.
 	 * @param type

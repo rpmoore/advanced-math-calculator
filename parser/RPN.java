@@ -42,7 +42,7 @@ public final class RPN implements Calculate {
 	 * Constructs the stack based off of the shunting-yard algorithm.
 	 * @param expression The math express to parse.
 	 */
-	
+	//http://en.wikipedia.org/wiki/Shunting-yard_algorithm
 	private void infixToRPN(String expression)//tokenize string.
 	{
 		final EquationLexer lexer = new EquationLexer(expression);
@@ -50,39 +50,22 @@ public final class RPN implements Calculate {
 		while(lexer.hasMoreElements())
 		{
 			EquationToken currToken = lexer.nextElement();
-			switch(currToken.getType())
+			ExpressionType currType = currToken.getType();
+			if(currType.isTerm())
 			{
-				//these are all number cases.
-				case NUMBER:
-				case PI:
-				case E:
-				case VARIABLE:
-				{
-					exprStack.push(currToken);
-				}
-				break;
-				case COS:
-				case COSH:
-				case LN:
-				case LOG:
-				case POW:
-				case SIN:
-				case SINH:
-				case TAN:
-				case TANH:
-				{
-					tempStack.push(currToken);
-				}
-				break;
-				case ADD:
-				case DIVIDE:
-				case MULTIPLY:
-				case SUBTRACT:
-				{
-					
-				}
-				break;
+				exprStack.push(currToken);				
 			}
+			else if(currType.isFunction())
+			{
+				tempStack.push(currToken);			
+			}
+			
+
+			
+
+			
+			
+			
 		}
 		
 		Iterator<EquationToken> iter = tempStack.iterator();

@@ -17,6 +17,8 @@ package unitTesting;
  */
 import java.text.ParseException;
 
+import defIntegral.CalculateException;
+
 import junit.framework.TestCase;
 import parser.RPN;
 
@@ -41,7 +43,7 @@ public class RPNTesting extends TestCase {
 	
 	}
 	
-	public void testEval1()
+	public void testEval1() throws CalculateException
 	{
 		try {
 			RPN rpnExpr = new RPN("2+3");
@@ -54,7 +56,7 @@ public class RPNTesting extends TestCase {
 		
 	}
 	
-	public void testEval2()
+	public void testEval2() throws CalculateException
 	{
 		try
 		{
@@ -67,7 +69,7 @@ public class RPNTesting extends TestCase {
 			assertTrue(false);
 		}
 	}
-	public void testEval3()
+	public void testEval3() throws CalculateException
 	{
 		try
 		{
@@ -80,7 +82,7 @@ public class RPNTesting extends TestCase {
 			assertTrue(false);
 		}
 	}
-	public void testEval4()
+	public void testEval4() throws CalculateException
 	{
 		try
 		{
@@ -93,7 +95,7 @@ public class RPNTesting extends TestCase {
 			assertTrue(false);
 		}
 	}
-	public void testEval5()
+	public void testEval5() throws CalculateException
 	{
 		try
 		{
@@ -106,7 +108,7 @@ public class RPNTesting extends TestCase {
 			assertTrue(false);
 		}
 	}
-	public void testEval6()
+	public void testEval6() throws CalculateException
 	{
 		try
 		{

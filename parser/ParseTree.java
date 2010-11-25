@@ -19,9 +19,9 @@ package parser;
 import java.text.ParseException;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import DataStructures.BinaryTree;
-import DataStructures.TreeNode;
 
+import dataStructures.BinaryTree;
+import dataStructures.TreeNode;
 import defIntegral.Calculate;
 
 /**

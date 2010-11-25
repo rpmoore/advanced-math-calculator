@@ -16,7 +16,7 @@ package defIntegral;
  *  
  */
 public final class AdaptiveSimpsionsRule {
-	public static <T extends Calculate> double compute(T toCompute, double a, double b)
+	public static <T extends Calculate> double compute(T toCompute, double a, double b) throws CalculateException
 	{
 		double midpoint = (a + b)/2.0;
 		double start = (b - a)/6.0;

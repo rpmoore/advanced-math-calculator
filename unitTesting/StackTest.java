@@ -22,7 +22,8 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import DataStructures.Stack;
+import dataStructures.Stack;
+
 
 public class StackTest extends TestCase{
 

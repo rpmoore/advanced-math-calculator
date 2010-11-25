@@ -15,13 +15,18 @@ package unitTesting;
  * limitations under the License.
  *  
  */
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import junit.framework.TestSuite;
 
 public class MainTestSuite {
 
+	private final static Logger logger = Logger.getLogger(MainTestSuite.class);
 	public static junit.framework.Test suite()
 	{
-		
+		logger.info("Started main test suite.");
+		PropertyConfigurator.configure("logger.conf");
 		@SuppressWarnings("rawtypes")
 		Class testClass[] = {ParseTreeTesting.class,TrigFunctionTesting.class,IntegralTesting.class,StackTest.class,ExpressionTypePrecedenceTesting.class,RPNTesting.class};
 		TestSuite suite = new TestSuite(testClass);

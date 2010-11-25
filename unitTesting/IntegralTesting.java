@@ -20,6 +20,7 @@ import java.text.ParseException;
 import junit.framework.TestCase;
 
 import parser.ParseTree;
+import defIntegral.CalculateException;
 import defIntegral.SimpsonsRule;
 
 public class IntegralTesting extends TestCase {
@@ -27,7 +28,7 @@ public class IntegralTesting extends TestCase {
         return new junit.framework.JUnit4TestAdapter(IntegralTesting.class);
     }
 	
-	public void testEquivalentStatements()
+	public void testEquivalentStatements() throws CalculateException
 	{
 		try {
 			double result1 = SimpsonsRule.compute(ParseTree.makeTree("3*x^2", true), 2, 3);
@@ -40,11 +41,12 @@ public class IntegralTesting extends TestCase {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			assertTrue(false);
 		}
 		
 	}
 	
-	public void testBasicSimpsionsRuleOne()
+	public void testBasicSimpsionsRuleOne() throws CalculateException
 	{
 		Line2 line = new Line2();
 		
@@ -54,7 +56,7 @@ public class IntegralTesting extends TestCase {
 	}
 	
 	
-	public void testBasicDiagnalSimpsionsRuleTwo()
+	public void testBasicDiagnalSimpsionsRuleTwo() throws CalculateException
 	{
 		DiagnalLine line = new DiagnalLine();
 		
@@ -65,7 +67,7 @@ public class IntegralTesting extends TestCase {
 	}
 	
 	
-	public void testIntegrationSimpsionsParseTree()
+	public void testIntegrationSimpsionsParseTree() throws CalculateException
 	{		
 		ParseTree tree = null;
 		try

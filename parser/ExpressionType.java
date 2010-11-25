@@ -53,9 +53,9 @@ public enum ExpressionType {
 	}
 
 	/**
-	 * 
-	 * @param 
-	 * @return
+	 * Determines if the expression is an operator.
+	 * @param The type to determine if it is an operator.
+	 * @return True if the type is an operator, false if the type is not an operator.
 	 */
 	public static boolean isOp(ExpressionType type)
 	{
@@ -69,9 +69,8 @@ public enum ExpressionType {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @return
+	 * Determines if the current type is an operator.
+	 * @return True if the type is an operator, false if the type is not an operator.
 	 */
 	public boolean isOp()
 	{
@@ -221,6 +220,16 @@ public enum ExpressionType {
 	}
 	
 	/**
+	 * Performs the arithmetic operations on expressions that only return a value. All the term values.
+	 * @param token
+	 * @param index
+	 * @return
+	 */
+	public static double eval(EquationToken token,double index)
+	{
+		return eval(token,0,0,index);
+	}
+	/**
 	 * Performs all the arithmetic operations.  This will get called a lot.
 	 * @param type
 	 * @param left
@@ -229,7 +238,6 @@ public enum ExpressionType {
 	 */
 	public static double eval(EquationToken token, double left, double right, double index) 
 	{
-		//TODO Add the rest of the functionality for the other functions.
 		double ret = 0.0;
 
 		switch(token.getType())

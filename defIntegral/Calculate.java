@@ -16,5 +16,5 @@ package defIntegral;
  *  
  */
 public interface Calculate {
-	public double eval(double index);
+	public double eval(double index) throws CalculateException;
 }

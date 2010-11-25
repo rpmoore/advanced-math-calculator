@@ -17,7 +17,10 @@ package ui;
  */
 //import java.awt.Color;
 import java.text.ParseException;
+import java.util.EmptyStackException;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Application;
 import org.apache.pivot.wtk.Button;
@@ -39,9 +42,11 @@ import parser.ParseTree;
 
 //import ui.graphing.LineGraph;
 
+import defIntegral.CalculateException;
 import defIntegral.SimpsonsRule;
 
 public class PMain implements Application, ButtonPressListener, ComponentKeyListener{
+	static final private Logger logger = Logger.getLogger(PMain.class);
 	private ParseTree pTree = null;
 	private Window window = null;
 	private TextInput def_equation = null;
@@ -53,6 +58,8 @@ public class PMain implements Application, ButtonPressListener, ComponentKeyList
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		PropertyConfigurator.configure("logger.conf");
+		logger.info("Starting main gui context.");
 		DesktopApplicationContext.main(PMain.class, args);
 	}
 
@@ -162,9 +169,13 @@ public class PMain implements Application, ButtonPressListener, ComponentKeyList
 				//graph.generatePoints(lower, upper);
 				Prompt.prompt(MessageType.INFO,"The answer to 'f(x)=" + def_equation.getText() + "' is: " + SimpsonsRule.compute(pTree, lower, upper),window);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				Prompt.prompt(MessageType.ERROR, e.getMessage() + " at position " + e.getErrorOffset() + ".", window);
+			} catch (CalculateException e) {
+				Prompt.prompt(MessageType.ERROR, e.getMessage(),window );
+			} catch (EmptyStackException e) {
+				Prompt.prompt(MessageType.ERROR,e.getMessage(),window );
 			}
+			
 		}
 	}
 }

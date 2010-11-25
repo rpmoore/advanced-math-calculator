@@ -17,8 +17,6 @@ package unitTesting;
  */
 import java.text.ParseException;
 
-import DataStructures.BinaryTree;
-import DataStructures.TreeNode;
 
 import junit.framework.TestCase;
 
@@ -26,6 +24,9 @@ import parser.EquationLexer;
 import parser.EquationToken;
 import parser.ExpressionType;
 import parser.ParseTree;
+import dataStructures.BinaryTree;
+import dataStructures.TreeNode;
+import defIntegral.CalculateException;
 import defIntegral.SimpsonsRule;
 
 public class ParseTreeTesting extends TestCase {
@@ -273,7 +274,7 @@ public class ParseTreeTesting extends TestCase {
 	}
 	
 	
-	public void testBasicEvalNine()
+	public void testBasicEvalNine() throws CalculateException
 	{
 		ParseTree tree = null;
 		ParseTree tree2 = null;

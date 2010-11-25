@@ -1,4 +1,4 @@
-package DataStructures;
+package dataStructures;
 /*
  * Copyright 2010 Ryan Moore
  *
@@ -16,6 +16,7 @@ package DataStructures;
  *  
  */
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.List;
@@ -62,5 +63,24 @@ public class Stack <T> implements Iterable<T> {
 		}
 		
 		return newIter.iterator();
+	}
+	
+	public int size()
+	{
+		return stack.size();
+	}
+	
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		for(T item:stack)
+		{
+			builder.append(item + ",");			
+		}
+		return builder.toString();
+	}
+	public void reverse()
+	{
+		Collections.reverse(stack);
 	}
 }

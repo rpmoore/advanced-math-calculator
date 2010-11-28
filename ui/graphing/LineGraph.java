@@ -23,6 +23,7 @@ import org.apache.pivot.wtk.media.drawing.Canvas;
 import org.apache.pivot.wtk.media.drawing.Ellipse;
 
 import defIntegral.Calculate;
+import defIntegral.CalculateException;
 
 public class LineGraph <T extends Calculate> extends Canvas {
 	int leftBound, rightBound;
@@ -41,7 +42,7 @@ public class LineGraph <T extends Calculate> extends Canvas {
 		equationList.put(equation, color);
 	}
 	
-	public Color removeEquation(T equation)
+	public Color removeEquation(T equation) throws CalculateException
 	{
 		Color retValue = equationList.remove(equation);		
 		clearShapes();
@@ -61,7 +62,7 @@ public class LineGraph <T extends Calculate> extends Canvas {
 		clearShapes();
 	}
 	
-	public void generatePoints(double leftBound, double rightBound)
+	public void generatePoints(double leftBound, double rightBound) throws CalculateException
 	{
 		clearShapes();
 		int intLeftBound = (int) Math.round(Math.floor(leftBound));
@@ -76,7 +77,7 @@ public class LineGraph <T extends Calculate> extends Canvas {
 		}
 	}
 	
-	public void addPoint(int x)
+	public void addPoint(int x) throws CalculateException
 	{
 		Ellipse point;
 		Iterator<T> iter = equationList.iterator();

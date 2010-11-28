@@ -1,13 +1,4 @@
-package bptree;
-
-
-import java.text.ParseException;
-import java.util.concurrent.LinkedBlockingQueue;
-
-import DataStructures.BinaryTree;
-import DataStructures.TreeNode;
-import defIntegral.Calculate;
-
+package parser;
 /*
  * Copyright 2010 Ryan Moore
  *
@@ -25,6 +16,14 @@ import defIntegral.Calculate;
  *  
  */
 
+import java.text.ParseException;
+import java.util.concurrent.LinkedBlockingQueue;
+
+
+import dataStructures.BinaryTree;
+import dataStructures.TreeNode;
+import defIntegral.Calculate;
+
 /**
  * Creates a Binary tree from an mathematical expression.  It then allows for the computations of values
  * based off of indexes passed in.  ie  The ParseTree represents a function f and you can insert a value x
@@ -38,11 +37,6 @@ public class ParseTree implements Calculate {
 	private BinaryTree<EquationToken> bTree;//This is the final tree
 	private EquationToken lastToken;
 	private LinkedBlockingQueue<EquationToken> queue;
-
-	public static ParseTree makeTree(String expression,boolean optimize) throws ParseException
-	{
-		return new ParseTree(expression,optimize);
-	}
 
 	/**
 	 * Creates a ParseTree object that has a unique expression.  Once 
@@ -154,14 +148,12 @@ public class ParseTree implements Calculate {
 	 * Attempts to optimize the tree to reduce the time when computing a value in the tree.
 	 */
 	private void optimizeTree() {
-		// TODO Auto-generated method stub
 
 		try {
 			double retVal = optimize(bTree.getRoot());
 			TreeNode<EquationToken> tempNode = new TreeNode<EquationToken>(new EquationToken("" + retVal, ExpressionType.NUMBER));
 			bTree.setRoot(tempNode);
 		} catch (OptimizeException e) {
-			// TODO Auto-generated catch block
 			//I should not need to do anything, This just means that not all of the
 			//tree could be optimized away.
 			return;
@@ -425,5 +417,12 @@ public class ParseTree implements Calculate {
 	public BinaryTree<EquationToken> getTree()
 	{
 		return bTree;
+	}
+
+	public static ParseTree generate(String expr) throws ParseException {		
+		return new ParseTree(expr,true);
+	}
+	public static ParseTree generate(String expr,boolean optimize) throws ParseException {		
+		return new ParseTree(expr,optimize);
 	}
 }

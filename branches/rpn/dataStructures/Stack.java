@@ -16,7 +16,6 @@ package dataStructures;
  *  
  */
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.List;

@@ -1,4 +1,4 @@
-package bptree;
+package parser;
 /*
  * Copyright 2010 Ryan Moore
  *
@@ -15,11 +15,9 @@ package bptree;
  * limitations under the License.
  *  
  */
-public class OptimizeException extends Exception {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4837101691556731997L;
+import java.util.Enumeration;
 
+public interface Lexer<E> extends Enumeration<E> {
+	E peek();
 }

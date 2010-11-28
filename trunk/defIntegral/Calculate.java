@@ -1,4 +1,5 @@
 package defIntegral;
+
 /*
  * Copyright 2010 Ryan Moore
  *
@@ -16,5 +17,5 @@ package defIntegral;
  *  
  */
 public interface Calculate {
-	public double eval(double index);
+	public double eval(double index) throws CalculateException;
 }

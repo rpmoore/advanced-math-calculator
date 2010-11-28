@@ -1,10 +1,4 @@
-package bptree;
-
-import java.io.IOException;
-import java.io.PushbackReader;
-import java.io.StringReader;
-import java.text.ParseException;
-
+package parser;
 /*
  * Copyright 2010 Ryan Moore
  *
@@ -21,6 +15,12 @@ import java.text.ParseException;
  * limitations under the License.
  *  
  */
+import java.io.IOException;
+import java.io.PushbackReader;
+import java.io.StringReader;
+import java.text.ParseException;
+
+
 
 public class EquationLexer implements Lexer<EquationToken> {
 

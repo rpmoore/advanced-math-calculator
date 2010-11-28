@@ -1,4 +1,4 @@
-package bptree;
+package parser;
 /*
  * Copyright 2010 Ryan Moore
  *
@@ -26,7 +26,7 @@ public enum ExpressionType {
 	private static HashMap<String, ExpressionType> expressionToType;
 
 	/**
-	 * Static constructor used to initaize the hashmap.
+	 * Static constructor used to initialize the hashmap.
 	 */
 	static {
 		expressionToType = new HashMap<String, ExpressionType>();
@@ -53,9 +53,9 @@ public enum ExpressionType {
 	}
 
 	/**
-	 * 
-	 * @param 
-	 * @return
+	 * Determines if the expression is an operator.
+	 * @param The type to determine if it is an operator.
+	 * @return True if the type is an operator, false if the type is not an operator.
 	 */
 	public static boolean isOp(ExpressionType type)
 	{
@@ -68,6 +68,15 @@ public enum ExpressionType {
 		return false;
 	}
 
+	/**
+	 * Determines if the current type is an operator.
+	 * @return True if the type is an operator, false if the type is not an operator.
+	 */
+	public boolean isOp()
+	{
+		return isOp(this);
+	}
+	
 	/**
 	 * 
 	 * @param type
@@ -83,6 +92,14 @@ public enum ExpressionType {
 			return true;
 		}
 		return false;
+	}
+	/**
+	 * 
+	 * @param type
+	 */	
+	public boolean isFunction()
+	{
+		return isFunction(this);
 	}
 
 	/**
@@ -102,7 +119,16 @@ public enum ExpressionType {
 	}
 
 	/**
-	 * 
+	 * E, PI, NUMBER, VARIABLE and NAN are all terminals
+	 * @return
+	 */
+	public boolean isTerm()
+	{
+		return isTerm(this);
+	}
+
+	/**
+	 * Determines the Expression Type for a given string.
 	 * @param expression 
 	 * @return
 	 */
@@ -131,9 +157,82 @@ public enum ExpressionType {
 			}
 		}
 	}
-
+	
 	/**
-	 * Performs all the arthimitic operations.  This will get called a lot.
+	 * Compares the precedence of the left ExpressionType to the right ExpressionType.
+	 * If the left ExpressionType is less than the right it returns < 0. If the left and right are
+	 * equal it returns 0. If the left is greater than the right it returns > 0.
+	 * @param left
+	 * @param right
+	 * @return
+	 */
+	public static int comparePrecedence(ExpressionType left, ExpressionType right)
+	{
+		int leftPrec = getPrecedence(left);
+		int rightPrec = getPrecedence(right);
+		if(leftPrec < rightPrec)
+		{
+			return -1;
+		}
+		else if(leftPrec > rightPrec)
+		{
+			return 1;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	//precedence levels are as follows.
+	// 0 = terms
+	// 1 = add
+	// 2 = mult divide
+	// 3 = sub -- doing this so that the sub is a single unary op.
+	// 4 = exponent
+	// 5 = functions
+	// 6 = parans
+	public static int getPrecedence(ExpressionType type)
+	{
+		if(type.isFunction())
+		{
+			return 5;
+		}
+		if(type.isTerm())
+		{
+			return 0;
+		}
+		switch(type)
+		{
+		case ADD:
+			return 1;
+		case SUBTRACT:
+			return 3;
+		case MULTIPLY:
+		case DIVIDE:
+			return 2;
+		case POW:
+			return 4;
+		case LEFTPAREN:
+		case RIGHTPAREN:
+			return 6;
+		default:
+			return -1;
+		}
+	}
+	
+	/**
+	 * Performs the arithmetic operations on expressions that only return a value. All the term values.
+	 * @param token
+	 * @param index
+	 * @return
+	 */
+	public static double eval(EquationToken token,double index)
+	{
+		return eval(token,0,0,index);
+	}
+	/**
+	 * Performs all the arithmetic operations.  This will get called a lot.
 	 * @param type
 	 * @param left
 	 * @param right
@@ -141,7 +240,6 @@ public enum ExpressionType {
 	 */
 	public static double eval(EquationToken token, double left, double right, double index) 
 	{
-		//TODO Add the rest of the functionality for the other functions.
 		double ret = 0.0;
 
 		switch(token.getType())
@@ -210,5 +308,4 @@ public enum ExpressionType {
 		}
 		return ret;
 	}
-
 }

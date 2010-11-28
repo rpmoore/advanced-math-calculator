@@ -22,12 +22,26 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+/**
+ * Generic Stack implementation with all the standard push, pop, and peek methods. 
+ * 
+ * @author Ryan Moore
+ *
+ * @param <T> Generic Type.
+ */
 public class Stack <T> implements Iterable<T> {
 
-	private final ArrayList<T> stack;
+	private final List<T> stack;
+	
 	public Stack()
 	{
 		stack = new ArrayList<T>();
+	}
+	
+	public Stack(List<T> list)
+	{
+		stack = list;
+		stack.clear();//Empty the list before using it.
 	}
 	
 	public void push(T obj)
@@ -78,9 +92,5 @@ public class Stack <T> implements Iterable<T> {
 			builder.append(item + ",");			
 		}
 		return builder.toString();
-	}
-	public void reverse()
-	{
-		Collections.reverse(stack);
 	}
 }

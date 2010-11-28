@@ -127,7 +127,7 @@ public class ParseTreeTesting extends TestCase {
 	{
 		ParseTree tree= null;
 		try {
-			tree = ParseTree.makeTree("2 + 3",false);
+			tree = ParseTree.generate("2 + 3",false);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -144,7 +144,7 @@ public class ParseTreeTesting extends TestCase {
 	{
 		ParseTree tree = null;
 		try {
-			tree = ParseTree.makeTree("2+3/x",false);
+			tree = ParseTree.generate("2+3/x",false);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -162,7 +162,7 @@ public class ParseTreeTesting extends TestCase {
 	{
 		ParseTree tree = null;
 		try {
-			tree = ParseTree.makeTree("2+3/x",false);
+			tree = ParseTree.generate("2+3/x",false);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -176,7 +176,7 @@ public class ParseTreeTesting extends TestCase {
 		ParseTree tree = null;
 		try
 		{
-			tree = ParseTree.makeTree("3+5*5", false);
+			tree = ParseTree.generate("3+5*5", false);
 		}
 		catch (ParseException e) {
 			e.printStackTrace();
@@ -191,7 +191,7 @@ public class ParseTreeTesting extends TestCase {
 		ParseTree tree = null;
 		try
 		{
-			tree = ParseTree.makeTree("e+pi", false);
+			tree = ParseTree.generate("e+pi", false);
 		}
 		catch (ParseException e) {
 			e.printStackTrace();
@@ -206,7 +206,7 @@ public class ParseTreeTesting extends TestCase {
 		ParseTree tree = null;
 		try
 		{
-			tree = ParseTree.makeTree("(12-8)^2/2", false);
+			tree = ParseTree.generate("(12-8)^2/2", false);
 		}
 		catch (ParseException e) {
 			e.printStackTrace();
@@ -222,8 +222,8 @@ public class ParseTreeTesting extends TestCase {
 		ParseTree treeOptOff = null;		
 		try
 		{
-			treeOptOn = ParseTree.makeTree("(12-8)^2/2", true);
-			treeOptOff = ParseTree.makeTree("(12-8)^2/2", false);
+			treeOptOn = ParseTree.generate("(12-8)^2/2", true);
+			treeOptOff = ParseTree.generate("(12-8)^2/2", false);
 		}
 		catch (ParseException e) {
 			e.printStackTrace();
@@ -238,7 +238,7 @@ public class ParseTreeTesting extends TestCase {
 	{
 		ParseTree tree = null;
 		try {
-			tree = ParseTree.makeTree("-2+3/x",false);
+			tree = ParseTree.generate("-2+3/x",false);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -251,7 +251,7 @@ public class ParseTreeTesting extends TestCase {
 	{
 		ParseTree tree = null;
 		try {
-			tree = ParseTree.makeTree("12x + 4",false);
+			tree = ParseTree.generate("12x + 4",false);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -265,7 +265,7 @@ public class ParseTreeTesting extends TestCase {
 	{
 		ParseTree tree = null;
 		try {
-			tree = ParseTree.makeTree("3pix",false);
+			tree = ParseTree.generate("3pix",false);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -279,8 +279,8 @@ public class ParseTreeTesting extends TestCase {
 		ParseTree tree = null;
 		ParseTree tree2 = null;
 		try {
-			tree = ParseTree.makeTree("2x^2",false);
-			tree2 = ParseTree.makeTree("2*x^2",false);
+			tree = ParseTree.generate("2x^2",false);
+			tree2 = ParseTree.generate("2*x^2",false);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -294,7 +294,7 @@ public class ParseTreeTesting extends TestCase {
 		ParseTree tree = null;
 		try
 		{
-			tree = ParseTree.makeTree("3+5*5", true);
+			tree = ParseTree.generate("3+5*5", true);
 		}
 		catch (ParseException e) {
 			e.printStackTrace();
@@ -314,7 +314,7 @@ public class ParseTreeTesting extends TestCase {
 		ParseTree tree = null;		
 		try
 		{
-			tree = ParseTree.makeTree("(12-8)^2/", false);
+			tree = ParseTree.generate("(12-8)^2/", false);
 			assertTrue(false);
 		}
 		catch (ParseException e) {
@@ -330,7 +330,7 @@ public class ParseTreeTesting extends TestCase {
 		ParseTree tree = null;		
 		try
 		{
-			tree = ParseTree.makeTree("Bad", false);
+			tree = ParseTree.generate("Bad", false);
 			assertTrue(false);
 		}
 		catch (ParseException e) {
@@ -346,7 +346,7 @@ public class ParseTreeTesting extends TestCase {
 		ParseTree tree = null;		
 		try
 		{
-			tree = ParseTree.makeTree("Bad + x", false);
+			tree = ParseTree.generate("Bad + x", false);
 			assertTrue(false);
 		}
 		catch (ParseException e) {
@@ -359,7 +359,7 @@ public class ParseTreeTesting extends TestCase {
 	{
 		ParseTree tree = null;
 		try {
-			tree = ParseTree.makeTree("3PIx",false); //PI should be lower case.
+			tree = ParseTree.generate("3PIx",false); //PI should be lower case.
 			tree.eval(4);//just have this to get rid of the warning.
 			assertTrue(false);
 

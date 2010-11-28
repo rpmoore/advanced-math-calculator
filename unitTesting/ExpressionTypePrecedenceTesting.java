@@ -35,7 +35,7 @@ public class ExpressionTypePrecedenceTesting extends TestCase {
 		assertEquals(-1, ExpressionType.comparePrecedence(ExpressionType.ADD, ExpressionType.COS));
 		assertEquals(1,ExpressionType.comparePrecedence(ExpressionType.SIN, ExpressionType.DIVIDE));
 		assertEquals(0,ExpressionType.comparePrecedence(ExpressionType.ADD, ExpressionType.ADD));
-		assertEquals(0,ExpressionType.comparePrecedence(ExpressionType.ADD, ExpressionType.SUBTRACT));
+		assertEquals(-1,ExpressionType.comparePrecedence(ExpressionType.ADD, ExpressionType.SUBTRACT));
 		assertEquals(0,ExpressionType.comparePrecedence(ExpressionType.DIVIDE, ExpressionType.MULTIPLY));
 		assertEquals(-1,ExpressionType.comparePrecedence(ExpressionType.ADD, ExpressionType.MULTIPLY));
 		assertEquals(1,ExpressionType.comparePrecedence(ExpressionType.DIVIDE, ExpressionType.ADD));

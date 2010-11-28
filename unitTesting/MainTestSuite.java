@@ -28,7 +28,7 @@ public class MainTestSuite {
 		logger.info("Started main test suite.");
 		PropertyConfigurator.configure("logger.conf");
 		@SuppressWarnings("rawtypes")
-		Class testClass[] = {ParseTreeTesting.class,TrigFunctionTesting.class,IntegralTesting.class,StackTest.class,ExpressionTypePrecedenceTesting.class,RPNTesting.class};
+		Class testClass[] = {StackTest.class,QueueTest.class,ExpressionTypePrecedenceTesting.class,ExpressionLexerTest.class,ParseTreeTesting.class,TrigFunctionTesting.class,IntegralTesting.class,RPNTesting.class};
 		TestSuite suite = new TestSuite(testClass);
 		return suite;
 	}

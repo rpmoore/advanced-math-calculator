@@ -38,11 +38,6 @@ public class ParseTree implements Calculate {
 	private EquationToken lastToken;
 	private LinkedBlockingQueue<EquationToken> queue;
 
-	public static ParseTree makeTree(String expression,boolean optimize) throws ParseException
-	{
-		return new ParseTree(expression,optimize);
-	}
-
 	/**
 	 * Creates a ParseTree object that has a unique expression.  Once 
 	 * constructed the tree is generated and optimized.
@@ -153,14 +148,12 @@ public class ParseTree implements Calculate {
 	 * Attempts to optimize the tree to reduce the time when computing a value in the tree.
 	 */
 	private void optimizeTree() {
-		// TODO Auto-generated method stub
 
 		try {
 			double retVal = optimize(bTree.getRoot());
 			TreeNode<EquationToken> tempNode = new TreeNode<EquationToken>(new EquationToken("" + retVal, ExpressionType.NUMBER));
 			bTree.setRoot(tempNode);
 		} catch (OptimizeException e) {
-			// TODO Auto-generated catch block
 			//I should not need to do anything, This just means that not all of the
 			//tree could be optimized away.
 			return;
@@ -424,5 +417,12 @@ public class ParseTree implements Calculate {
 	public BinaryTree<EquationToken> getTree()
 	{
 		return bTree;
+	}
+
+	public static ParseTree generate(String expr) throws ParseException {		
+		return new ParseTree(expr,true);
+	}
+	public static ParseTree generate(String expr,boolean optimize) throws ParseException {		
+		return new ParseTree(expr,optimize);
 	}
 }

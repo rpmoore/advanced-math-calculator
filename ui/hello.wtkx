@@ -12,6 +12,10 @@
 								<TextInput wtkx:id="def_equation"
 									textSize="19">
 								</TextInput>
+								<BoxPane styles="{verticalAlignment:'bottom'}">
+									<Label text="Calculation Type:"/>
+									<ListButton wtkx:id="calcType" listData="['RPN','Tree']" />
+								</BoxPane>
 							</BoxPane>
 							<BoxPane>
 								<BoxPane styles="{verticalAlignment:'center'}">
@@ -26,6 +30,7 @@
 										wtkx:id="def_upperBound">
 									</TextInput>
 								</BoxPane>
+
 							</BoxPane>
 							<PushButton wtkx:id="def_solve" buttonData="Compute">
 							</PushButton>

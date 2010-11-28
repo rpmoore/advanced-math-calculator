@@ -186,16 +186,17 @@ public enum ExpressionType {
 
 	//precedence levels are as follows.
 	// 0 = terms
-	// 1 = add sub
+	// 1 = add
 	// 2 = mult divide
-	// 3 = exponent
-	// 4 = functions
-	// 5 = parans
+	// 3 = sub -- doing this so that the sub is a single unary op.
+	// 4 = exponent
+	// 5 = functions
+	// 6 = parans
 	public static int getPrecedence(ExpressionType type)
 	{
 		if(type.isFunction())
 		{
-			return 4;
+			return 5;
 		}
 		if(type.isTerm())
 		{
@@ -204,8 +205,9 @@ public enum ExpressionType {
 		switch(type)
 		{
 		case ADD:
-		case SUBTRACT:
 			return 1;
+		case SUBTRACT:
+			return 3;
 		case MULTIPLY:
 		case DIVIDE:
 			return 2;
@@ -213,7 +215,7 @@ public enum ExpressionType {
 			return 4;
 		case LEFTPAREN:
 		case RIGHTPAREN:
-			return 5;
+			return 6;
 		default:
 			return -1;
 		}

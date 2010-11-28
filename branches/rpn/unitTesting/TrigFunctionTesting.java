@@ -111,7 +111,7 @@ public class TrigFunctionTesting extends TestCase {
     public void testLexLogEval()
     {
     	try {
-			ParseTree tree = ParseTree.makeTree("log(x)", false);
+			ParseTree tree = ParseTree.generate("log(x)", false);
 			
 			assertEquals(Math.log10(5), tree.eval(5),0);
     	} catch (ParseException e) {
@@ -124,7 +124,7 @@ public class TrigFunctionTesting extends TestCase {
     public void testLexSinEval()
     {
     	try {
-			ParseTree tree = ParseTree.makeTree("sin(x)", false);
+			ParseTree tree = ParseTree.generate("sin(x)", false);
 			
 			assertEquals(Math.sin(5), tree.eval(5),0);
     	} catch (ParseException e) {
@@ -137,7 +137,7 @@ public class TrigFunctionTesting extends TestCase {
     public void testLexCosEval()
     {
     	try {
-			ParseTree tree = ParseTree.makeTree("cos(x)", false);
+			ParseTree tree = ParseTree.generate("cos(x)", false);
 			
 			assertEquals(Math.cos(5), tree.eval(5),0);
     	} catch (ParseException e) {
@@ -150,7 +150,7 @@ public class TrigFunctionTesting extends TestCase {
     public void testLexTanEval()
     {
     	try {
-			ParseTree tree = ParseTree.makeTree("tan(x)", false);
+			ParseTree tree = ParseTree.generate("tan(x)", false);
 			
 			assertEquals(Math.tan(5), tree.eval(5),0);
     	} catch (ParseException e) {
@@ -163,7 +163,7 @@ public class TrigFunctionTesting extends TestCase {
     public void testLexLNEval()
     {
     	try {
-			ParseTree tree = ParseTree.makeTree("ln(x)", false);
+			ParseTree tree = ParseTree.generate("ln(x)", false);
 			
 			assertEquals(Math.log(5), tree.eval(5),0);
     	} catch (ParseException e) {

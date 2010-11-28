@@ -29,10 +29,9 @@ public class RPNTesting extends TestCase {
 	{
 		try
 		{
-		
 			@SuppressWarnings("unused")
-			RPN rpnExpr = new RPN("x+x");
-			
+			RPN rpnExpr = RPN.generate("x+x");
+
 			assertTrue(true);
 		}
 		catch(ParseException exception)
@@ -40,27 +39,22 @@ public class RPNTesting extends TestCase {
 			//if we got here we have a bad expression
 			assertTrue(false);
 		}
-	
+
 	}
-	
-	public void testEval1() throws CalculateException
+
+	public void testEval1() throws CalculateException, ParseException
 	{
-		try {
-			RPN rpnExpr = new RPN("2+3");
-			assertTrue(true);
-			assertEquals(5.0, rpnExpr.eval(0),0);//this should eval exactly.
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			assertTrue(false);
-		}
-		
+		RPN rpnExpr = RPN.generate("2+3");
+		assertTrue(true);
+		assertEquals(5.0, rpnExpr.eval(0),0);//this should eval exactly.
+
 	}
-	
+
 	public void testEval2() throws CalculateException
 	{
 		try
 		{
-			RPN rpnExpr = new RPN("x");
+			RPN rpnExpr = RPN.generate("x");
 			assertTrue(true);
 			assertEquals(3, rpnExpr.eval(3),0);
 		}
@@ -73,7 +67,7 @@ public class RPNTesting extends TestCase {
 	{
 		try
 		{
-			RPN rpnExpr = new RPN("x+1");
+			RPN rpnExpr = RPN.generate("x+1");
 			assertTrue(true);
 			assertEquals(4, rpnExpr.eval(3),0);
 		}
@@ -86,7 +80,7 @@ public class RPNTesting extends TestCase {
 	{
 		try
 		{
-			RPN rpnExpr = new RPN("x*2");
+			RPN rpnExpr = RPN.generate("x*2");
 			assertTrue(true);
 			assertEquals(6, rpnExpr.eval(3),0);
 		}
@@ -99,7 +93,7 @@ public class RPNTesting extends TestCase {
 	{
 		try
 		{
-			RPN rpnExpr = new RPN("5-x");
+			RPN rpnExpr = RPN.generate("5-x");
 			assertTrue(true);
 			assertEquals(2, rpnExpr.eval(3),0);
 		}
@@ -112,7 +106,7 @@ public class RPNTesting extends TestCase {
 	{
 		try
 		{
-			RPN rpnExpr = new RPN("x+2*5");
+			RPN rpnExpr = RPN.generate("x+2*5");
 			assertTrue(true);
 			assertEquals(12, rpnExpr.eval(2),0);
 		}
@@ -120,5 +114,72 @@ public class RPNTesting extends TestCase {
 		{
 			assertTrue(false);
 		}
+	}
+	public void testEval7() throws CalculateException, ParseException
+	{
+
+		RPN rpnExpr = RPN.generate("x+2*5");
+		assertTrue(true);
+		assertEquals(12, rpnExpr.eval(2),0);
+		assertEquals(11, rpnExpr.eval(1),0);
+		assertEquals(10, rpnExpr.eval(0),0);
+		assertEquals(9, rpnExpr.eval(-1),0);
+	}
+	public void testEval8() throws ParseException, CalculateException
+	{
+
+		RPN	rpnExpr = RPN.generate("(12-8)^2/2");
+
+
+		assertEquals(8, rpnExpr.eval(0), 0);
+	}
+
+	public void testEval9() throws ParseException, CalculateException
+	{
+
+		RPN rpnExpr = RPN.generate("-2+3/x");		
+		assertEquals(-1.0, rpnExpr.eval(3),0);
+	}
+
+
+	public void testEval10() throws ParseException, CalculateException
+	{
+		RPN rpnExpr = RPN.generate("12x + 4");
+		assertEquals(16.0, rpnExpr.eval(1),0);
+	}
+
+
+
+	public void testEval11() throws ParseException, CalculateException
+	{
+		RPN rpnExpr = RPN.generate("3pix");
+		assertEquals(3 * Math.PI * 2, rpnExpr.eval(2),0);
+	}
+
+	public void testEval12() throws ParseException, CalculateException
+	{
+		RPN rpnExpr = RPN.generate("2+(-3+x)");
+		assertEquals(2+(-3+1),rpnExpr.eval(1),0);
+	}
+
+	public void testEval13() throws ParseException, CalculateException
+	{
+		RPN rpnExpr = RPN.generate("2+(-3x)");
+		assertEquals(2+(-3*2),rpnExpr.eval(2),0);
+	}
+	public void testEval14() throws ParseException, CalculateException
+	{
+		RPN rpnExpr = RPN.generate("2*-3x");
+		assertEquals(2*-3*2, rpnExpr.eval(2),0);
+	}
+	public void testEval15() throws ParseException, CalculateException
+	{
+		RPN rpnExpr = RPN.generate("2+(2*-3x)");
+		assertEquals(2+(2*-3*2),rpnExpr.eval(2),0);
+	}
+	public void testEval16() throws ParseException, CalculateException
+	{
+		RPN rpnExpr = RPN.generate("2+(2*(-3x))");
+		assertEquals(2+(2*(-3*2)),rpnExpr.eval(2),0);
 	}
 }

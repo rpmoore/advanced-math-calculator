@@ -166,7 +166,7 @@ public class PMain implements Application, ButtonPressListener,
 		final int index = list.getSelectedIndex();
 		if (index != previousIndex) {
 			final String item = (String) list.getSelectedItem();
-			if (item.equals("RPN")) {
+			if (item.equals("Stack")) {
 				calcMethodGen = new RPNGenerator();
 				logger.debug("Switching generator to RPNGenerator.");
 			} else if (item.equals("Tree")) {

@@ -1,5 +1,4 @@
-package defIntegral;
-
+package parser;
 /*
  * Copyright 2010 Ryan Moore
  *
@@ -16,6 +15,11 @@ package defIntegral;
  * limitations under the License.
  *  
  */
-public interface Calculate {
-	public double eval(double index) throws CalculateException;
+public class OptimizeException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4837101691556731997L;
+
 }

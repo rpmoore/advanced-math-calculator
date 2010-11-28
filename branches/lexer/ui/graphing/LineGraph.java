@@ -1,5 +1,20 @@
 package ui.graphing;
-
+/*
+ * Copyright 2010 Ryan Moore
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *  
+ */
 import java.awt.Color;
 import java.util.Iterator;
 
@@ -8,6 +23,7 @@ import org.apache.pivot.wtk.media.drawing.Canvas;
 import org.apache.pivot.wtk.media.drawing.Ellipse;
 
 import defIntegral.Calculate;
+import defIntegral.CalculateException;
 
 public class LineGraph <T extends Calculate> extends Canvas {
 	int leftBound, rightBound;
@@ -26,7 +42,7 @@ public class LineGraph <T extends Calculate> extends Canvas {
 		equationList.put(equation, color);
 	}
 	
-	public Color removeEquation(T equation)
+	public Color removeEquation(T equation) throws CalculateException
 	{
 		Color retValue = equationList.remove(equation);		
 		clearShapes();
@@ -46,7 +62,7 @@ public class LineGraph <T extends Calculate> extends Canvas {
 		clearShapes();
 	}
 	
-	public void generatePoints(double leftBound, double rightBound)
+	public void generatePoints(double leftBound, double rightBound) throws CalculateException
 	{
 		clearShapes();
 		int intLeftBound = (int) Math.round(Math.floor(leftBound));
@@ -61,7 +77,7 @@ public class LineGraph <T extends Calculate> extends Canvas {
 		}
 	}
 	
-	public void addPoint(int x)
+	public void addPoint(int x) throws CalculateException
 	{
 		Ellipse point;
 		Iterator<T> iter = equationList.iterator();

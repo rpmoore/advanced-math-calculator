@@ -1,11 +1,27 @@
-package bptree;
-
+package parser;
+/*
+ * Copyright 2010 Ryan Moore
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *  
+ */
 
 import java.text.ParseException;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import DataStructures.BinaryTree;
-import DataStructures.TreeNode;
+
+import dataStructures.BinaryTree;
+import dataStructures.TreeNode;
 import defIntegral.Calculate;
 
 /**
@@ -21,11 +37,6 @@ public class ParseTree implements Calculate {
 	private BinaryTree<EquationToken> bTree;//This is the final tree
 	private EquationToken lastToken;
 	private LinkedBlockingQueue<EquationToken> queue;
-
-	public static ParseTree makeTree(String expression,boolean optimize) throws ParseException
-	{
-		return new ParseTree(expression,optimize);
-	}
 
 	/**
 	 * Creates a ParseTree object that has a unique expression.  Once 
@@ -137,14 +148,12 @@ public class ParseTree implements Calculate {
 	 * Attempts to optimize the tree to reduce the time when computing a value in the tree.
 	 */
 	private void optimizeTree() {
-		// TODO Auto-generated method stub
 
 		try {
 			double retVal = optimize(bTree.getRoot());
 			TreeNode<EquationToken> tempNode = new TreeNode<EquationToken>(new EquationToken("" + retVal, ExpressionType.NUMBER));
 			bTree.setRoot(tempNode);
 		} catch (OptimizeException e) {
-			// TODO Auto-generated catch block
 			//I should not need to do anything, This just means that not all of the
 			//tree could be optimized away.
 			return;
@@ -408,5 +417,12 @@ public class ParseTree implements Calculate {
 	public BinaryTree<EquationToken> getTree()
 	{
 		return bTree;
+	}
+
+	public static ParseTree generate(String expr) throws ParseException {		
+		return new ParseTree(expr,true);
+	}
+	public static ParseTree generate(String expr,boolean optimize) throws ParseException {		
+		return new ParseTree(expr,optimize);
 	}
 }

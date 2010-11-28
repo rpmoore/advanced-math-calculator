@@ -1,5 +1,4 @@
-package defIntegral;
-
+package parser;
 /*
  * Copyright 2010 Ryan Moore
  *
@@ -16,6 +15,9 @@ package defIntegral;
  * limitations under the License.
  *  
  */
-public interface Calculate {
-	public double eval(double index) throws CalculateException;
+
+import java.util.Enumeration;
+
+public interface Lexer<E> extends Enumeration<E> {
+	E peek();
 }

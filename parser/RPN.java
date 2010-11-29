@@ -131,10 +131,16 @@ public final class RPN implements Calculate {
 		while(!exprQueue.isEmpty())
 		{
 			EquationToken curr = exprQueue.dequeue();
-			if(curr.getType().isTerm() || curr.getType().isFunction())
+			if(curr.getType().isTerm())
 			{
 				//push the value onto the calc stack.
 				calcStack.push(ExpressionType.eval(curr, index));
+			}
+			else if(curr.getType().isFunction())
+			{
+				//pop a value off the calc stack and eval the function
+				double value = calcStack.pop();
+				calcStack.push(ExpressionType.eval(curr, 0,value,index));
 			}
 			else if(curr.getType().isOp())
 			{

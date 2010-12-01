@@ -70,6 +70,7 @@ public class LineGraph<T extends Calculate> extends Canvas {
 		clearShapes();
 		// get the bounds of the canvas
 		final Bounds canvasSize = getBounds();
+		//assuming length is in pixels.
 
 		final int intLeftBound = (int) Math.round(Math.floor(leftBound));
 		final int intRightBound = (int) Math.round(Math.floor(rightBound));

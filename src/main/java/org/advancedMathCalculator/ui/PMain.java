@@ -178,7 +178,7 @@ public class PMain implements Application, ButtonPressListener,
 			throws Exception {
 		final WTKXSerializer wtkxSerializer = new WTKXSerializer();
 		window = (Window) wtkxSerializer
-				.readObject(this, "../../../hello.wtkx");
+				.readObject(this, "hello.wtkx");
 		def_equation = (TextInput) wtkxSerializer.get("def_equation");
 		def_equation.getComponentKeyListeners().add(this);
 		def_upperBound = (TextInput) wtkxSerializer.get("def_upperBound");

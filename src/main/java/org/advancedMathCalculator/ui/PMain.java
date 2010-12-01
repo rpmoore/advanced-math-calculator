@@ -187,6 +187,7 @@ public class PMain implements Application, ButtonPressListener,
 		def_lowerBound.getComponentKeyListeners().add(this);
 		def_Button = (PushButton) wtkxSerializer.get("def_solve");
 		def_Button.getButtonPressListeners().add(this);
+		def_Button.getComponentKeyListeners().add(this);
 		listButton = (ListButton) wtkxSerializer.get("calcType");
 		listButton.getListButtonSelectionListeners().add(this);
 		listButton.setSelectedIndex(0);

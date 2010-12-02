@@ -17,6 +17,7 @@ package org.advancedMathCalculator.ui;
  *  
  */
 //import java.awt.Color;
+import java.awt.Color;
 import java.text.ParseException;
 import java.util.EmptyStackException;
 
@@ -26,8 +27,10 @@ import org.advancedMathCalculator.defIntegral.SimpsonsRule;
 import org.advancedMathCalculator.parser.generators.ParserGenerator;
 import org.advancedMathCalculator.parser.generators.RPNGenerator;
 import org.advancedMathCalculator.parser.generators.TreeGenerator;
+import org.advancedMathCalculator.ui.graphing.LineGraph;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Application;
+import org.apache.pivot.wtk.BoxPane;
 import org.apache.pivot.wtk.Button;
 import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
@@ -46,9 +49,9 @@ import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtkx.WTKXSerializer;
 
 public class PMain implements Application, ButtonPressListener,
-		ComponentKeyListener, ListButtonSelectionListener {
+ComponentKeyListener, ListButtonSelectionListener {
 
-	// private LineGraph<ParseTree> graph = null;
+
 	/**
 	 * @param args
 	 */
@@ -64,11 +67,16 @@ public class PMain implements Application, ButtonPressListener,
 	private TextInput def_lowerBound = null;
 	private PushButton def_Button = null;
 	private ListButton listButton = null;
-
+	private ListButton graphData = null;
+	private BoxPane graphBox = null;
+	private LineGraph<Calculate> graph = null;
+	private boolean setGraph;
+	
 	public void buttonPressed(Button arg0) {
 		processIntegral();
 	}
 
+	
 	public boolean keyPressed(Component arg0, int arg1, KeyLocation arg2) {
 		if (arg1 == Keyboard.KeyCode.ENTER) {
 			processIntegral();
@@ -76,13 +84,13 @@ public class PMain implements Application, ButtonPressListener,
 		return true;
 	}
 
+	
 	public boolean keyReleased(Component arg0, int arg1, KeyLocation arg2) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	
 	public boolean keyTyped(Component arg0, char arg1) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -106,8 +114,8 @@ public class PMain implements Application, ButtonPressListener,
 				Prompt.prompt(
 						MessageType.ERROR,
 						"The definite integral lower bound ("
-								+ def_lowerBound.getText()
-								+ ") is not a number.", window);
+						+ def_lowerBound.getText()
+						+ ") is not a number.", window);
 				return;
 			}
 			try {
@@ -116,21 +124,25 @@ public class PMain implements Application, ButtonPressListener,
 				Prompt.prompt(
 						MessageType.ERROR,
 						"The definite integral upper bound ("
-								+ def_upperBound.getText()
-								+ ") is not a number.", window);
+						+ def_upperBound.getText()
+						+ ") is not a number.", window);
 				return;
 			}
 			try {
 				calcMethod = calcMethodGen.generate(def_equation.getText());
-				// graph.addEquation(pTree, Color.RED);
-				// graph.generatePoints(lower, upper);
+				if(setGraph)
+				{
+					graph.addEquation(calcMethod, Color.RED);
+					graph.generatePoints(lower, upper);
+				}
+
 				Prompt.prompt(
 						MessageType.INFO,
 						"The answer to 'f(x)="
-								+ def_equation.getText()
-								+ "' is: "
-								+ SimpsonsRule
-										.compute(calcMethod, lower, upper),
+						+ def_equation.getText()
+						+ "' is: "
+						+ SimpsonsRule
+						.compute(calcMethod, lower, upper),
 						window);
 			} catch (final ParseException e) {
 				Prompt.prompt(MessageType.ERROR, e.getMessage()
@@ -147,26 +159,54 @@ public class PMain implements Application, ButtonPressListener,
 		}
 	}
 
+	
 	public void resume() throws Exception {
 	}
 
+	
 	public void selectedIndexChanged(ListButton list, int previousIndex) {
 		final int index = list.getSelectedIndex();
 		if (index != previousIndex) {
-			final String item = (String) list.getSelectedItem();
-			if (item.equals("Stack")) {
-				calcMethodGen = new RPNGenerator();
-			} else if (item.equals("Tree")) {
-				calcMethodGen = new TreeGenerator();
-			} else {
-				// Unknown calc type.
-				Prompt.prompt(MessageType.ERROR,
-						"Invalid Calculation Type. Please select again.",
-						window);
+			if(list == listButton)
+			{
+				final String item = (String) list.getSelectedItem();
+				if (item.equals("Stack")) {
+					calcMethodGen = new RPNGenerator();
+				} else if (item.equals("Tree")) {
+					calcMethodGen = new TreeGenerator();
+				} else {
+					// Unknown calc type.
+					Prompt.prompt(MessageType.ERROR,
+							"Invalid Calculation Type. Please select again.",
+							window);
+				}
+
+			}
+			else if(list == graphData)
+			{
+					final String item = (String) list.getSelectedItem();
+					if(item.equals("False"))
+					{
+						graphBox.setEnabled(false);
+						graphBox.setVisible(false);
+						setGraph = false;
+					}
+					else if (item.equals("True"))
+					{
+						graphBox.setEnabled(true);
+						graphBox.setVisible(true);
+						setGraph = true;
+					}
+					else
+					{
+						//Unknown type.
+						Prompt.prompt(MessageType.ERROR, "Invalid graphing option.", window);
+					}
 			}
 		}
 	}
 
+	
 	public boolean shutdown(boolean arg0) throws Exception {
 		if (window != null) {
 			window.close();
@@ -174,11 +214,11 @@ public class PMain implements Application, ButtonPressListener,
 		return false;
 	}
 
+	
 	public void startup(Display display, Map<String, String> arg1)
-			throws Exception {
+	throws Exception {
 		final WTKXSerializer wtkxSerializer = new WTKXSerializer();
-		window = (Window) wtkxSerializer
-				.readObject(this, "hello.wtkx");
+		window = (Window) wtkxSerializer.readObject(this, "hello.wtkx");
 		def_equation = (TextInput) wtkxSerializer.get("def_equation");
 		def_equation.getComponentKeyListeners().add(this);
 		def_upperBound = (TextInput) wtkxSerializer.get("def_upperBound");
@@ -187,15 +227,21 @@ public class PMain implements Application, ButtonPressListener,
 		def_lowerBound.getComponentKeyListeners().add(this);
 		def_Button = (PushButton) wtkxSerializer.get("def_solve");
 		def_Button.getButtonPressListeners().add(this);
+		graphBox = (BoxPane) wtkxSerializer.get("graphBox");
 		listButton = (ListButton) wtkxSerializer.get("calcType");
 		listButton.getListButtonSelectionListeners().add(this);
 		listButton.setSelectedIndex(0);
-		// LineGraph<ParseTree> lineGraph = (LineGraph<ParseTree>)
-		// wtkxSerializer.get("graph");
-		// graph = lineGraph;
+		graphData = (ListButton) wtkxSerializer.get("graphData");
+		graphData.getListButtonSelectionListeners().add(this);
+		graphData.setSelectedIndex(0);
+
+		@SuppressWarnings("unchecked")
+		LineGraph<Calculate> lineGraph = (LineGraph<Calculate>) wtkxSerializer.get("graph");
+		graph = lineGraph;
 		window.open(display);
 	}
 
+	
 	public void suspend() throws Exception {
 	}
 }

@@ -184,4 +184,10 @@ public class RPNTest extends TestCase {
 		RPN rpnExpr = RPN.generate("2+(2*(-3x))");
 		assertEquals(2+(2*(-3*2)),rpnExpr.eval(2),0);
 	}
+
+	public void testEval17() throws ParseException, CalculateException
+	{
+		RPN rpnExpr = RPN.generate("ln(x)");
+		assertEquals(1,rpnExpr.eval(Math.E),0);
+	}
 }

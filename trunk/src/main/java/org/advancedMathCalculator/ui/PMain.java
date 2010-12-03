@@ -46,7 +46,7 @@ import org.apache.pivot.wtk.Window;
 import org.apache.pivot.wtkx.WTKXSerializer;
 
 public class PMain implements Application, ButtonPressListener,
-		ComponentKeyListener, ListButtonSelectionListener {
+ComponentKeyListener, ListButtonSelectionListener {
 
 	// private LineGraph<ParseTree> graph = null;
 	/**
@@ -64,6 +64,8 @@ public class PMain implements Application, ButtonPressListener,
 	private TextInput def_lowerBound = null;
 	private PushButton def_Button = null;
 	private ListButton listButton = null;
+	private PushButton calc_Button = null;
+	private TextInput calc_equation = null;
 
 	public void buttonPressed(Button arg0) {
 		processIntegral();
@@ -106,8 +108,8 @@ public class PMain implements Application, ButtonPressListener,
 				Prompt.prompt(
 						MessageType.ERROR,
 						"The definite integral lower bound ("
-								+ def_lowerBound.getText()
-								+ ") is not a number.", window);
+						+ def_lowerBound.getText()
+						+ ") is not a number.", window);
 				return;
 			}
 			try {
@@ -116,8 +118,8 @@ public class PMain implements Application, ButtonPressListener,
 				Prompt.prompt(
 						MessageType.ERROR,
 						"The definite integral upper bound ("
-								+ def_upperBound.getText()
-								+ ") is not a number.", window);
+						+ def_upperBound.getText()
+						+ ") is not a number.", window);
 				return;
 			}
 			try {
@@ -127,10 +129,10 @@ public class PMain implements Application, ButtonPressListener,
 				Prompt.prompt(
 						MessageType.INFO,
 						"The answer to 'f(x)="
-								+ def_equation.getText()
-								+ "' is: "
-								+ SimpsonsRule
-										.compute(calcMethod, lower, upper),
+						+ def_equation.getText()
+						+ "' is: "
+						+ SimpsonsRule
+						.compute(calcMethod, lower, upper),
 						window);
 			} catch (final ParseException e) {
 				Prompt.prompt(MessageType.ERROR, e.getMessage()
@@ -145,6 +147,28 @@ public class PMain implements Application, ButtonPressListener,
 			}
 
 		}
+	}
+
+	private void processCalc()
+	{
+
+		//check equation to make sure there are no x's in the equation.
+		if(calc_equation.getText().contains("x"))
+		{
+			Prompt.prompt(MessageType.ERROR,"There cannot be an x in the equation at index: " + calc_equation.getText().indexOf('x'), window);
+		}
+		else
+		{
+			try {
+				Prompt.prompt("The answer to 'f(x) = " + calc_equation.getText() + "' is: " + (new RPNGenerator().generate(calc_equation.getText()).eval(0)), window);
+			} catch (ParseException e) {
+				Prompt.prompt(MessageType.ERROR, e.getMessage()
+						+ " at position " + e.getErrorOffset() + ".", window);
+			} catch (CalculateException e) {
+				Prompt.prompt(MessageType.ERROR, e.getMessage(), window);
+			}
+		}
+
 	}
 
 	public void resume() throws Exception {
@@ -175,10 +199,10 @@ public class PMain implements Application, ButtonPressListener,
 	}
 
 	public void startup(Display display, Map<String, String> arg1)
-			throws Exception {
+	throws Exception {
 		final WTKXSerializer wtkxSerializer = new WTKXSerializer();
 		window = (Window) wtkxSerializer
-				.readObject(this, "hello.wtkx");
+		.readObject(this, "hello.wtkx");
 		def_equation = (TextInput) wtkxSerializer.get("def_equation");
 		def_equation.getComponentKeyListeners().add(this);
 		def_upperBound = (TextInput) wtkxSerializer.get("def_upperBound");
@@ -194,6 +218,54 @@ public class PMain implements Application, ButtonPressListener,
 		// LineGraph<ParseTree> lineGraph = (LineGraph<ParseTree>)
 		// wtkxSerializer.get("graph");
 		// graph = lineGraph;
+
+		calc_equation = (TextInput) wtkxSerializer.get("sciCalcExpr");
+		calc_equation.getComponentKeyListeners().add(new ComponentKeyListener() {
+
+			public boolean keyTyped(Component arg0, char arg1) {
+				if (arg1 == Keyboard.KeyCode.ENTER) {
+					processCalc();
+				}
+				return true;
+			}
+
+			public boolean keyReleased(Component arg0, int arg1, KeyLocation arg2) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			public boolean keyPressed(Component arg0, int arg1, KeyLocation arg2) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		});
+		calc_Button = (PushButton) wtkxSerializer.get("sciCalcButton");
+		calc_Button.getComponentKeyListeners().add(new ComponentKeyListener() {
+
+			public boolean keyTyped(Component arg0, char arg1) {
+				if(arg1 == Keyboard.KeyCode.ENTER)
+				{
+					processCalc();
+				}
+				return true;
+			}
+
+			public boolean keyReleased(Component arg0, int arg1, KeyLocation arg2) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			public boolean keyPressed(Component arg0, int arg1, KeyLocation arg2) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		});
+		calc_Button.getButtonPressListeners().add(new ButtonPressListener() {
+
+			public void buttonPressed(Button arg0) {
+				processCalc();
+			}
+		});
 		window.open(display);
 	}
 

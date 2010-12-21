@@ -12,7 +12,7 @@
 									<BoxPane styles="{verticalAlignment:'center'}" orientation="vertical">
 										<BoxPane styles="{verticalAlignment:'center'}">
 											<ImageView image="@46px-WPint.png" styles="{preserveAspectRatio:true,horizontalAlignment:'left', verticalAlignment:'center'}" />
-											<TextInput wtkx:id="def_equation" textSize="19" tooltipText="Enter the equation to compute the definite integral on."/>
+											<EquationTextInput xmlns="org.advancedMathCalculator.ui" wtkx:id="def_equation" textSize="19" tooltipText="Enter the equation to compute the definite integral on."/>
 										</BoxPane>
 										<BoxPane styles="{verticalAlignment:'center'}" orientation="horizontal">
 											<BoxPane styles="{verticalAlignment:'center'}">
@@ -49,9 +49,9 @@
 							<content>
 								
 								<BoxPane styles="{padding:6,verticalAlignment:'center',horizontalAlignment:'center'}">
-									<TextInput wtkx:id="sciCalcExpr"
+									<EquationTextInput xmlns="org.advancedMathCalculator.ui" wtkx:id="sciCalcExpr"
 										tooltipText="Enter an expression to compute the answer for.">
-									</TextInput>
+									</EquationTextInput>
 									<PushButton buttonData="Calculate"
 										wtkx:id="sciCalcButton" tooltipText="Compute the answer for the equation entered into the left.">
 									</PushButton>

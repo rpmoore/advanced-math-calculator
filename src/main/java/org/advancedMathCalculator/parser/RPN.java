@@ -26,6 +26,7 @@ import org.advancedMathCalculator.dataStructures.Stack;
 import org.advancedMathCalculator.defIntegral.Calculate;
 import org.advancedMathCalculator.defIntegral.CalculateException;
 
+
 /**
  * A stack based implementation of parsing an equation. Converts an infix
  * expression into an RPN expression to then perform calculations on the

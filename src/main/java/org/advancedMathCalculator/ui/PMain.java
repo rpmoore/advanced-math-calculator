@@ -18,7 +18,6 @@ package org.advancedMathCalculator.ui;
  */
 //import java.awt.Color;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 import org.advancedMathCalculator.defIntegral.Calculate;
@@ -57,18 +56,16 @@ ComponentKeyListener, ListButtonSelectionListener {
 		DesktopApplicationContext.main(PMain.class, args);
 	}
 
-	final private ArrayList<String> exprs = new ArrayList<String>();
 	private ParserGenerator calcMethodGen = null;
 	private Calculate calcMethod = null;
 	private Window window = null;
-	private TextInput def_equation = null;
+	private EquationTextInput def_equation = null;
 	private TextInput def_upperBound = null;
 	private TextInput def_lowerBound = null;
 	private PushButton def_Button = null;
 	private ListButton listButton = null;
 	private PushButton calc_Button = null;
-	private TextInput calc_equation = null;
-	private static int currentIndex = -1;
+	private EquationTextInput calc_equation = null;
 	public void buttonPressed(Button arg0) {
 		processIntegral();
 	}
@@ -152,18 +149,7 @@ ComponentKeyListener, ListButtonSelectionListener {
 	}
 
 	private void processCalc()
-	{
-		//save the equation off into the list.  Just as long as the equations isn't already in the list.
-		//add to the end of the list.
-		if(currentIndex< 0)	
-		{
-			exprs.add(calc_equation.getText());
-		}
-		else if(!exprs.get(exprs.size()-1).equals(calc_equation.getText()))
-		{
-			exprs.add(exprs.size()-1, calc_equation.getText());
-		}
-		
+	{		
 		//check equation to make sure there are no x's in the equation.
 		if(calc_equation.getText().contains("x"))
 		{
@@ -215,7 +201,7 @@ ComponentKeyListener, ListButtonSelectionListener {
 		final WTKXSerializer wtkxSerializer = new WTKXSerializer();
 		window = (Window) wtkxSerializer
 		.readObject(this, "hello.wtkx");
-		def_equation = (TextInput) wtkxSerializer.get("def_equation");
+		def_equation = (EquationTextInput) wtkxSerializer.get("def_equation");
 		def_equation.getComponentKeyListeners().add(this);
 		def_upperBound = (TextInput) wtkxSerializer.get("def_upperBound");
 		def_upperBound.getComponentKeyListeners().add(this);
@@ -231,15 +217,12 @@ ComponentKeyListener, ListButtonSelectionListener {
 		// wtkxSerializer.get("graph");
 		// graph = lineGraph;
 
-		calc_equation = (TextInput) wtkxSerializer.get("sciCalcExpr");
+		calc_equation = (EquationTextInput) wtkxSerializer.get("sciCalcExpr");
 		calc_equation.getComponentKeyListeners().add(new ComponentKeyListener() {
 
 			public boolean keyTyped(Component arg0, char arg1) {
 				if (arg1 == Keyboard.KeyCode.ENTER) {
 					processCalc();
-
-					//update currentIndex
-					currentIndex = exprs.size()-1;
 				}
 				return true;
 			}
@@ -249,32 +232,6 @@ ComponentKeyListener, ListButtonSelectionListener {
 			}
 
 			public boolean keyPressed(Component arg0, int arg1, KeyLocation arg2) {
-				if(arg1 == Keyboard.KeyCode.DOWN)//implement history
-				{
-					if(currentIndex > 0)
-					{
-						currentIndex--;
-						calc_equation.setText(exprs.get(currentIndex));
-					}
-					else if(currentIndex == 0)
-					{
-						calc_equation.setText(exprs.get(0));
-					}
-					return true;
-				}
-				else if(arg1 == Keyboard.KeyCode.UP)
-				{
-					if(currentIndex != exprs.size()-1 && currentIndex > 0)
-					{
-						currentIndex++;
-						calc_equation.setText(exprs.get(currentIndex));
-					}
-					else if(currentIndex == exprs.size()-2)
-					{
-						calc_equation.setText("");//clear the text.
-					}
-					return true;
-				}
 				return false;
 			}
 		});
@@ -285,7 +242,7 @@ ComponentKeyListener, ListButtonSelectionListener {
 				if(arg1 == Keyboard.KeyCode.ENTER)
 				{
 					processCalc();
-					currentIndex = exprs.size()-1;
+					
 				}
 				return true;
 			}
@@ -302,7 +259,6 @@ ComponentKeyListener, ListButtonSelectionListener {
 
 			public void buttonPressed(Button arg0) {
 				processCalc();
-				currentIndex = exprs.size()-1;
 			}
 		});
 		window.open(display);

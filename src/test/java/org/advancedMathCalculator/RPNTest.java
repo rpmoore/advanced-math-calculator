@@ -18,11 +18,10 @@ package org.advancedMathCalculator;
  */
 import java.text.ParseException;
 
+import junit.framework.TestCase;
+
 import org.advancedMathCalculator.defIntegral.CalculateException;
 import org.advancedMathCalculator.parser.RPN;
-
-
-import junit.framework.TestCase;
 
 
 public class RPNTest extends TestCase {

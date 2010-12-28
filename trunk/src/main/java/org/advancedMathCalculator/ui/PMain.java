@@ -166,7 +166,7 @@ ComponentKeyListener, ListButtonSelectionListener {
 				Prompt.prompt(MessageType.ERROR, e.getMessage(), window);
 			}
 		}
-
+		calc_equation.addExpression();
 	}
 
 	public void resume() throws Exception {

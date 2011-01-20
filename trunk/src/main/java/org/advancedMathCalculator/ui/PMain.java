@@ -150,6 +150,7 @@ ComponentKeyListener, ListButtonSelectionListener {
 
 	private void processCalc()
 	{		
+		boolean valid = false;
 		//check equation to make sure there are no x's in the equation.
 		if(calc_equation.getText().contains("x"))
 		{
@@ -159,6 +160,7 @@ ComponentKeyListener, ListButtonSelectionListener {
 		{
 			try {
 				Prompt.prompt("The answer to 'f(x) = " + calc_equation.getText() + "' is: " + (new RPNGenerator().generate(calc_equation.getText()).eval(0)), window);
+				valid = true;
 			} catch (ParseException e) {
 				Prompt.prompt(MessageType.ERROR, e.getMessage()
 						+ " at position " + e.getErrorOffset() + ".", window);
@@ -167,6 +169,7 @@ ComponentKeyListener, ListButtonSelectionListener {
 			}
 		}
 		calc_equation.addExpression();
+		calc_equation.setCurrentValid(valid);
 	}
 
 	public void resume() throws Exception {

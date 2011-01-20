@@ -11,13 +11,14 @@ import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.TextInput;
 
 public class EquationTextInput extends TextInput{
-	private final EquationTextInput thisRef = this;
 	private final ArrayList<EquationEntry> equationList;
 	private int index;
+	private final Color defaultColor;
 	public EquationTextInput() {
 		super();
 		this.equationList = new ArrayList<EquationEntry>();
 		index = -1; //starting index: -1 since there isn't any data in the ArrayList.
+		defaultColor = (Color) this.getStyles().get("backgroundColor");
 		//Add the code to handle the up and down key presses.
 		this.getComponentKeyListeners().add(new ComponentKeyListener() {
 
@@ -30,52 +31,59 @@ public class EquationTextInput extends TextInput{
 			}
 
 			public boolean keyPressed(Component arg0, int arg1, KeyLocation arg2) {
-				if(arg1 == Keyboard.KeyCode.DOWN)
-				{
-					if(equationList.size() > 0 )
-					{
-						if(index < equationList.size())
-						{
-							if(index == equationList.size()-1)
-							{
-								thisRef.setText("");//clear the list.
-								index++;//set one outside of the size.
-							}
-							else
-							{
-								index++;
-								thisRef.setText(equationList.get(index).getEquation());
-							}	
-						}
-					}
-					else
-					{
-						//clear the text
-						thisRef.setText("");
-					}
-					System.out.println("<EquationTextInput> KeyPress: DOWN - index " + index);
-					return true;
-				}
-				else if(arg1 == Keyboard.KeyCode.UP)
-				{
-					if(index > 0)
-					{
-						index--;
-						thisRef.setText(equationList.get(index).getEquation());
-					}
-					System.out.println("<EquationTextInput> KeyPress: UP - index " + index);
-					return true;
-				}
-				else if(arg1 != Keyboard.KeyCode.ENTER)
-				{
-					index = equationList.size();//this means we are editing the current item and this is a place holder for when color gets enabled.
-					System.out.println("<EquationTextInput> KeyPress: OTHER - index " + index);
-				}
-				return false;
+				return processKeyPress(arg1);
 			}
 		});
 	}
 
+	private boolean processKeyPress(int arg1) {
+		if(arg1 == Keyboard.KeyCode.DOWN)
+		{
+			if(equationList.size() > 0 )
+			{
+				if(index < equationList.size())
+				{
+					if(index == equationList.size()-1)
+					{
+						this.setText("");//clear the list.
+						index++;//set one outside of the size.
+						this.updateColor(defaultColor);
+					}
+					else
+					{
+						index++;
+						final EquationEntry entry = equationList.get(index);
+						this.setText(entry.getEquation());
+						this.updateColor(entry.getColor());
+					}	
+				}
+			}
+			else
+			{
+				//clear the text
+				this.setText("");
+				this.updateColor(defaultColor);
+			}
+			return true;
+		}
+		else if(arg1 == Keyboard.KeyCode.UP)
+		{
+			if(index > 0)
+			{
+				index--;
+				final EquationEntry entry = equationList.get(index);
+				this.setText(entry.getEquation());
+				this.updateColor(entry.getColor());
+			}
+			return true;
+		}
+		else if(arg1 != Keyboard.KeyCode.ENTER)
+		{
+			index = equationList.size();//this means we are editing the current item and this is a place holder for when color gets enabled.
+		}
+		return false;
+	}
+	
 	public void addExpression()
 	{
 		//when adding an expression be sure to re-set the index to the end of the list.
@@ -84,13 +92,23 @@ public class EquationTextInput extends TextInput{
 		{
 			equationList.add(new EquationEntry(this.getText()));
 			index = equationList.size()-1;//sub 1 for correct indexing.
-			System.out.println("<EquationTextInput> Adding new equation: index " + index);
 		}
 	}	
 
+	public void updateColor(Color newcolor)
+	{
+		this.getStyles().put("backgroundColor", newcolor);
+	}
+	
+	/**
+	 * Set weather the current equation is valid or not.
+	 * @param isValid
+	 */
 	public void setCurrentValid(boolean isValid)
 	{
-
+		final EquationEntry entry = equationList.get(index);
+		entry.setValid(isValid);
+		updateColor(entry.getColor());
 	}
 
 	private class EquationEntry
@@ -111,15 +129,15 @@ public class EquationTextInput extends TextInput{
 			return equation;
 		}
 
-		public Color returnColor()
+		public Color getColor()
 		{
 			if(this.isValid)
 			{
-				return Color.getHSBColor(0x00, 0xdd, 0x77);
+				return new Color(0x76,0xfb,0x6c);//light green
 			}
 			else
 			{
-				return Color.getHSBColor(0xff, 0x44, 0x44);
+				return new Color(0xff, 0x44, 0x44);//light red
 			}
 		}
 	}

@@ -1,0 +1,12 @@
+<calculator:ScientificCalculatorPanel
+bxml:id="calculator"
+xmlns="org.apache.pivot.wtk"
+xmlns:bxml="http://pivot.apache.org/bxml"
+xmlns:calculator="org.advancedMathCalculator.ui.calculator">
+<Border>
+<Label bxml:id="label" text="I has text?"/>
+</Border>
+
+
+
+</calculator:ScientificCalculatorPanel>

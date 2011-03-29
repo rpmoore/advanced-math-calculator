@@ -1,0 +1,12 @@
+<integral:DefIntegralPanel
+bxml:id="integral"
+xmlns="org.apache.pivot.wtk"
+xmlns:bxml="http://pivot.apache.org/bxml"
+xmlns:integral="org.advancedMathCalculator.ui.integral"
+>
+
+<BoxPane>
+<Label text="Definite Integral"/>
+</BoxPane>
+
+</integral:DefIntegralPanel>

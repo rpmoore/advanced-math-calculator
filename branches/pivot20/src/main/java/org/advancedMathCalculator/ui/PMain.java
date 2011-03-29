@@ -17,6 +17,7 @@ package org.advancedMathCalculator.ui;
  *  
  */
 //import java.awt.Color;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.EmptyStackException;
 
@@ -25,28 +26,22 @@ import org.advancedMathCalculator.defIntegral.CalculateException;
 import org.advancedMathCalculator.defIntegral.SimpsonsRule;
 import org.advancedMathCalculator.parser.generators.ParserGenerator;
 import org.advancedMathCalculator.parser.generators.RPNGenerator;
-import org.advancedMathCalculator.parser.generators.TreeGenerator;
+import org.advancedMathCalculator.ui.calculator.ScientificCalculatorPanel;
+import org.advancedMathCalculator.ui.graphing.IntegralGraph;
+import org.advancedMathCalculator.ui.integral.DefIntegralPanel;
+import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.wtk.Application;
-import org.apache.pivot.wtk.Button;
-import org.apache.pivot.wtk.ButtonPressListener;
-import org.apache.pivot.wtk.Component;
-import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.DesktopApplicationContext;
 import org.apache.pivot.wtk.Display;
-import org.apache.pivot.wtk.Keyboard;
-import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.ListButton;
-import org.apache.pivot.wtk.ListButtonSelectionListener;
 import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.Window;
-import org.apache.pivot.wtkx.WTKXSerializer;
 
-public class PMain implements Application, ButtonPressListener,
-ComponentKeyListener, ListButtonSelectionListener {
+public class PMain implements Application {
 
 	// private LineGraph<ParseTree> graph = null;
 	/**
@@ -66,26 +61,8 @@ ComponentKeyListener, ListButtonSelectionListener {
 	private ListButton listButton = null;
 	private PushButton calc_Button = null;
 	private EquationTextInput calc_equation = null;
-	public void buttonPressed(Button arg0) {
-		processIntegral();
-	}
+
 	
-
-	public boolean keyPressed(Component arg0, int arg1, KeyLocation arg2) {
-		if (arg1 == Keyboard.KeyCode.ENTER) {
-			processIntegral();
-		}
-
-		return true;
-	}
-
-	public boolean keyReleased(Component arg0, int arg1, KeyLocation arg2) {
-		return false;
-	}
-
-	public boolean keyTyped(Component arg0, char arg1) {
-		return false;
-	}
 
 	private void processIntegral() {
 		// graph.clear();
@@ -172,26 +149,6 @@ ComponentKeyListener, ListButtonSelectionListener {
 		calc_equation.setCurrentValid(valid);
 	}
 
-	public void resume() throws Exception {
-	}
-
-	public void selectedIndexChanged(ListButton list, int previousIndex) {
-		final int index = list.getSelectedIndex();
-		if (index != previousIndex) {
-			final String item = (String) list.getSelectedItem();
-			if (item.equals("Stack")) {
-				calcMethodGen = new RPNGenerator();
-			} else if (item.equals("Tree")) {
-				calcMethodGen = new TreeGenerator();
-			} else {
-				// Unknown calc type.
-				Prompt.prompt(MessageType.ERROR,
-						"Invalid Calculation Type. Please select again.",
-						window);
-			}
-		}
-	}
-
 	public boolean shutdown(boolean arg0) throws Exception {
 		if (window != null) {
 			window.close();
@@ -201,72 +158,18 @@ ComponentKeyListener, ListButtonSelectionListener {
 
 	public void startup(Display display, Map<String, String> arg1)
 	throws Exception {
-		final WTKXSerializer wtkxSerializer = new WTKXSerializer();
-		window = (Window) wtkxSerializer
-		.readObject(this, "hello.wtkx");
-		def_equation = (EquationTextInput) wtkxSerializer.get("def_equation");
-		def_equation.getComponentKeyListeners().add(this);
-		def_upperBound = (TextInput) wtkxSerializer.get("def_upperBound");
-		def_upperBound.getComponentKeyListeners().add(this);
-		def_lowerBound = (TextInput) wtkxSerializer.get("def_lowerBound");
-		def_lowerBound.getComponentKeyListeners().add(this);
-		def_Button = (PushButton) wtkxSerializer.get("def_solve");
-		def_Button.getButtonPressListeners().add(this);
-		def_Button.getComponentKeyListeners().add(this);
-		listButton = (ListButton) wtkxSerializer.get("calcType");
-		listButton.getListButtonSelectionListeners().add(this);
-		listButton.setSelectedIndex(0);
-		// LineGraph<ParseTree> lineGraph = (LineGraph<ParseTree>)
-		// wtkxSerializer.get("graph");
-		// graph = lineGraph;
+		final BXMLSerializer bxmlSerializer = new BXMLSerializer();
 
-		calc_equation = (EquationTextInput) wtkxSerializer.get("sciCalcExpr");
-		calc_equation.getComponentKeyListeners().add(new ComponentKeyListener() {
-
-			public boolean keyTyped(Component arg0, char arg1) {
-				if (arg1 == Keyboard.KeyCode.ENTER) {
-					processCalc();
-				}
-				return true;
-			}
-
-			public boolean keyReleased(Component arg0, int arg1, KeyLocation arg2) {
-				return false;
-			}
-
-			public boolean keyPressed(Component arg0, int arg1, KeyLocation arg2) {
-				return false;
-			}
-		});
-		calc_Button = (PushButton) wtkxSerializer.get("sciCalcButton");
-		calc_Button.getComponentKeyListeners().add(new ComponentKeyListener() {
-
-			public boolean keyTyped(Component arg0, char arg1) {
-				if(arg1 == Keyboard.KeyCode.ENTER)
-				{
-					processCalc();
-					
-				}
-				return true;
-			}
-
-			public boolean keyReleased(Component arg0, int arg1, KeyLocation arg2) {
-				return false;
-			}
-
-			public boolean keyPressed(Component arg0, int arg1, KeyLocation arg2) {
-				return false;
-			}
-		});
-		calc_Button.getButtonPressListeners().add(new ButtonPressListener() {
-
-			public void buttonPressed(Button arg0) {
-				processCalc();
-			}
-		});
+		window = (Window)bxmlSerializer.readObject(PMain.class,"pMain.bxml");
+		
 		window.open(display);
 	}
 
 	public void suspend() throws Exception {
+	}
+
+	public void resume() throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }

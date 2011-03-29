@@ -17,7 +17,8 @@ package org.advancedMathCalculator.ui;
  *  
  */
 //import java.awt.Color;
-import java.net.URL;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.EmptyStackException;
 
@@ -27,13 +28,13 @@ import org.advancedMathCalculator.defIntegral.SimpsonsRule;
 import org.advancedMathCalculator.parser.generators.ParserGenerator;
 import org.advancedMathCalculator.parser.generators.RPNGenerator;
 import org.advancedMathCalculator.ui.calculator.ScientificCalculatorPanel;
-import org.advancedMathCalculator.ui.graphing.IntegralGraph;
-import org.advancedMathCalculator.ui.integral.DefIntegralPanel;
 import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.collections.Map;
+import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.wtk.Application;
 import org.apache.pivot.wtk.DesktopApplicationContext;
 import org.apache.pivot.wtk.Display;
+import org.apache.pivot.wtk.Frame;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.Prompt;
@@ -125,29 +126,7 @@ public class PMain implements Application {
 		}
 	}
 
-	private void processCalc()
-	{		
-		boolean valid = false;
-		//check equation to make sure there are no x's in the equation.
-		if(calc_equation.getText().contains("x"))
-		{
-			Prompt.prompt(MessageType.ERROR,"There cannot be an x in the equation at index: " + calc_equation.getText().indexOf('x'), window);
-		}
-		else
-		{
-			try {
-				Prompt.prompt("The answer to 'f(x) = " + calc_equation.getText() + "' is: " + (new RPNGenerator().generate(calc_equation.getText()).eval(0)), window);
-				valid = true;
-			} catch (ParseException e) {
-				Prompt.prompt(MessageType.ERROR, e.getMessage()
-						+ " at position " + e.getErrorOffset() + ".", window);
-			} catch (CalculateException e) {
-				Prompt.prompt(MessageType.ERROR, e.getMessage(), window);
-			}
-		}
-		calc_equation.addExpression();
-		calc_equation.setCurrentValid(valid);
-	}
+	
 
 	public boolean shutdown(boolean arg0) throws Exception {
 		if (window != null) {
@@ -159,9 +138,9 @@ public class PMain implements Application {
 	public void startup(Display display, Map<String, String> arg1)
 	throws Exception {
 		final BXMLSerializer bxmlSerializer = new BXMLSerializer();
-
+		bxmlSerializer.getNamespace().put("application", this);
 		window = (Window)bxmlSerializer.readObject(PMain.class,"pMain.bxml");
-		
+
 		window.open(display);
 	}
 

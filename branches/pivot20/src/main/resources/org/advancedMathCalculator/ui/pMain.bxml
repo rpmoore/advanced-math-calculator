@@ -1,36 +1,22 @@
 <Window title="Calc Help" maximized="true"
 	xmlns:bxml="http://pivot.apache.org/bxml"
 	xmlns:content="org.apache.pivot.wtk.content"
-	xmlns:integral="org.advancedMathCalculator.ui.integral"
-	xmlns:calculator="org.advancedMathCalculator.ui.calculator"
 	xmlns:ui="org.advancedMathCalculator.ui"
 	xmlns="org.apache.pivot.wtk">
 	  <bxml:define>
-        <bxml:include bxml:id="integral" src="integral/DefIntegralPanel.bxml"/>
-        <bxml:include bxml:id="calculator" src="calculator/ScientificCalculatorPanel.bxml"/>
+        <bxml:include bxml:id="defIntegral" src="integral/DefIntegralPanel.bxml"/>
+        <bxml:include bxml:id="sciCalculator" src="calculator/ScientificCalculatorPanel.bxml"/>
     </bxml:define>
 	<TabPane>
-		<integral:DefIntegralPanel visible="true" enabled="true">
+		<bxml:reference id="defIntegral">
 			<TabPane.tabData>
 				<content:ButtonData text="Definite Integral"/>
 			</TabPane.tabData>
-			</integral:DefIntegralPanel>
-		<calculator:ScientificCalculatorPanel visible="true" enabled="true">
+		</bxml:reference>
+		<bxml:reference id="sciCalculator">
 			<TabPane.tabData>
 				<content:ButtonData text="Scientific Calculator"/>
 			</TabPane.tabData>
-		</calculator:ScientificCalculatorPanel>
-		<BoxPane>
-			<TabPane.tabData>
-				<content:ButtonData text="Equation"/>
-			</TabPane.tabData>		
-				<ui:EquationTextInput />
-		</BoxPane>
-			<ui:EquationTextInput>
-		<TabPane.tabData>
-			<content:ButtonData text="Test?"/>
-		</TabPane.tabData>
-	</ui:EquationTextInput>
+		</bxml:reference>
 	</TabPane>
-
 </Window>

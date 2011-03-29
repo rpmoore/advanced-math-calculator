@@ -2,11 +2,28 @@
 xmlns="org.apache.pivot.wtk"
 xmlns:bxml="http://pivot.apache.org/bxml"
 xmlns:integral="org.advancedMathCalculator.ui.integral"
-orientation="VERTICAL" styles="{fill:true}"
->
-
-<Border>
-<Label text="Definite Integral"/>
+xmlns:ui="org.advancedMathCalculator.ui"
+xmlns:validator="org.apache.pivot.wtk.validation">
+	<bxml:define>
+		<validator:DoubleValidator bxml:id="doubleValidator"/>
+	</bxml:define>
+	<columns>
+		<TablePane.Column width="1*"/>
+	</columns>
+<TablePane.Row height="1*">
+	<Border>
+		<BoxPane styles="{horizontalAlignment:'center',verticalAlignment:'center'}">
+		<ImageView image="@46px-WPint.png" styles="{preserveAspectRatio:true,horizontalAlignment:'left', verticalAlignment:'center'}" />
+		<ui:EquationTextInput/>
+		</BoxPane>
+		<BoxPane styles="{horizontalAlignment:'center',verticalAlignment:'center'}">
+			<Label text="Lower Bound:" /><TextInput validator="$doubleValidator" textSize="4" /> 
+			<Label text="Upper Bound:"/><TextInput validator="$doubleValidator" textSize="4"/>
+		</BoxPane>
 </Border>
+</TablePane.Row>
+<TablePane.Row height="1*">
+	<Label text="Result!?"/>
+</TablePane.Row>
 
 </integral:DefIntegralPanel>

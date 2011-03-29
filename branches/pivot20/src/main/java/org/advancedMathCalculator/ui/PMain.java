@@ -16,30 +16,12 @@ package org.advancedMathCalculator.ui;
  * limitations under the License.
  *  
  */
-//import java.awt.Color;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.EmptyStackException;
-
-import org.advancedMathCalculator.defIntegral.Calculate;
-import org.advancedMathCalculator.defIntegral.CalculateException;
-import org.advancedMathCalculator.defIntegral.SimpsonsRule;
-import org.advancedMathCalculator.parser.generators.ParserGenerator;
-import org.advancedMathCalculator.parser.generators.RPNGenerator;
-import org.advancedMathCalculator.ui.calculator.ScientificCalculatorPanel;
 import org.apache.pivot.beans.BXMLSerializer;
 import org.apache.pivot.collections.Map;
-import org.apache.pivot.serialization.SerializationException;
 import org.apache.pivot.wtk.Application;
 import org.apache.pivot.wtk.DesktopApplicationContext;
 import org.apache.pivot.wtk.Display;
-import org.apache.pivot.wtk.Frame;
-import org.apache.pivot.wtk.ListButton;
-import org.apache.pivot.wtk.MessageType;
-import org.apache.pivot.wtk.Prompt;
-import org.apache.pivot.wtk.PushButton;
-import org.apache.pivot.wtk.TextInput;
 import org.apache.pivot.wtk.Window;
 
 public class PMain implements Application {
@@ -52,79 +34,7 @@ public class PMain implements Application {
 		DesktopApplicationContext.main(PMain.class, args);
 	}
 
-	private ParserGenerator calcMethodGen = null;
-	private Calculate calcMethod = null;
 	private Window window = null;
-	private EquationTextInput def_equation = null;
-	private TextInput def_upperBound = null;
-	private TextInput def_lowerBound = null;
-	private PushButton def_Button = null;
-	private ListButton listButton = null;
-	private PushButton calc_Button = null;
-	private EquationTextInput calc_equation = null;
-
-	
-
-	private void processIntegral() {
-		// graph.clear();
-		double lower, upper;
-		if (def_equation.getText().isEmpty()) {
-			Prompt.prompt(MessageType.ERROR,
-					"The definite integral equation is empty.", window);
-		} else if (def_lowerBound.getText().isEmpty()) {
-			Prompt.prompt(MessageType.ERROR,
-					"The definite integral lower bound is empty.", window);
-		} else if (def_upperBound.getText().isEmpty()) {
-			Prompt.prompt(MessageType.ERROR,
-					"The definite integral upper bound is empty.", window);
-		} else {
-			// check bounds, make sure they are doubles.
-			try {
-				lower = Double.parseDouble(def_lowerBound.getText());
-			} catch (final NumberFormatException e) {
-				Prompt.prompt(
-						MessageType.ERROR,
-						"The definite integral lower bound ("
-						+ def_lowerBound.getText()
-						+ ") is not a number.", window);
-				return;
-			}
-			try {
-				upper = Double.parseDouble(def_upperBound.getText());
-			} catch (final NumberFormatException e) {
-				Prompt.prompt(
-						MessageType.ERROR,
-						"The definite integral upper bound ("
-						+ def_upperBound.getText()
-						+ ") is not a number.", window);
-				return;
-			}
-			try {
-				calcMethod = calcMethodGen.generate(def_equation.getText());
-				// graph.addEquation(pTree, Color.RED);
-				// graph.generatePoints(lower, upper);
-				Prompt.prompt(
-						MessageType.INFO,
-						"The answer to 'f(x)="
-						+ def_equation.getText()
-						+ "' is: "
-						+ SimpsonsRule
-						.compute(calcMethod, lower, upper),
-						window);
-			} catch (final ParseException e) {
-				Prompt.prompt(MessageType.ERROR, e.getMessage()
-						+ " at position " + e.getErrorOffset() + ".", window);
-			} catch (final CalculateException e) {
-				Prompt.prompt(MessageType.ERROR, e.getMessage(), window);
-			} catch (final EmptyStackException e) {
-				Prompt.prompt(MessageType.ERROR, e.getMessage(), window);
-			} catch (final NullPointerException e) {
-				Prompt.prompt(MessageType.ERROR,
-						"Please select a Calculation Type", window);
-			}
-
-		}
-	}
 
 	
 

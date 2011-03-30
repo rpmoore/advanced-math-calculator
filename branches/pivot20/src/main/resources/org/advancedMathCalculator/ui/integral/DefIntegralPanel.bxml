@@ -2,28 +2,32 @@
 xmlns="org.apache.pivot.wtk"
 xmlns:bxml="http://pivot.apache.org/bxml"
 xmlns:integral="org.advancedMathCalculator.ui.integral"
-xmlns:ui="org.advancedMathCalculator.ui"
-xmlns:validator="org.apache.pivot.wtk.validation">
+xmlns:ui="org.advancedMathCalculator.ui.components"
+xmlns:validator="org.apache.pivot.wtk.validation"
+styles="{verticalSpacing:1}">
 	<bxml:define>
 		<validator:DoubleValidator bxml:id="doubleValidator"/>
 	</bxml:define>
 	<columns>
 		<TablePane.Column width="1*"/>
 	</columns>
-<TablePane.Row height="1*">
-	<Border>
-		<BoxPane styles="{horizontalAlignment:'center',verticalAlignment:'center'}">
+<TablePane.Row height="1*" >
+
+		<BoxPane styles="{horizontalAlignment:'center',verticalAlignment:'bottom'}">
 		<ImageView image="@46px-WPint.png" styles="{preserveAspectRatio:true,horizontalAlignment:'left', verticalAlignment:'center'}" />
-		<ui:EquationTextInput/>
+		<ui:EquationTextInput bxml:id="def_equation"/>
+		<PushButton bxml:id="defIntEval" buttonData="Calculate" />
 		</BoxPane>
-		<BoxPane styles="{horizontalAlignment:'center',verticalAlignment:'center'}">
-			<Label text="Lower Bound:" /><TextInput validator="$doubleValidator" textSize="4" /> 
-			<Label text="Upper Bound:"/><TextInput validator="$doubleValidator" textSize="4"/>
+		</TablePane.Row>
+		<TablePane.Row height="1*">
+		<BoxPane styles="{horizontalAlignment:'center',verticalAlignment:'top'}">
+			<Label text="Lower Bound:" /><TextInput bxml:id="lowerBound" validator="$doubleValidator" textSize="4" /> 
+			<Label text="Upper Bound:"/><TextInput bxml:id="upperBound" validator="$doubleValidator" textSize="4"/>
 		</BoxPane>
-</Border>
+
 </TablePane.Row>
 <TablePane.Row height="1*">
-	<Label text="Result!?"/>
+	<Label bxml:id="resultVal" text=""/>
 </TablePane.Row>
 
 </integral:DefIntegralPanel>

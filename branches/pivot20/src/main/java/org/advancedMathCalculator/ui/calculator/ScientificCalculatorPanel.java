@@ -5,7 +5,7 @@ import java.text.ParseException;
 
 import org.advancedMathCalculator.defIntegral.CalculateException;
 import org.advancedMathCalculator.parser.generators.RPNGenerator;
-import org.advancedMathCalculator.ui.EquationTextInput;
+import org.advancedMathCalculator.ui.components.EquationTextInput;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
@@ -15,6 +15,7 @@ import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.Keyboard;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
+import org.apache.pivot.wtk.validation.Validator;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.Prompt;
@@ -29,6 +30,16 @@ public class ScientificCalculatorPanel extends TablePane implements Bindable {
 	public void initialize(Map<String, Object> arg0, URL arg1, Resources arg2) {
 	calc_equation = (EquationTextInput) arg0.get("sciCalcExpr");
 	returnLabel = (Label) arg0.get("returnLabel");
+	calc_equation.setValidator(new Validator() {
+		
+		public boolean isValid(String arg0) {
+			if(arg0.indexOf('x') == -1)
+			{
+				return true;
+			}
+			return false;
+		}
+	});
 	calc_equation.getComponentKeyListeners().add(new ComponentKeyListener() {
 		
 		public boolean keyTyped(Component arg0, char arg1) {

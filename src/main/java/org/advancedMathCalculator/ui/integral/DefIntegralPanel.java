@@ -25,21 +25,27 @@ import org.advancedMathCalculator.defIntegral.Calculate;
 import org.advancedMathCalculator.defIntegral.CalculateException;
 import org.advancedMathCalculator.defIntegral.SimpsonsRule;
 import org.advancedMathCalculator.parser.generators.ParserGenerator;
-import org.advancedMathCalculator.ui.EquationTextInput;
+import org.advancedMathCalculator.parser.generators.RPNGenerator;
+import org.advancedMathCalculator.ui.components.EquationTextInput;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Component;
+import org.apache.pivot.wtk.ComponentKeyListener;
+import org.apache.pivot.wtk.Keyboard;
+import org.apache.pivot.wtk.Keyboard.KeyLocation;
+import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.ListButton;
 import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
 import org.apache.pivot.wtk.TextInput;
-import org.apache.pivot.wtk.Window;
 
 public class DefIntegralPanel extends TablePane implements Bindable{
 
-	private ParserGenerator calcMethodGen = null;
+	private ParserGenerator calcMethodGen = new RPNGenerator();
 	private Calculate calcMethod = null;
 	
 	private EquationTextInput def_equation = null;
@@ -50,7 +56,22 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 	private PushButton calc_Button = null;
 	private EquationTextInput calc_equation = null;
 
-	
+	public void initialize(Map<String, Object> arg0, URL arg1, Resources arg2) {
+		def_equation = (EquationTextInput) arg0.get("def_equation");
+		def_upperBound = (TextInput) arg0.get("upperBound");
+		def_lowerBound = (TextInput) arg0.get("lowerBound");
+		def_Button = (PushButton) arg0.get("defIntEval");
+		def_upperBound.getComponentKeyListeners().add(new DefIntKeyboardListener());
+		def_lowerBound.getComponentKeyListeners().add(new DefIntKeyboardListener());
+		def_equation.getComponentKeyListeners().add(new DefIntKeyboardListener());
+		def_Button.getButtonPressListeners().add(new ButtonPressListener() {
+			
+			public void buttonPressed(Button arg0) {
+				processIntegral();
+			}
+		});
+		
+	}
 
 	private void processIntegral() {
 		// graph.clear();
@@ -103,8 +124,25 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 		}
 	}
 	
-	public void initialize(Map<String, Object> arg0, URL arg1, Resources arg2) {
-		System.out.println("Started DefIntegral Panel");
+	private class DefIntKeyboardListener implements ComponentKeyListener
+	{
+
+		public boolean keyPressed(Component arg0, int arg1, KeyLocation arg2) {
+				
+			return false;
+		}
+
+		public boolean keyReleased(Component arg0, int arg1, KeyLocation arg2) {
+			return false;
+		}
+
+		public boolean keyTyped(Component arg0, char arg1) {
+			if(arg1 == Keyboard.KeyCode.ENTER)
+			{
+				processIntegral();
+			}
+			return false;
+		}
 		
 	}
 

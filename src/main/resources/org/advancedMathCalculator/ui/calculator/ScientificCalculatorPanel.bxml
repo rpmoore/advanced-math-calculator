@@ -1,7 +1,7 @@
 <calculator:ScientificCalculatorPanel
 xmlns="org.apache.pivot.wtk"
 xmlns:bxml="http://pivot.apache.org/bxml"
-xmlns:ui="org.advancedMathCalculator.ui"
+xmlns:ui="org.advancedMathCalculator.ui.components"
 xmlns:calculator="org.advancedMathCalculator.ui.calculator">
 <columns>
 	<TablePane.Column width="1*"/>

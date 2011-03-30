@@ -1,4 +1,4 @@
-package org.advancedMathCalculator.ui;
+package org.advancedMathCalculator.ui.components;
 
 
 import java.awt.Color;

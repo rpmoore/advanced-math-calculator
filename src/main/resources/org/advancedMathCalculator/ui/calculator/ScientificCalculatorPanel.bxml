@@ -7,11 +7,13 @@ xmlns:calculator="org.advancedMathCalculator.ui.calculator">
 	<TablePane.Column width="1*"/>
 </columns>
 <TablePane.Row height="2*" >
+	<Border>
 	<BoxPane styles="{horizontalAlignment:'center',verticalAlignment:'center'}">
 		<Label text="Enter Equation:" />
 		<ui:EquationTextInput bxml:id="sciCalcExpr" tooltipText="Enter an expression to compute the answer."/>
 		<PushButton bxml:id="sciCalcButton" buttonData="Calculate" tooltipText="Compute the answer for the equation entered into the left."/>
 	</BoxPane>
+	</Border>
 </TablePane.Row>
 <TablePane.Row height="1*">
 	<Label bxml:id="returnLabel" styles="{horizontalAlignment:'center',verticalAlignment:'center'}" />

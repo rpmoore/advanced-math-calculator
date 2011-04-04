@@ -15,7 +15,7 @@
 		</bxml:reference>
 		<bxml:reference id="sciCalculator">
 			<TabPane.tabData>
-				<content:ButtonData text="Scientific Calculator"/>
+					<content:ButtonData text="Scientific Calculator"/>
 			</TabPane.tabData>
 		</bxml:reference>
 	</TabPane>

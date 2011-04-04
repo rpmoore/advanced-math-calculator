@@ -26,17 +26,20 @@ import org.advancedMathCalculator.defIntegral.CalculateException;
 import org.advancedMathCalculator.defIntegral.SimpsonsRule;
 import org.advancedMathCalculator.parser.generators.ParserGenerator;
 import org.advancedMathCalculator.parser.generators.RPNGenerator;
+import org.advancedMathCalculator.parser.generators.TreeGenerator;
 import org.advancedMathCalculator.ui.components.EquationTextInput;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
 import org.apache.pivot.util.Resources;
+import org.apache.pivot.wtk.Button;
+import org.apache.pivot.wtk.ButtonPressListener;
 import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.Keyboard;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
-import org.apache.pivot.wtk.Button;
-import org.apache.pivot.wtk.ButtonPressListener;
+import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.ListButton;
+import org.apache.pivot.wtk.ListButtonSelectionListener;
 import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
@@ -45,21 +48,22 @@ import org.apache.pivot.wtk.TextInput;
 
 public class DefIntegralPanel extends TablePane implements Bindable{
 
-	private ParserGenerator calcMethodGen = new RPNGenerator();
+	private ParserGenerator calcMethodGen = null;
 	private Calculate calcMethod = null;
 	
 	private EquationTextInput def_equation = null;
 	private TextInput def_upperBound = null;
 	private TextInput def_lowerBound = null;
 	private PushButton def_Button = null;
-	private ListButton listButton = null;
-	private PushButton calc_Button = null;
-	private EquationTextInput calc_equation = null;
+	private Label resultVal = null;
+	
 
 	public void initialize(Map<String, Object> arg0, URL arg1, Resources arg2) {
+		final ListButton listButton = (ListButton) arg0.get("listButton");
 		def_equation = (EquationTextInput) arg0.get("def_equation");
 		def_upperBound = (TextInput) arg0.get("upperBound");
 		def_lowerBound = (TextInput) arg0.get("lowerBound");
+		resultVal = (Label) arg0.get("resultVal");
 		def_Button = (PushButton) arg0.get("defIntEval");
 		def_upperBound.getComponentKeyListeners().add(new DefIntKeyboardListener());
 		def_lowerBound.getComponentKeyListeners().add(new DefIntKeyboardListener());
@@ -70,12 +74,47 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 				processIntegral();
 			}
 		});
+		listButton.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
+			@Override
+            public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
+				processRepresentationChange(listButton);
+			}
+		});
+		listButton.setSelectedIndex(0);
 		
 	}
-
+	
+	private void processRepresentationChange(ListButton listButton)
+	{
+		Object selectedItem= listButton.getSelectedItem();
+		
+		if(selectedItem != null && selectedItem instanceof String)
+		{
+			String representation = (String)selectedItem;
+			
+			if(representation.equalsIgnoreCase("stack"))
+			{
+				calcMethodGen = new RPNGenerator();
+			}
+			else if(representation.equalsIgnoreCase("tree"))
+			{
+				calcMethodGen = new TreeGenerator();
+			}
+			else
+			{
+				Prompt.prompt(MessageType.ERROR, "Unknown calculation backend.", getWindow());
+			}
+		}
+		else
+		{
+			Prompt.prompt(MessageType.ERROR,"Fatal Error in processing calculation backend.",getWindow());
+		}
+	}
+	
 	private void processIntegral() {
-		// graph.clear();
+		boolean valid = false;
 		double lower, upper;
+		resultVal.setText("");
 		if (def_equation.getText().isEmpty()) {
 			Prompt.prompt(MessageType.ERROR,
 					"The definite integral equation is empty.", this.getWindow());
@@ -99,16 +138,12 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 			}
 			try {
 				calcMethod = calcMethodGen.generate(def_equation.getText());
-				// graph.addEquation(pTree, Color.RED);
-				// graph.generatePoints(lower, upper);
-				Prompt.prompt(
-						MessageType.INFO,
-						"The answer to 'f(x)="
+				resultVal.setText("The answer to 'f(x)="
 						+ def_equation.getText()
 						+ "' is: "
 						+ SimpsonsRule
-						.compute(calcMethod, lower, upper),
-						this.getWindow());
+						.compute(calcMethod, lower, upper));
+				valid = true;
 			} catch (final ParseException e) {
 				Prompt.prompt(MessageType.ERROR, e.getMessage()
 						+ " at position " + e.getErrorOffset() + ".", this.getWindow());
@@ -119,8 +154,9 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 			} catch (final NullPointerException e) {
 				Prompt.prompt(MessageType.ERROR,
 						"Please select a Calculation Type", this.getWindow());
-			}
-
+			}	
+			def_equation.addExpression();
+			def_equation.setCurrentValid(valid);
 		}
 	}
 	

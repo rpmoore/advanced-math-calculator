@@ -1,0 +1,22 @@
+<Window title="Calc Help" maximized="true"
+	xmlns:bxml="http://pivot.apache.org/bxml"
+	xmlns:content="org.apache.pivot.wtk.content"
+	xmlns:ui="org.advancedMathCalculator.ui"
+	xmlns="org.apache.pivot.wtk">
+	  <bxml:define>
+        <bxml:include bxml:id="defIntegral" src="integral/DefIntegralPanel.bxml"/>
+        <bxml:include bxml:id="sciCalculator" src="calculator/ScientificCalculatorPanel.bxml"/>
+    </bxml:define>
+	<TabPane>
+		<bxml:reference id="defIntegral">
+			<TabPane.tabData>
+				<content:ButtonData text="Definite Integral"/>
+			</TabPane.tabData>
+		</bxml:reference>
+		<bxml:reference id="sciCalculator">
+			<TabPane.tabData>
+					<content:ButtonData text="Scientific Calculator"/>
+			</TabPane.tabData>
+		</bxml:reference>
+	</TabPane>
+</Window>

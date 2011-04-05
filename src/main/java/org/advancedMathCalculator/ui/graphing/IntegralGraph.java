@@ -16,7 +16,6 @@ package org.advancedMathCalculator.ui.graphing;
  *  
  */
 import org.advancedMathCalculator.defIntegral.Calculate;
-import org.apache.pivot.wtk.media.drawing.Canvas;
 
 
 /**

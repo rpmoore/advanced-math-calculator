@@ -17,17 +17,15 @@ package org.advancedMathCalculator.ui.graphing;
  *  
  */
 import java.awt.Color;
-import java.util.Iterator;
 
 import org.advancedMathCalculator.defIntegral.Calculate;
-import org.advancedMathCalculator.defIntegral.CalculateException;
 import org.apache.pivot.collections.HashMap;
-import org.apache.pivot.wtk.Bounds;
-import org.apache.pivot.wtk.media.drawing.Canvas;
-import org.apache.pivot.wtk.media.drawing.Ellipse;
+
+import org.apache.pivot.wtk.Component;
 
 
-public class LineGraph<T extends Calculate> extends Canvas {
+
+public class LineGraph<T extends Calculate> extends Component {
 	int leftBound, rightBound;
 
 	HashMap<T, Color> equationList = null;
@@ -42,51 +40,6 @@ public class LineGraph<T extends Calculate> extends Canvas {
 		equationList.put(equation, color);
 	}
 
-	public void addPoint(int x) throws CalculateException {
-		Ellipse point;
-		final Iterator<T> iter = equationList.iterator();
-		while (iter.hasNext()) {
-			final T equation = iter.next();
-			point = new Ellipse();
-			point.setSize(3, 3);
-			point.setX(x);
-			point.setY((int) Math.round(equation.eval(x)));
-			point.setStroke(equationList.get(equation));
-			this.add(point);
-		}
-	}
 
-	public void clear() {
-		equationList.clear();
-		clearShapes();
-	}
-
-	private void clearShapes() {
-		this.remove(0, this.getLength());
-	}
-
-	public void generatePoints(double leftBound, double rightBound)
-			throws CalculateException {
-		clearShapes();
-		// get the bounds of the canvas
-		final Bounds canvasSize = getBounds();
-		//assuming length is in pixels.
-
-		final int intLeftBound = (int) Math.round(Math.floor(leftBound));
-		final int intRightBound = (int) Math.round(Math.floor(rightBound));
-
-		this.leftBound = intLeftBound;
-		this.rightBound = intRightBound;
-
-		for (int i = intLeftBound; i <= intRightBound; ++i) {
-			addPoint(i);
-		}
-	}
-
-	public Color removeEquation(T equation) throws CalculateException {
-		final Color retValue = equationList.remove(equation);
-		clearShapes();
-		this.generatePoints(leftBound, rightBound);
-		return retValue;
-	}
+	
 }

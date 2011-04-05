@@ -19,10 +19,10 @@ import org.advancedMathCalculator.defIntegral.Calculate;
 
 
 /**
- *Creates a graph of the integral passed into it.  Automaticlly sets bounds, and allows for
+ *Creates a graph of the integral passed into it.  Automatically sets bounds, and allows for
  *scrolling of the graph and printing out values.
  * 
- * @author Ryan
+ * @author Ryan Moore
  *
  * @param <T> An equation to graph the integral of.
  */

@@ -38,14 +38,5 @@ styles="{verticalSpacing:1,horizontalSpacing:1}">
 			</TablePane.Row>
 		</TablePane>
 	</Border>
-	<Border>
-		<Form>
-			<Form.Section heading="Computation Options">
-			<BoxPane Form.label="Compution Backend" orientation="VERTICAL">
-			<ListButton bxml:id="listButton"  tooltipText="How would you like the data to be represented during the computation?" listData="['Stack','Tree']"/>
-			</BoxPane>
-			</Form.Section>
-		</Form>
-	</Border>
 </TablePane.Row>
 </integral:DefIntegralPanel>

@@ -18,7 +18,7 @@ package org.advancedMathCalculator.parser.generators;
  */
 import java.text.ParseException;
 
-import org.advancedMathCalculator.defIntegral.Calculate;
+import org.advancedMathCalculator.computation.Calculate;
 import org.advancedMathCalculator.parser.ParseTree;
 
 

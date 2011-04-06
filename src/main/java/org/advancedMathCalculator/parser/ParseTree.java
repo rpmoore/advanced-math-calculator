@@ -20,9 +20,9 @@ package org.advancedMathCalculator.parser;
 import java.text.ParseException;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.advancedMathCalculator.computation.Calculate;
 import org.advancedMathCalculator.dataStructures.BinaryTree;
 import org.advancedMathCalculator.dataStructures.TreeNode;
-import org.advancedMathCalculator.defIntegral.Calculate;
 
 /**
  * Creates a Binary tree from an mathematical expression. It then allows for the

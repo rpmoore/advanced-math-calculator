@@ -1,9 +1,9 @@
 package org.advancedMathCalculator.parser.cc;
 
+import org.advancedMathCalculator.computation.Calculate;
+import org.advancedMathCalculator.computation.CalculateException;
 import org.advancedMathCalculator.dataStructures.Queue;
 import org.advancedMathCalculator.dataStructures.Stack;
-import org.advancedMathCalculator.defIntegral.Calculate;
-import org.advancedMathCalculator.defIntegral.CalculateException;
 import org.advancedMathCalculator.parser.EquationToken;
 import org.advancedMathCalculator.parser.ExpressionType;
 

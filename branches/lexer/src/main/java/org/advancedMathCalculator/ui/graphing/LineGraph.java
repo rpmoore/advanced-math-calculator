@@ -18,7 +18,7 @@ package org.advancedMathCalculator.ui.graphing;
  */
 import java.awt.Color;
 
-import org.advancedMathCalculator.defIntegral.Calculate;
+import org.advancedMathCalculator.computation.Calculate;
 import org.apache.pivot.collections.HashMap;
 
 import org.apache.pivot.wtk.Component;

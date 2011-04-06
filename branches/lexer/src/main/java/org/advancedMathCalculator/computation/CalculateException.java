@@ -1,4 +1,4 @@
-package org.advancedMathCalculator.defIntegral;
+package org.advancedMathCalculator.computation;
 
 public class CalculateException extends Exception {
 

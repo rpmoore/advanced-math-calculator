@@ -6,9 +6,12 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.advancedMathCalculator.dataStructures.Queue;
+import org.advancedMathCalculator.defIntegral.Calculate;
 import org.advancedMathCalculator.defIntegral.CalculateException;
+import org.advancedMathCalculator.defIntegral.SimpsonsRule;
 import org.advancedMathCalculator.parser.EquationToken;
 import org.advancedMathCalculator.parser.ExpressionType;
+import org.advancedMathCalculator.parser.RPN;
 import org.advancedMathCalculator.parser.cc.EquationParserCC;
 import org.advancedMathCalculator.parser.cc.ParseException;
 import org.advancedMathCalculator.parser.cc.RPNCC;
@@ -107,6 +110,28 @@ public class EquationParserCCTest extends TestCase {
 		EquationParserCC parser = new EquationParserCC(new StringReader("log(1.5)^-1"));
 		RPNCC eval = new RPNCC(parser.parseEquation());
 		Assert.assertEquals(1/Math.log10(1.5), eval.eval(0),0);
-		
+	}
+	
+	public void testCalcWithVar() throws ParseException, CalculateException
+	{
+		EquationParserCC parser = new EquationParserCC(new StringReader("2+x"));
+		RPNCC eval = new RPNCC(parser.parseEquation());
+		Assert.assertEquals(3, eval.eval(1),0);
+	}
+	
+	public void testCalcWithVarTwice() throws ParseException, CalculateException
+	{
+		EquationParserCC parser = new EquationParserCC(new StringReader("2-x"));
+		RPNCC eval = new RPNCC(parser.parseEquation());
+		Assert.assertEquals(1, eval.eval(1),0);
+		Assert.assertEquals(-1, eval.eval(3),0);
+	}
+	
+	public void testIntegrationSimpsionsRPN() throws CalculateException, ParseException {
+		Calculate expr = new RPNCC(new EquationParserCC(new StringReader(("12*x+.5"))).parseEquation());
+
+		final double answer = SimpsonsRule.compute(expr, .5, 5.5);
+		assertEquals(182.5, answer, 1);
+		assertEquals(182.5, answer, 0);
 	}
 }

@@ -17,16 +17,15 @@ package org.advancedMathCalculator.ui.integral;
  *  
  */
 
+import java.io.StringReader;
 import java.net.URL;
-import java.text.ParseException;
 import java.util.EmptyStackException;
 
-import org.advancedMathCalculator.defIntegral.Calculate;
-import org.advancedMathCalculator.defIntegral.CalculateException;
-import org.advancedMathCalculator.defIntegral.SimpsonsRule;
-import org.advancedMathCalculator.parser.generators.ParserGenerator;
-import org.advancedMathCalculator.parser.generators.RPNGenerator;
-import org.advancedMathCalculator.parser.generators.TreeGenerator;
+import org.advancedMathCalculator.computation.Calculate;
+import org.advancedMathCalculator.computation.CalculateException;
+import org.advancedMathCalculator.computation.defIntegral.SimpsonsRule;
+import org.advancedMathCalculator.parser.cc.EquationParserCC;
+import org.advancedMathCalculator.parser.cc.RPNCC;
 import org.advancedMathCalculator.ui.components.EquationTextInput;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
@@ -38,8 +37,6 @@ import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.Keyboard;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
 import org.apache.pivot.wtk.Label;
-import org.apache.pivot.wtk.ListButton;
-import org.apache.pivot.wtk.ListButtonSelectionListener;
 import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
@@ -48,7 +45,6 @@ import org.apache.pivot.wtk.TextInput;
 
 public class DefIntegralPanel extends TablePane implements Bindable{
 
-	private ParserGenerator calcMethodGen = null;
 	private Calculate calcMethod = null;
 	
 	private EquationTextInput def_equation = null;
@@ -59,7 +55,6 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 	
 
 	public void initialize(Map<String, Object> arg0, URL arg1, Resources arg2) {
-		final ListButton listButton = (ListButton) arg0.get("listButton");
 		def_equation = (EquationTextInput) arg0.get("def_equation");
 		def_upperBound = (TextInput) arg0.get("upperBound");
 		def_lowerBound = (TextInput) arg0.get("lowerBound");
@@ -74,42 +69,7 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 				processIntegral();
 			}
 		});
-		listButton.getListButtonSelectionListeners().add(new ListButtonSelectionListener.Adapter() {
-			@Override
-            public void selectedItemChanged(ListButton listButton, Object previousSelectedItem) {
-				processRepresentationChange(listButton);
-			}
-		});
-		listButton.setSelectedIndex(0);
-		
-	}
-	
-	private void processRepresentationChange(ListButton listButton)
-	{
-		Object selectedItem= listButton.getSelectedItem();
-		
-		if(selectedItem != null && selectedItem instanceof String)
-		{
-			String representation = (String)selectedItem;
-			
-			if(representation.equalsIgnoreCase("stack"))
-			{
-				calcMethodGen = new RPNGenerator();
-			}
-			else if(representation.equalsIgnoreCase("tree"))
-			{
-				calcMethodGen = new TreeGenerator();
-			}
-			else
-			{
-				Prompt.prompt(MessageType.ERROR, "Unknown calculation backend.", getWindow());
-			}
 		}
-		else
-		{
-			Prompt.prompt(MessageType.ERROR,"Fatal Error in processing calculation backend.",getWindow());
-		}
-	}
 	
 	private void processIntegral() {
 		boolean valid = false;
@@ -137,16 +97,13 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 				return;
 			}
 			try {
-				calcMethod = calcMethodGen.generate(def_equation.getText());
+				calcMethod = new RPNCC(new EquationParserCC( new StringReader(def_equation.getText())).parseEquation());
 				resultVal.setText("The answer to 'f(x)="
 						+ def_equation.getText()
 						+ "' is: "
 						+ SimpsonsRule
 						.compute(calcMethod, lower, upper));
 				valid = true;
-			} catch (final ParseException e) {
-				Prompt.prompt(MessageType.ERROR, e.getMessage()
-						+ " at position " + e.getErrorOffset() + ".", this.getWindow());
 			} catch (final CalculateException e) {
 				Prompt.prompt(MessageType.ERROR, e.getMessage(), this.getWindow());
 			} catch (final EmptyStackException e) {
@@ -154,9 +111,12 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 			} catch (final NullPointerException e) {
 				Prompt.prompt(MessageType.ERROR,
 						"Please select a Calculation Type", this.getWindow());
+			} catch (org.advancedMathCalculator.parser.cc.ParseException e) {
+				Prompt.prompt(MessageType.ERROR, e.getMessage()
+						+ " at position " + e.currentToken.beginColumn + ".", this.getWindow());
 			}	
-			def_equation.addExpression();
-			def_equation.setCurrentValid(valid);
+			//def_equation.addExpression();
+			//def_equation.setCurrentValid(valid);
 		}
 	}
 	

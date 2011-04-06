@@ -20,7 +20,7 @@ import java.text.ParseException;
 
 import junit.framework.TestCase;
 
-import org.advancedMathCalculator.defIntegral.CalculateException;
+import org.advancedMathCalculator.computation.CalculateException;
 import org.advancedMathCalculator.parser.RPN;
 
 

@@ -20,9 +20,9 @@ import java.text.ParseException;
 
 import junit.framework.TestCase;
 
-import org.advancedMathCalculator.defIntegral.Calculate;
-import org.advancedMathCalculator.defIntegral.CalculateException;
-import org.advancedMathCalculator.defIntegral.SimpsonsRule;
+import org.advancedMathCalculator.computation.Calculate;
+import org.advancedMathCalculator.computation.CalculateException;
+import org.advancedMathCalculator.computation.defIntegral.SimpsonsRule;
 import org.advancedMathCalculator.parser.ParseTree;
 import org.advancedMathCalculator.parser.RPN;
 

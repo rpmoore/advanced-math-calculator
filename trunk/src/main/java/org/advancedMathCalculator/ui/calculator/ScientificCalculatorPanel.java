@@ -1,10 +1,12 @@
 package org.advancedMathCalculator.ui.calculator;
 
+import java.io.StringReader;
 import java.net.URL;
 import java.text.ParseException;
 
-import org.advancedMathCalculator.defIntegral.CalculateException;
-import org.advancedMathCalculator.parser.generators.RPNGenerator;
+import org.advancedMathCalculator.computation.CalculateException;
+import org.advancedMathCalculator.parser.cc.EquationParserCC;
+import org.advancedMathCalculator.parser.cc.RPNCC;
 import org.advancedMathCalculator.ui.components.EquationTextInput;
 import org.apache.pivot.beans.Bindable;
 import org.apache.pivot.collections.Map;
@@ -15,12 +17,12 @@ import org.apache.pivot.wtk.Component;
 import org.apache.pivot.wtk.ComponentKeyListener;
 import org.apache.pivot.wtk.Keyboard;
 import org.apache.pivot.wtk.Keyboard.KeyLocation;
-import org.apache.pivot.wtk.validation.Validator;
 import org.apache.pivot.wtk.Label;
 import org.apache.pivot.wtk.MessageType;
 import org.apache.pivot.wtk.Prompt;
 import org.apache.pivot.wtk.PushButton;
 import org.apache.pivot.wtk.TablePane;
+import org.apache.pivot.wtk.validation.Validator;
 
 public class ScientificCalculatorPanel extends TablePane implements Bindable {
 
@@ -81,14 +83,14 @@ public class ScientificCalculatorPanel extends TablePane implements Bindable {
 		else
 		{
 			try {
-				returnLabel.setText("The answer to 'f(x) = " + calc_equation.getText() + "' is: " + (new RPNGenerator().generate(calc_equation.getText()).eval(0)));
+				returnLabel.setText("The answer to 'f(x) = " + calc_equation.getText() + "' is: " + (new RPNCC(new EquationParserCC(new StringReader(calc_equation.getText())).parseEquation()).eval(0)));
 				valid = true;
-			} catch (ParseException e) {
-				Prompt.prompt(MessageType.ERROR, e.getMessage()
-						+ " at position " + e.getErrorOffset() + ".", this.getWindow());
-				returnLabel.setText("");
 			} catch (CalculateException e) {
 				Prompt.prompt(MessageType.ERROR, e.getMessage(), this.getWindow());
+				returnLabel.setText("");
+			} catch (org.advancedMathCalculator.parser.cc.ParseException e) {
+				Prompt.prompt(MessageType.ERROR, e.getMessage()
+						+ " at position " + e.currentToken.beginColumn + ".", this.getWindow());
 				returnLabel.setText("");
 			}
 		}

@@ -1,4 +1,7 @@
-package org.advancedMathCalculator.defIntegral;
+package org.advancedMathCalculator.computation.defIntegral;
+
+import org.advancedMathCalculator.computation.Calculate;
+import org.advancedMathCalculator.computation.CalculateException;
 
 /*
  * Copyright 2010 Ryan Moore
@@ -16,6 +19,18 @@ package org.advancedMathCalculator.defIntegral;
  * limitations under the License.
  *  
  */
-public interface Calculate {
-	public double eval(double index) throws CalculateException;
+/**
+ * An implementation of Simpsion's rule.
+ * @author Ryan
+ *
+ */
+public final class SimpsonsRule{
+	public static <T extends Calculate> double compute(T toCompute, double a, double b)throws CalculateException
+	{
+		double midpoint = (a + b)/2.0;
+		double start = (b - a)/6.0;
+		double end = toCompute.eval(a)+4.0*toCompute.eval(midpoint) + toCompute.eval(b);
+		
+		return (start*end);
+	}
 }

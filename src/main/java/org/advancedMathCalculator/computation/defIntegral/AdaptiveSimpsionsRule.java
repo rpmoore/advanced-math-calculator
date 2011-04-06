@@ -1,4 +1,8 @@
-package org.advancedMathCalculator.defIntegral;
+package org.advancedMathCalculator.computation.defIntegral;
+
+import org.advancedMathCalculator.computation.Calculate;
+import org.advancedMathCalculator.computation.CalculateException;
+
 /*
  * Copyright 2010 Ryan Moore
  *

@@ -15,7 +15,7 @@ package org.advancedMathCalculator.ui.graphing;
  * limitations under the License.
  *  
  */
-import org.advancedMathCalculator.defIntegral.Calculate;
+import org.advancedMathCalculator.computation.Calculate;
 
 
 /**

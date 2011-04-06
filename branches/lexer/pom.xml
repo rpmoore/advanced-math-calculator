@@ -70,6 +70,20 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>javacc-maven-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+				 <execution>
+				 	<id>javacc</id>
+				 	<goals><goal>javacc</goal></goals>
+				 	<configuration>
+				 		<sourceDirectory>src/main/java/org/advancedMathCalculator/parser/cc</sourceDirectory>
+				 	</configuration>
+				 </execution>
+				</executions>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>

@@ -19,8 +19,8 @@ import java.util.HashMap;
 
 public enum ExpressionType {
 
-	OTHER,NUMBER,E,PI,VARIABLE,SIN,COS,TAN,SINH,
-	COSH,TANH,LOG,LN,POW,MULTIPLY,DIVIDE,ADD,SUBTRACT,
+	OTHER,NUMBER,UNARYMINUS,E,PI,VARIABLE,SIN,COS,TAN,SINH,
+	COSH,TANH,ASIN,ACOS,ATAN,LOG,LN,POW,MULTIPLY,DIVIDE,ADD,SUBTRACT,
 	LEFTPAREN,RIGHTPAREN, NAN,BAD_TOKEN,EOF;
 
 	private static HashMap<String, ExpressionType> expressionToType;
@@ -40,6 +40,9 @@ public enum ExpressionType {
 		expressionToType.put("sinh", ExpressionType.SINH);
 		expressionToType.put("cosh", ExpressionType.COSH);
 		expressionToType.put("tanh", ExpressionType.TANH);
+		expressionToType.put("asin",ExpressionType.ASIN);
+		expressionToType.put("acos",ExpressionType.ACOS);
+		expressionToType.put("atan",ExpressionType.ATAN);
 		expressionToType.put("log", ExpressionType.LOG);
 		expressionToType.put("ln", ExpressionType.LN);
 		expressionToType.put("*", ExpressionType.MULTIPLY);
@@ -87,7 +90,9 @@ public enum ExpressionType {
 		if(type == ExpressionType.SIN || type == ExpressionType.SINH || 
 				type == ExpressionType.COS || type == ExpressionType.COSH || 
 				type == ExpressionType.TAN || type == ExpressionType.TANH || 
-				type == ExpressionType.LOG || type == ExpressionType.LN)
+				type == ExpressionType.LOG || type == ExpressionType.LN ||
+				type == ExpressionType.ASIN || type == ExpressionType.ACOS ||
+				type == ExpressionType.ATAN)
 		{
 			return true;
 		}
@@ -269,6 +274,9 @@ public enum ExpressionType {
 				ret = left - right;
 			}
 			break;
+		case UNARYMINUS:
+			ret = - right;
+			break;
 		case MULTIPLY:
 			ret = left * right;
 			break;
@@ -286,6 +294,15 @@ public enum ExpressionType {
 			break;
 		case TAN:
 			ret = Math.tan(right);
+			break;
+		case ASIN:
+			ret = Math.asin(right);
+			break;
+		case ACOS:
+			ret = Math.acos(right);
+			break;
+		case ATAN:
+			ret = Math.atan(right);
 			break;
 		case COSH:
 			ret = Math.cosh(right);

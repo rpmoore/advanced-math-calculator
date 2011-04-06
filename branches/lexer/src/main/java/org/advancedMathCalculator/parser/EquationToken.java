@@ -20,13 +20,13 @@ public class EquationToken {
 	private ExpressionType type;
 	private int index;
 	
-	protected EquationToken( String token, ExpressionType type, int index)
+	public EquationToken( String token, ExpressionType type, int index)
 	{
 		this.token = token;
 		this.type = type;
 		this.index = index;
 	}
-	protected EquationToken( String token, ExpressionType type)
+	public EquationToken( String token, ExpressionType type)
 	{
 		this(token,type,-1);
 	}

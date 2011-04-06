@@ -1,16 +1,45 @@
 /**
  * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
- */options{  JDK_VERSION = "1.6";  static = false;}PARSER_BEGIN(eg1)package org.advancedMathCalculator.parser.cc;
+ */options{  JDK_VERSION = "1.6";  static = false;}PARSER_BEGIN(EquationParserCC)package org.advancedMathCalculator.parser.cc;
 
-public class eg1{
-  public static void main(String args []) throws ParseException  {    eg1 parser = new eg1(System.in);    while (true)    {      System.out.println("Reading from standard input...");      System.out.print("Enter an expression like \"1+(2+3)*4;\" :");      try      {        switch (parser.parseEquation())        {          case 0 :           System.out.println("OK.");          break;          case 1 :           System.out.println("Goodbye.");          break;          default :           break;        }      }      catch (Exception e)      {        System.out.println("NOK.");        System.out.println(e.getMessage());        break;
-      }      catch (Error e)      {        System.out.println("Oops.");        System.out.println(e.getMessage());        break;      }    }  }}PARSER_END(eg1)SKIP :{  " "| "\r"| "\t"|  "\n"
+import org.advancedMathCalculator.parser.*;
+import org.advancedMathCalculator.dataStructures.*;
+
+public class EquationParserCC{
+	private final Queue<EquationToken> output = new Queue <EquationToken>();
+	private final Stack<EquationToken> operatorStack = new Stack<EquationToken>();
+
+	private void checkTop(EquationToken currTok)
+	{
+	  	int precedence = getPrecedence(currTok);
+		while(operatorStack.size() > 0 && precedence <= getPrecedence(operatorStack.peek()))
+		{			output.enqueue(operatorStack.pop());
+		}	
+		operatorStack.push(currTok);
+	} 
+
+	private int getPrecedence(EquationToken currTok)
+	{		int precedence = ExpressionType.getPrecedence(currTok.getType());
+		if(precedence == 3)
+		{
+			precedence = 1;
+		}
+		return precedence;
+	}	  
+	
+  	public static void main(String args []) throws ParseException  	{    	EquationParserCC parser = new EquationParserCC(System.in);    	while (true)    	{      		System.out.println("Reading from standard input...");      		try      		{       			parser.parseEquation();	      	}    	  	catch (Exception e)      		{	        	System.out.println("NOK.");    	    	System.out.println(e.getMessage());        		break;
+      		}      		catch (Error e)      		{        		System.out.println("Oops.");	        	System.out.println(e.getMessage());    	    	break;	    	}    	}  	}}PARSER_END(EquationParserCC)SKIP :{  " "| "\r"| "\t"|  "\n"
+}
+
+TOKEN :
+{  < OPEN_PAR: "(">
+| < CLOSE_PAR : ")"> 
 }TOKEN : /* OPERATORS */{  < PLUS : "+" >| < MINUS : "-" >| < MULTIPLY : "*" >| < DIVIDE : "/" >
-|  <POWER : "^" >}TOKEN [IGNORE_CASE]:{   < CONSTANT : (< DIGIT >)+ | (< FLOAT >) | (< VARIABLE >) |  (< E >) | (<  PI >) >|  < #DIGIT : [ "0"-"9" ] >
-|  <  #FLOAT : (< DIGIT>)+ "." (< DIGIT >)* | (<DIGIT>)* "." (<DIGIT>)+ >
-|  < #VARIABLE : "x" | "X">
-|  < #E : "e" >
-|  < #PI : "pi" >}
+|  <POWER : "^" >}TOKEN [IGNORE_CASE]:{   < CONSTANT : (< DIGIT >)+>|  < #DIGIT : [ "0"-"9" ] >
+|  < FLOAT : (< DIGIT>)+ "." (< DIGIT >)* | (<DIGIT>)* "." (<DIGIT>)+ >
+|  < VARIABLE : "x">
+|  < E : "e" >
+|  < PI : "pi" >}
 
 TOKEN [IGNORE_CASE] : /* Trig functions */
 {
@@ -25,4 +54,143 @@ TOKEN [IGNORE_CASE] : /* Trig functions */
 |  <TANH : "tanh" >
 |  <LOG : "log" >
 |  <LN : "ln" >
-}int parseEquation() :{}{	sim()}void sum() :{}{  term()  (    (      < PLUS >    | < MINUS >    )    term()  )*}void term() :{}{  unary()  (    (      < MULTIPLY >    | < DIVIDE >    )    unary()  )*}void unary() :{}{  < MINUS > element()| element()}void element() :{}{  < CONSTANT >| "(" sum() ")"}
+}Queue<EquationToken> parseEquation() :{}{	levelOne()
+	{
+	  while(operatorStack.size() > 0)
+	  {		output.enqueue(operatorStack.pop());
+	  }	  return output;
+	}}void levelOne() :{
+	Token t;
+}{  levelTwo()  (    (     t = < PLUS >     {
+      	checkTop(new EquationToken("+",ExpressionType.ADD,t.beginColumn)); 
+     }      | t = < MINUS >
+    {
+      	checkTop(new EquationToken("-",ExpressionType.SUBTRACT,t.beginColumn));           }    )    levelTwo()  )*}void levelTwo() :{
+	Token t;
+}{  levelThree()
+  (    (      t=< MULTIPLY >
+      {
+      	checkTop(new EquationToken("*",ExpressionType.MULTIPLY,t.beginColumn));        }      | t=< DIVIDE >
+      {
+      	checkTop(new EquationToken("/",ExpressionType.DIVIDE,t.beginColumn));            }    )    levelThree()
+  )*}
+void levelThree() :
+{
+	Token t;	
+}
+{	levelFour()
+	(		t = < POWER >
+		{
+			checkTop(new EquationToken("^",ExpressionType.POW,t.beginColumn));	  		}
+		levelFour()
+	)*
+}
+
+void levelFour() :
+{
+	EquationToken expType;  
+}
+{	unary()
+	|
+		expType = trigFunc()
+		{
+			//push trig onto the stack.
+			operatorStack.push(expType);  
+		}
+		< OPEN_PAR >
+		levelOne()
+		< CLOSE_PAR >
+	|
+	< OPEN_PAR >
+		levelOne()
+	< CLOSE_PAR>
+}
+void unary() :{
+  EquationToken tok;
+  Token t;
+  }{  t=< MINUS > tok=element()
+  {
+	output.enqueue(tok);
+	output.enqueue(new EquationToken("-",ExpressionType.UNARYMINUS,t.beginColumn));  }| tok=element()
+	{
+	  output.enqueue(tok);
+	}  }EquationToken element() :{
+  Token t;
+}{ t=< CONSTANT>
+ 	{
+ 	  return new EquationToken(t.image,ExpressionType.NUMBER,t.beginColumn); 	}
+  |
+ t=< FLOAT >
+	{      return new EquationToken(t.image,ExpressionType.NUMBER,t.beginColumn);
+	}
+  |
+ t=< VARIABLE >
+	{
+	  return new EquationToken(t.image,ExpressionType.VARIABLE,t.beginColumn);	}
+  |
+ t=< E >
+	{
+		return new EquationToken(t.image,ExpressionType.E,t.beginColumn);
+	}
+ |
+ t=< PI >
+	{
+		return new EquationToken(t.image,ExpressionType.PI,t.beginColumn);
+	}  }
+
+EquationToken trigFunc() :
+{
+  Token t;
+  }
+{	t =< SIN >
+	{
+	  return new EquationToken("SIN",ExpressionType.SIN,t.beginColumn);	}
+	|
+	t = < COS >
+	{
+	  return new EquationToken("COS",ExpressionType.COS,t.beginColumn);	}
+	|
+	t = < TAN >
+	{
+	  return new EquationToken("TAN",ExpressionType.TAN,t.beginColumn);	}
+	|
+	t = < ASIN >
+	{
+	  return new EquationToken("ASIN",ExpressionType.ASIN,t.beginColumn);
+	}
+	|
+	t = < ACOS >
+	{
+	  return new EquationToken("ACOS",ExpressionType.ACOS,t.beginColumn);
+	}
+	|
+	t = < ATAN >
+	{
+	  return new EquationToken("ATAN",ExpressionType.ATAN,t.beginColumn);
+	}
+	|
+	t = < SINH >
+	{
+	  return new EquationToken("SINH",ExpressionType.SINH,t.beginColumn); 
+	}
+	|
+	t = < COSH >
+	{
+	  return new EquationToken("COSH",ExpressionType.COSH,t.beginColumn);
+	}
+	|
+	t = < TANH >
+	{
+	  return new EquationToken("TANH",ExpressionType.TANH,t.beginColumn);
+	}
+	|
+	t = < LOG >
+	{
+	  return new EquationToken("LOG",ExpressionType.LOG,t.beginColumn);
+	}
+	|
+	t = < LN >
+	{
+	  return new EquationToken("LN",ExpressionType.LN,t.beginColumn);
+	}
+}

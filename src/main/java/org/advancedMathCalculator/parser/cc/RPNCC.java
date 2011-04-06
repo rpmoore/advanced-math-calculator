@@ -10,11 +10,11 @@ import org.advancedMathCalculator.parser.ExpressionType;
 public class RPNCC implements Calculate{
 
 	final private Queue<EquationToken> equation;
-	final private Stack<EquationToken> usedTokens;
+	final private Queue<EquationToken> usedTokens;
 	public RPNCC(Queue<EquationToken> equation)
 	{
 		this.equation = equation;
-		this.usedTokens = new Stack<EquationToken>();
+		this.usedTokens = new Queue<EquationToken>();
 	}
 	
 	@Override
@@ -24,7 +24,7 @@ public class RPNCC implements Calculate{
 		while(!equation.isEmpty())
 		{
 			final EquationToken curr = equation.dequeue();
-			usedTokens.push(curr);
+			usedTokens.enqueue(curr);
 			if(curr.getType().isTerm())
 			{
 				evalStack.push(ExpressionType.eval(curr, index));
@@ -46,9 +46,14 @@ public class RPNCC implements Calculate{
 		}		
 		if(evalStack.size() > 1)
 		{
-			throw new CalculateException("Missing an operator.  There is an extra element on the stack.");
+			throw new CalculateException("Missing an operator.  There is an extra element.");
 		}
 		
+		//reload all the used operators.
+		while(!usedTokens.isEmpty()){
+			equation.enqueue(usedTokens.dequeue());			
+		}
+
 		return evalStack.pop();
 	}	
 }

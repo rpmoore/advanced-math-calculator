@@ -16,15 +16,16 @@ package org.advancedMathCalculator;
  * limitations under the License.
  *  
  */
-import java.text.ParseException;
+import java.io.StringReader;
 
 import junit.framework.TestCase;
 
 import org.advancedMathCalculator.computation.Calculate;
 import org.advancedMathCalculator.computation.CalculateException;
 import org.advancedMathCalculator.computation.defIntegral.SimpsonsRule;
-import org.advancedMathCalculator.parser.ParseTree;
-import org.advancedMathCalculator.parser.RPN;
+import org.advancedMathCalculator.parser.cc.EquationParserCC;
+import org.advancedMathCalculator.parser.cc.ParseException;
+import org.advancedMathCalculator.parser.cc.RPNCC;
 
 public class IntegralTest extends TestCase {
 	public static junit.framework.Test suite() {
@@ -65,57 +66,29 @@ public class IntegralTest extends TestCase {
 		assertEquals(4, answer, 0);
 	}
 
-	public void testEquivalentStatements() throws CalculateException {
-		try {
+	public void testEquivalentStatements() throws CalculateException, ParseException {
 			double result1 = SimpsonsRule.compute(
-					ParseTree.generate("3*x^2", true), 2, 3);
+					new RPNCC(new EquationParserCC(new StringReader("3*x^2")).parseEquation()), 2, 3);
 			assertEquals(19.0, result1, 0);
-			result1 = SimpsonsRule.compute(ParseTree.generate("(3*x)^2", true),
+			result1 = SimpsonsRule.compute(new RPNCC(new EquationParserCC(new StringReader("(3*x)^2")).parseEquation()),
 					2, 3);
 			assertEquals(57.0, result1, 0);
-			result1 = SimpsonsRule.compute(ParseTree.generate("3x^2", true), 2,
+			result1 = SimpsonsRule.compute(new RPNCC(new EquationParserCC(new StringReader("3x^2")).parseEquation()), 2,
 					3);
 			assertEquals(19.0, result1, 0);
-
-		} catch (final ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			assertTrue(false);
-		}
-
 	}
 
-	public void testEquivalentStatementsRPN() throws CalculateException,
-			ParseException {
-		double result1 = SimpsonsRule.compute(RPN.generate("3*x^2"), 2, 3);
-		assertEquals(19.0, result1, 0);
-		result1 = SimpsonsRule.compute(RPN.generate("(3*x)^2"), 2, 3);
-		assertEquals(57.0, result1, 0);
-		result1 = SimpsonsRule.compute(RPN.generate("3x^2"), 2, 3);
-		assertEquals(19.0, result1, 0);
+	public void testIntegrationSimpsionsParsefunction() throws CalculateException, ParseException {
+		Calculate function = new RPNCC(new EquationParserCC(new StringReader("12*x+.5")).parseEquation());
 
-	}
 
-	public void testIntegrationSimpsionsParseTree() throws CalculateException {
-		Calculate tree = null;
-		try {
-			tree = ParseTree.generate("12*x+.5", false);
-		} catch (final ParseException e) {
-			e.printStackTrace();
-		}
-
-		final double answer = SimpsonsRule.compute(tree, .5, 5.5);
+		final double answer = SimpsonsRule.compute(function, .5, 5.5);
 		assertEquals(182.5, answer, 1);
 		assertEquals(182.5, answer, 0);
 	}
 
-	public void testIntegrationSimpsionsRPN() throws CalculateException {
-		Calculate expr = null;
-		try {
-			expr = RPN.generate("12*x+.5");
-		} catch (final ParseException e) {
-			e.printStackTrace();
-		}
+	public void testIntegrationSimpsionsRPN() throws CalculateException, ParseException {
+		Calculate expr = new RPNCC(new EquationParserCC(new StringReader("12*x+.5")).parseEquation());
 
 		final double answer = SimpsonsRule.compute(expr, .5, 5.5);
 		assertEquals(182.5, answer, 1);

@@ -72,7 +72,7 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 		}
 	
 	private void processIntegral() {
-		boolean valid = false;
+		//boolean valid = false;
 		double lower, upper;
 		resultVal.setText("");
 		if (def_equation.getText().isEmpty()) {
@@ -103,7 +103,7 @@ public class DefIntegralPanel extends TablePane implements Bindable{
 						+ "' is: "
 						+ SimpsonsRule
 						.compute(calcMethod, lower, upper));
-				valid = true;
+//				valid = true;
 			} catch (final CalculateException e) {
 				Prompt.prompt(MessageType.ERROR, e.getMessage(), this.getWindow());
 			} catch (final EmptyStackException e) {

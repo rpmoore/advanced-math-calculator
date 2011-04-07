@@ -12,7 +12,7 @@ public class EquationParserCC{
 	private void checkTop(EquationToken currTok)
 	{
 	  	int precedence = getPrecedence(currTok);
-		while(operatorStack.size() > 0 && precedence <= getPrecedence(operatorStack.peek()))
+		while(operatorStack.size() > 0 && precedence <= getPrecedence(operatorStack.peek()) && operatorStack.peek().getType() != ExpressionType.LEFTPAREN)
 		{			output.enqueue(operatorStack.pop());
 		}	
 		operatorStack.push(currTok);
@@ -25,7 +25,18 @@ public class EquationParserCC{
 			precedence = 1;
 		}
 		return precedence;
-	}	  
+	}
+
+	/**
+	*	Pop operators off the stack until the left Paren is hit.	
+	*
+	*/
+	private void popForRightParen()
+	{		while(operatorStack.peek().getType() != ExpressionType.LEFTPAREN)
+		{			output.enqueue(operatorStack.pop());
+		}
+		operatorStack.pop();//pop the left paren off.
+	} 
 	
   	public static void main(String args []) throws ParseException  	{    	EquationParserCC parser = new EquationParserCC(System.in);    	while (true)    	{      		System.out.println("Reading from standard input...");      		try      		{       			parser.parseEquation();	      	}    	  	catch (Exception e)      		{	        	System.out.println("NOK.");    	    	System.out.println(e.getMessage());        		break;
       		}      		catch (Error e)      		{        		System.out.println("Oops.");	        	System.out.println(e.getMessage());    	    	break;	    	}    	}  	}}PARSER_END(EquationParserCC)SKIP :{  " "| "\r"| "\t"|  "\n"
@@ -103,11 +114,16 @@ void levelFour() :
 }
 
 void levelFive() :
-{}
 {
-  < OPEN_PAR >
+  Token t;}
+{
+  t = < OPEN_PAR >
+  	{		operatorStack.push(new EquationToken("(",ExpressionType.LEFTPAREN,t.beginColumn));
+  	}
   levelOne()
-  < CLOSE_PAR >}
+  < CLOSE_PAR >
+  	{		popForRightParen();
+  	}}
 void unary() :{
   EquationToken tok;
   Token t;

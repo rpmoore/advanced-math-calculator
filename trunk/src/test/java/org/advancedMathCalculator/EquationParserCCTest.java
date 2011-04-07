@@ -90,7 +90,13 @@ public class EquationParserCCTest extends TestCase {
 		Assert.assertEquals((5+2)*3, eval.eval(0),0);
 	}
 	
-
+	public void testNestedParens()throws ParseException, CalculateException
+	{
+		EquationParserCC parser = new EquationParserCC(new StringReader("(2*(5+2))^2"));
+		RPNCC eval = new RPNCC(parser.parseEquation());
+		Assert.assertEquals(Math.pow((2*(5+2)),2), eval.eval(0),0);		
+	}
+	
 	public void testTrigPow() throws ParseException
 	{
 		EquationParserCC parser = new EquationParserCC(new StringReader("2+3^sin(90)-4"));
@@ -184,6 +190,12 @@ public class EquationParserCCTest extends TestCase {
 		assertEquals(-1.0, function.eval(3),0);
 	}
 
+	public void testEvalImplicitMult() throws ParseException, CalculateException
+	{
+		RPNCC function = new RPNCC(new EquationParserCC(new StringReader("2x")).parseEquation());
+		assertEquals(4, function.eval(2),0);
+	}
+	
 	public void testEval10() throws ParseException, CalculateException
 	{
 		RPNCC function = new RPNCC(new EquationParserCC(new StringReader("12x + 4")).parseEquation());

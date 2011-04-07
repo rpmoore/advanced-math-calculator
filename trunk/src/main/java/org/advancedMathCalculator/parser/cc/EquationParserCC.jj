@@ -70,7 +70,7 @@ TOKEN [IGNORE_CASE] : /* Trig functions */
 }{  levelThree()
   (    (      t=< MULTIPLY >
       {
-      	checkTop(new EquationToken("*",ExpressionType.MULTIPLY,t.beginColumn));        }      | t=< DIVIDE >
+      	checkTop(new EquationToken("*",ExpressionType.MULTIPLY,t.beginColumn));      }      | t=< DIVIDE >
       {
       	checkTop(new EquationToken("/",ExpressionType.DIVIDE,t.beginColumn));            }    )    levelThree()
   )*}
@@ -97,14 +97,17 @@ void levelFour() :
 			//push trig onto the stack.
 			operatorStack.push(expType);  
 		}
-		< OPEN_PAR >
-		levelOne()
-		< CLOSE_PAR >
+		levelFive()
 	|
-	< OPEN_PAR >
-		levelOne()
-	< CLOSE_PAR>
+		levelFive()
 }
+
+void levelFive() :
+{}
+{
+  < OPEN_PAR >
+  levelOne()
+  < CLOSE_PAR >}
 void unary() :{
   EquationToken tok;
   Token t;
@@ -113,8 +116,8 @@ void levelFour() :
 	output.enqueue(tok);
 	output.enqueue(new EquationToken("-",ExpressionType.UNARYMINUS,t.beginColumn));  }| tok=element()
 	{
-	  output.enqueue(tok);
-	}  }EquationToken element() :{
+	  	output.enqueue(tok);
+	}	   }EquationToken element() :{
   Token t;
 }{ t=< CONSTANT>
  	{

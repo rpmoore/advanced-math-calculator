@@ -130,10 +130,20 @@ void levelFive() :
   }{  t=< MINUS > tok=element()
   {
 	output.enqueue(tok);
-	output.enqueue(new EquationToken("-",ExpressionType.UNARYMINUS,t.beginColumn));  }| tok=element()
+	output.enqueue(new EquationToken("-",ExpressionType.UNARYMINUS,t.beginColumn));  }
+  (
+    tok = element()
+    {
+      output.enqueue(tok);
+      operatorStack.push(new EquationToken("*",ExpressionType.MULTIPLY,tok.getPosition()));    }  )*| tok=element()
 	{
 	  	output.enqueue(tok);
-	}	   }EquationToken element() :{
+	}
+	(
+	  tok=element()
+	  {
+	    output.enqueue(tok);
+        operatorStack.push(new EquationToken("*",ExpressionType.MULTIPLY,tok.getPosition()));	    	  }	)*	   }EquationToken element() :{
   Token t;
 }{ t=< CONSTANT>
  	{

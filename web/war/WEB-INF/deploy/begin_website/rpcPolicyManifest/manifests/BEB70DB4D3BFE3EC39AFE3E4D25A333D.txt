@@ -1,0 +1,2 @@
+serviceClass: org.beginprogramming.web.client.IntegralService
+path: 061012157A2DB9114EC157F7ABAB4F88.gwt.rpc

@@ -24,19 +24,31 @@ h1 {
   margin: 5px;
 }
 
-.serverResponseLabelError {
-  color: red;
-}
-
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
-}
-
 #leftBoundrayConditions {
-	align: left;
+	text-align: left;
+}
+
+#nameFieldContainer
+{
+	border-radius: 5px;
 }
 
 #rightBoundrayConditions {
-	align: right;	
+	text-align: right;
+}
+
+table#integralTable {
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #ADD8E6;
+	padding: 2px;
+	border-radius: 5px;
+}
+
+#labelContainer {
+	min-height: 30px;
+	width: 300px;
+	background-color: #F0FFF0;
+	border-radius: 5px;
+	padding-left: 5px;
 }

@@ -6,5 +6,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("integral")
 public interface IntegralService extends RemoteService {
 
-	String integralService(String equation,String leftBound,String rightBound);
+	CalculationResponse integralService(String equation,String leftBound,String rightBound);
 }

@@ -7,11 +7,15 @@ import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 /**
@@ -25,10 +29,9 @@ public class Begin_Website implements EntryPoint {
 	private final TextBox equationText = new TextBox();
 	private final TextBox leftBounds = new TextBox();
 	private final TextBox rightBounds = new TextBox();
-	private final Label resultLabel = new Label();
+	private final HTML resultLabel = new HTML();
 	private final IntegralServiceProcess eventProcessing = new IntegralServiceProcess();
 	public void onModuleLoad() {
-
 		equationText.setText("Equation");
 		equationText.setTabIndex(1);
 		leftBounds.setTabIndex(2);
@@ -54,7 +57,10 @@ public class Begin_Website implements EntryPoint {
 		boundrayPaneRight.add(rightBounds);
 		RootPanel.get("leftBoundrayConditions").add(boundrayPaneLeft);
 		RootPanel.get("rightBoundrayConditions").add(boundrayPaneRight);
-		RootPanel.get("labelContainer").add(resultLabel);
+		ScrollPanel sPanel = new ScrollPanel();
+		sPanel.add(resultLabel);
+		resultLabel.setText("Result Area");
+		RootPanel.get("labelContainer").add(sPanel);
 
 		// Focus the cursor on the name field when the app loads
 		equationText.setFocus(true);
@@ -69,7 +75,26 @@ public class Begin_Website implements EntryPoint {
 	
 	private class IntegralServiceProcess implements MouseDownHandler, KeyDownHandler
 	{
-
+		final private DialogBox processing;
+		final Timer t = new Timer() 
+		{
+			public void run()
+			{
+				processing.center();
+			}
+		};
+		
+		public IntegralServiceProcess()
+		{
+			processing = new DialogBox();
+			processing.setModal(true);
+			processing.setGlassEnabled(true);
+			processing.setTitle("Processing");
+			processing.setText("Processing");
+			processing.add(new Label("Processing Integral Calculation..."));
+			
+		}
+		
 		@Override
 		public void onKeyDown(KeyDownEvent event) {
 			if(event.getNativeKeyCode() == KeyCodes.KEY_ENTER && validate())
@@ -98,7 +123,6 @@ public class Begin_Website implements EntryPoint {
 			{
 				return false;
 			}
-			 
 			if(right.isEmpty())
 			{
 				return false;
@@ -112,15 +136,18 @@ public class Begin_Website implements EntryPoint {
 			{
 				integralService = GWT.create(IntegralService.class);
 			}
-			integralService.integralService(equationText.getText(), leftBounds.getText(), rightBounds.getText(), new AsyncCallback<String>() {
-				
+			t.schedule(750);
+			integralService.integralService(equationText.getText(), leftBounds.getText(), rightBounds.getText(), new AsyncCallback<CalculationResponse>() {
 				@Override
-				public void onSuccess(String result) {
-					resultLabel.setText(result);					
+				public void onSuccess(CalculationResponse result) {
+					resultLabel.setText(result.getResultMessage());
+					t.cancel();
+					processing.hide();
 				}
-
 				@Override
-				public void onFailure(Throwable caught) {	
+				public void onFailure(Throwable caught) {
+					t.cancel();
+					processing.hide();
 				}
 			});
 		}

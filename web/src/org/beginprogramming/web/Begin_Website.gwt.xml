@@ -16,6 +16,7 @@
 <entry-point class='org.beginprogramming.web.client.Begin_Website'/>
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
-  <source path='shared'/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
+  <inherits name="com.google.gwt.junit.JUnit"/>
 
 </module>

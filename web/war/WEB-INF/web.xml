@@ -8,17 +8,33 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>integrateServlet</servlet-name>
-    <servlet-class>org.beginprogramming.web.server.IntegralServiceImpl</servlet-class>
+    <servlet-class>org.beginprogramming.web.server.services.IntegralServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
     <servlet-name>integrateServlet</servlet-name>
-    <url-pattern>/begin_website/integral</url-pattern>
+    <url-pattern>/begin_website/integralService</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>Begin_Website.html</welcome-file>
   </welcome-file-list>
+  <servlet>
+  	<servlet-name>DerivativeService</servlet-name>
+  	<servlet-class>org.beginprogramming.web.server.services.DerivativeServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DerivativeService</servlet-name>
+  	<url-pattern>/begin_website/derivativeService</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>CalculationService</servlet-name>
+  	<servlet-class>org.beginprogramming.web.server.services.CalculationServiceImpl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CalculationService</servlet-name>
+  	<url-pattern>/begin_website/calculationService</url-pattern>
+  </servlet-mapping>
 
 </web-app>

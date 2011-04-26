@@ -1,4 +1,4 @@
-package org.beginprogramming.web.client;
+package org.beginprogramming.web.client.services;
 
 import java.io.Serializable;
 

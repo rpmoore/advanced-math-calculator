@@ -8,8 +8,8 @@ import org.advancedMathCalculator.parser.cc.EquationParserCC;
 import org.advancedMathCalculator.parser.cc.ParseException;
 import org.advancedMathCalculator.parser.cc.RPNCC;
 import org.advancedMathCalculator.parser.cc.TokenMgrError;
-import org.beginprogramming.web.client.CalculationResponse;
-import org.beginprogramming.web.client.IntegralService;
+import org.beginprogramming.web.client.services.CalculationResponse;
+import org.beginprogramming.web.client.services.IntegralService;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

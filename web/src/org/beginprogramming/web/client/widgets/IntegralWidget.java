@@ -36,7 +36,6 @@ public class IntegralWidget extends Composite {
 	public IntegralWidget() {
 		
 		final FlexTable flexTable = new FlexTable();
-		flexTable.setStyleName("table#integralTable");
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		horizontalPanel.setStyleName("integralEquation");

@@ -35,7 +35,6 @@ public class CalculationWidget extends Composite {
 	public CalculationWidget() {
 		
 		final VerticalPanel verticalPane = new VerticalPanel();
-		verticalPane.setStyleName("table#CalculationTable");
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setStyleName("CalculationEquation");
 		sendButton= new PushButton("Compute Calculation");

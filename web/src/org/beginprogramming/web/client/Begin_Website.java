@@ -24,7 +24,7 @@ public class Begin_Website implements EntryPoint {
 		tabPane.add(integral,"Integral");
 		tabPane.add(derivative,"Derivative");
 		tabPane.add(calculation,"Calculator");
-		RootPanel.get("integralComputation").add(tabPane);
+		RootPanel.get("calculationArea").add(tabPane);
 		tabPane.setSize("450px", "192px");
 		
 	}

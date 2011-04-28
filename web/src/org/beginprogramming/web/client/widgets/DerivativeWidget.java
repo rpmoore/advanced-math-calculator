@@ -34,7 +34,6 @@ public class DerivativeWidget extends Composite {
 	public DerivativeWidget() {
 		
 		final VerticalPanel verticalPane = new VerticalPanel();
-		verticalPane.setStyleName("table#DerivativeTable");
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setStyleName("DerivativeEquation");
 		sendButton= new PushButton("Compute Derivative");

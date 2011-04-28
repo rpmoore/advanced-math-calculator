@@ -1,6 +1,7 @@
 package org.beginprogramming.web.client;
 
 
+import org.beginprogramming.web.client.widgets.CalculationWidget;
 import org.beginprogramming.web.client.widgets.DerivativeWidget;
 import org.beginprogramming.web.client.widgets.IntegralWidget;
 
@@ -17,10 +18,12 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 public class Begin_Website implements EntryPoint {
 	private final IntegralWidget integral = new IntegralWidget();
 	private final DerivativeWidget derivative = new DerivativeWidget();
+	private final CalculationWidget calculation = new CalculationWidget();
 	public void onModuleLoad() {
 		final TabLayoutPanel tabPane = new TabLayoutPanel(1.5, Unit.EM);
 		tabPane.add(integral,"Integral");
 		tabPane.add(derivative,"Derivative");
+		tabPane.add(calculation,"Calculator");
 		RootPanel.get("integralComputation").add(tabPane);
 		tabPane.setSize("450px", "192px");
 		

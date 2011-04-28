@@ -34,7 +34,7 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>CalculationService</servlet-name>
-  	<url-pattern>/begin_website/calculationService</url-pattern>
+  	<url-pattern>/begin_website/calculateService</url-pattern>
   </servlet-mapping>
 
 </web-app>

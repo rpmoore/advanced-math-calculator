@@ -32,6 +32,11 @@ h1 {
 	color: #EEEEEE !important;
 }
 
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContentContainer
+{
+	border-color: #92231B !important;	
+}
+
 .gwt-TabLayoutPanel .gwt-TabLayoutPanelContent
 {
 	border-color: #92231B !important;
@@ -47,4 +52,15 @@ div#calculationArea
 	margin-left:auto;
 	margin-right:auto;
 	width: 450px;
+}
+
+.equationArea td
+{	
+	padding: 2px;
+	vertical-align: middle !important;
+}
+
+.gwt-PopupPanel
+{
+	border-color: #92231B !important;	
 }

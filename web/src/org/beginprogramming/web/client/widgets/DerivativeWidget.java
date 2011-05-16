@@ -29,18 +29,20 @@ public class DerivativeWidget extends Composite {
 	private final TextBox equationText;
 	private final DoubleBox leftBounds;
 	private final HTML resultLabel;
+	private final EquationHelpWidget help = new EquationHelpWidget();
 	private final DerivativeServiceProcess eventProcessing = new DerivativeServiceProcess();
 
 	public DerivativeWidget() {
 		
 		final VerticalPanel verticalPane = new VerticalPanel();
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
-		horizontalPanel.setStyleName("DerivativeEquation");
+		horizontalPanel.setStyleName("equationArea");
 		sendButton= new PushButton("Compute Derivative");
 		equationText = new TextBox();
 		equationText.setText("Equation");
 		horizontalPanel.add(equationText);
 		horizontalPanel.add(sendButton);
+		horizontalPanel.add(help);
 		verticalPane.add(horizontalPanel);
 		
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();

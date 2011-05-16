@@ -5,8 +5,6 @@ import org.beginprogramming.web.client.services.CalculationService;
 import org.beginprogramming.web.client.services.CalculationServiceAsync;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
@@ -18,7 +16,6 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.TextBox;
@@ -30,26 +27,17 @@ public class CalculationWidget extends Composite {
 	private final TextBox equationText;
 	private final HTML resultLabel;
 	private final CalculationServiceProcess eventProcessing = new CalculationServiceProcess();
-	private final Image questionImage = new Image("/images/question.png");
-	private final EquationHelpPopup helpPopup = new EquationHelpPopup();
+	private final EquationHelpWidget help = new EquationHelpWidget();
 	public CalculationWidget() {
 		final VerticalPanel verticalPane = new VerticalPanel();
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
-		horizontalPanel.setStyleName("CalculationEquation");
+		horizontalPanel.setStyleName("equationArea");
 		sendButton= new PushButton("Compute Calculation");
 		equationText = new TextBox();
 		equationText.setText("Equation");
 		horizontalPanel.add(equationText);
-		questionImage.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				helpPopup.setPopupPosition(event.getClientX(), event.getClientY());
-				helpPopup.show();
-			}
-		});
-		horizontalPanel.add(questionImage);
 		horizontalPanel.add(sendButton);
+		horizontalPanel.add(help);
 		verticalPane.add(horizontalPanel);
 		
 
@@ -130,5 +118,4 @@ public class CalculationWidget extends Composite {
 			});
 		}
 	}
-
 }

@@ -31,6 +31,7 @@ public class IntegralWidget extends Composite {
 	private final DoubleBox leftBounds;
 	private final DoubleBox rightBounds;
 	private final HTML resultLabel;
+	private final EquationHelpWidget help = new EquationHelpWidget();
 	private final IntegralServiceProcess eventProcessing = new IntegralServiceProcess();
 
 	public IntegralWidget() {
@@ -38,7 +39,7 @@ public class IntegralWidget extends Composite {
 		final FlexTable flexTable = new FlexTable();
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		horizontalPanel.setStyleName("integralEquation");
+		horizontalPanel.setStyleName("equationArea");
 		final PushButton pshbtnNewButton = new PushButton("Compute Integral");
 		final TextBox txtbxEquation = new TextBox();
 		equationText = txtbxEquation;
@@ -46,6 +47,7 @@ public class IntegralWidget extends Composite {
 		horizontalPanel.add(txtbxEquation);
 		sendButton = pshbtnNewButton;
 		horizontalPanel.add(pshbtnNewButton);
+		horizontalPanel.add(help);
 		
 		flexTable.setWidget(0, 0, horizontalPanel);
 		

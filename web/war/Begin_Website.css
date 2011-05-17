@@ -1,13 +1,51 @@
-/** Add css rules here for your application. */
 
+body
+{
+	
+}
 
 /** Example rules used by the template application (remove for your app) */
-h1 {
+#titleText {
   font-size: 2em;
   font-weight: bold;
   color: #777777;
-  margin: 40px 0px 70px;
   text-align: center;
+}
+
+.titleArea
+{
+	border-color: #92231B;
+	border-width: 4px;	
+	border-radius: 10px;
+	border-style: solid;
+	-moz-border-radius: 10px;
+	margin: 10px;
+	background-color: #DDDDDD !important;	
+}
+
+.footer{
+	text-align:center;
+	margin-left: auto;
+	margin-right: auto;
+	border-color: #92231B;
+	border-width: 4px;	
+	border-radius: 10px;
+	border-style: solid;
+	-moz-border-radius: 10px;
+	margin: 10px;
+	background-color: #DDDDDD !important;	
+}
+
+.menu
+{
+	border-color: #92231B;
+	border-width: 4px;	
+	border-radius: 10px;
+	border-style: solid;
+	-moz-border-radius: 10px;
+	margin: 10px;
+	padding: 3px;
+	background-color: #DDDDDD !important;	
 }
 
 .sendButton {
@@ -20,38 +58,57 @@ h1 {
   width: 400px;
 }
 
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab
+.calculationArea
+{
+	border-color: #92231B;
+	border-width: 4px;	
+	border-radius: 10px;
+	border-style: solid;
+	-moz-border-radius: 10px;
+	margin: 10px;
+	padding: 10px;
+	background-color: #DDDDDD !important;
+}
+
+.calcBox
+{
+ 	margin-right: auto;
+	margin-left: auto;
+}
+
+.calculationArea .gwt-TabLayoutPanelTab
 {
 	background: none repeat scroll 0 0 #C8756E !important;
 	color: #DDDDDD !important;
+	font-weight: bold;
+	text-align:center;
+	cursor: pointer;
+	margin-left: 6px;
+	padding: 3px 6px;
 }
 
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected
+.calculationArea .gwt-TabLayoutPanelTab-selected
 {
 	background: none repeat scroll 0 0 #92231B !important;
-	color: #EEEEEE !important;
+	color: #EEEEEE ;
+	cursor: default;
 }
 
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelContentContainer
-{
-	border-color: #92231B !important;	
-}
-
-.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent
+.calculationArea .gwt-TabLayoutPanelContentContainer
 {
 	border-color: #92231B !important;
-	width: 450px;
+	background-color: #FFFFFF;
+}
+
+.calculationArea .gwt-TabLayoutPanelContent
+{
+	border-color: #92231B !important;
+	width: 500px;
+	padding: 3px;
 }
 
 .dialogVPanel {
   margin: 5px;
-}
-
-div#calculationArea
-{
-	margin-left:auto;
-	margin-right:auto;
-	width: 450px;
 }
 
 .equationArea td

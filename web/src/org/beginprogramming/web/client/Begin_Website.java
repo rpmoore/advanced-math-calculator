@@ -32,7 +32,7 @@ public class Begin_Website implements EntryPoint {
 		mainLayout.addSouth(footerSpan, 3.5);
 		MenuWidget menu = new MenuWidget("menuLinks");
 		menu.setStylePrimaryName("menu");
-		mainLayout.addWest(menu,12);
+		mainLayout.addWest(menu,14);
 		Panel tabContainer = new FlowPanel();
 		TabLayoutPanel tabPane = new TabLayoutPanel(1.5, Unit.EM);
 		tabContainer.setStylePrimaryName("calculationArea");

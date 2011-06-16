@@ -146,5 +146,11 @@ body
 	color: #777777;
 	text-decoration: underline;
 }
+menu-bottom {
+	vertical-alignment: bottom;
+}
+.gwt-TabLayoutPanel {
+	padding:4px;
+}
 	
 	

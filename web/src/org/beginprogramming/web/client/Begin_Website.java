@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -33,7 +34,7 @@ public class Begin_Website implements EntryPoint {
 		MenuWidget menu = new MenuWidget("menuLinks");
 		menu.setStylePrimaryName("menu");
 		mainLayout.addWest(menu,14);
-		Panel tabContainer = new FlowPanel();
+		FlowPanel tabContainer = new FlowPanel();
 		TabLayoutPanel tabPane = new TabLayoutPanel(1.5, Unit.EM);
 		tabContainer.setStylePrimaryName("calculationArea");
 		tabPane.setStylePrimaryName("calcBox");
@@ -41,6 +42,9 @@ public class Begin_Website implements EntryPoint {
 		tabPane.add(derivative,"Derivative");
 		tabPane.add(calculation,"Calculator");
 		tabContainer.add(tabPane);
+		HTML html = new HTML("<a class=\"DiggThisButton DiggCompact\"></a>");
+		html.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		tabContainer.add(html);
 		mainLayout.add(tabContainer);
 		//mainLayout.add(new HTML("Center"));
 		RootLayoutPanel.get().add(mainLayout);

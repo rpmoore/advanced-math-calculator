@@ -11,7 +11,6 @@ public class MenuWidget extends Composite {
 		//add all the hyperlinks that I will use.
 		panel.add(new HTML("<a style=\""+ style +"\" href=\"http://blog.begin-programming.com\">Blog</a>"));
 		panel.add(new HTML("<a style=\""+ style +"\"href=\"http://code.google.com/p/advanced-math-calculator/\">Google Code Site</a>"));		
-		panel.add(new HTML("<script src=\"http://www.stumbleupon.com/hostedbadge.php?s=2\"></script>"));
 		initWidget(panel);
 	}
 

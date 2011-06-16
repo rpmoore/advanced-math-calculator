@@ -1,7 +1,8 @@
 
 body
 {
-	
+	background-color: #D6E4E1 !important;
+	color: #777777;
 }
 
 /** Example rules used by the template application (remove for your app) */
@@ -14,38 +15,38 @@ body
 
 .titleArea
 {
-	border-color: #92231B;
+	border-color: #9C2A00;
 	border-width: 4px;	
 	border-radius: 10px;
 	border-style: solid;
 	-moz-border-radius: 10px;
 	margin: 10px;
-	background-color: #DDDDDD !important;	
+	background-color: #F1F1D4 !important;	
 }
 
 .footer{
 	text-align:center;
 	margin-left: auto;
 	margin-right: auto;
-	border-color: #92231B;
+	border-color: #9C2A00;
 	border-width: 4px;	
 	border-radius: 10px;
 	border-style: solid;
 	-moz-border-radius: 10px;
 	margin: 10px;
-	background-color: #DDDDDD !important;	
+	background-color: #F1F1D4 !important;	
 }
 
 .menu
 {
-	border-color: #92231B;
+	border-color: #9C2A00;
 	border-width: 4px;	
 	border-radius: 10px;
 	border-style: solid;
 	-moz-border-radius: 10px;
 	margin: 10px;
 	padding: 3px;
-	background-color: #DDDDDD !important;	
+	background-color: #F1F1D4 !important;	
 }
 
 .sendButton {
@@ -60,14 +61,14 @@ body
 
 .calculationArea
 {
-	border-color: #92231B;
+	border-color: #9C2A00;
 	border-width: 4px;	
 	border-radius: 10px;
 	border-style: solid;
 	-moz-border-radius: 10px;
 	margin: 10px;
 	padding: 10px;
-	background-color: #DDDDDD !important;
+	background-color: #F1F1D4 !important;
 }
 
 .calcBox
@@ -79,7 +80,7 @@ body
 .calculationArea .gwt-TabLayoutPanelTab
 {
 	background: none repeat scroll 0 0 #C8756E !important;
-	color: #DDDDDD !important;
+	color: #FFFBD0 !important;
 	font-weight: bold;
 	text-align:center;
 	cursor: pointer;
@@ -89,20 +90,20 @@ body
 
 .calculationArea .gwt-TabLayoutPanelTab-selected
 {
-	background: none repeat scroll 0 0 #92231B !important;
+	background: none repeat scroll 0 0 #9C2A00 !important;
 	color: #EEEEEE ;
 	cursor: default;
 }
 
 .calculationArea .gwt-TabLayoutPanelContentContainer
 {
-	border-color: #92231B !important;
+	border-color: #9C2A00 !important;
 	background-color: #FFFFFF;
 }
 
 .calculationArea .gwt-TabLayoutPanelContent
 {
-	border-color: #92231B !important;
+	border-color: #9C2A00 !important;
 	width: 500px;
 	padding: 3px;
 }
@@ -119,5 +120,31 @@ body
 
 .gwt-PopupPanel
 {
-	border-color: #92231B !important;	
+	border-color: #9C2A00 !important;	
 }
+
+.menu a:link
+{
+	text-decoration: none;
+	color: #777777;
+}
+
+.menu a:visited
+{	
+	text-decoration: none;
+	color: #777777;
+}
+
+.menu a:active
+{
+	text-decoration: none;
+	color: #777777;
+}
+
+.menu a:hover
+{
+	color: #777777;
+	text-decoration: underline;
+}
+	
+	

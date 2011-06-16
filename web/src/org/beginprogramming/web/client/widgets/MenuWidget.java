@@ -3,7 +3,7 @@ package org.beginprogramming.web.client.widgets;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-
+	
 public class MenuWidget extends Composite {
 
 	final FlowPanel panel = new FlowPanel(); 

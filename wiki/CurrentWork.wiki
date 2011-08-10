@@ -15,8 +15,8 @@ RPN Branch:
 
 
 Lexer Branch:
-  * ~~Carry over from getting lexer to work originally
-  * ~~Propose to use JavaCC to generate a new lexer
+  * ~~Carry over from getting lexer to work originally~~
+  * ~~Propose to use JavaCC to generate a new lexer~~
 
 Linear Branch:
   * Needs to be integrated with the current architecture

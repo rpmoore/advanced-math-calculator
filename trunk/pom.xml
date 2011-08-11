@@ -69,19 +69,20 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>javacc-maven-plugin</artifactId>
 				<version>2.6</version>
 				<executions>
-				 <execution>
-				 	<id>javacc</id>
-				 	<goals><goal>javacc</goal></goals>
-				 	<configuration>
-				 		<sourceDirectory>src/main/java/org/advancedMathCalculator/parser/cc</sourceDirectory>
-				 	</configuration>
-				 </execution>
+					<execution>
+						<id>javacc</id>
+						<goals>
+							<goal>javacc</goal>
+						</goals>
+							<configuration>
+								<sourceDirectory>src/main/java/org/advancedMathCalculator/parser/cc</sourceDirectory>
+							</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
@@ -134,6 +135,11 @@
 			<version>2.0</version>
 			<type>jar</type>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>maven</groupId>
+			<artifactId>maven-javacc-plugin</artifactId>
+			<version>1.2</version>
 		</dependency>
 	</dependencies>
 </project>

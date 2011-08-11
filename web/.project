@@ -3,6 +3,7 @@
 	<name>Begin Website</name>
 	<comment></comment>
 	<projects>
+		<project>advancedMathCalculator</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -40,6 +40,7 @@ public class DerivativeWidget extends Composite {
 		sendButton= new PushButton("Compute Derivative");
 		equationText = new TextBox();
 		equationText.setText("Equation");
+		equationText.addFocusHandler(new FirstVisitFocusHandler());
 		horizontalPanel.add(equationText);
 		horizontalPanel.add(sendButton);
 		horizontalPanel.add(help);

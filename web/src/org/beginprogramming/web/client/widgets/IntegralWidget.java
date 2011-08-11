@@ -43,7 +43,9 @@ public class IntegralWidget extends Composite {
 		final PushButton pshbtnNewButton = new PushButton("Compute Integral");
 		final TextBox txtbxEquation = new TextBox();
 		equationText = txtbxEquation;
-		txtbxEquation.setText("Equation");
+		equationText.addFocusHandler(new FirstVisitFocusHandler());
+		equationText.setText("Equation");
+		equationText.setStyleName("equationBox");
 		horizontalPanel.add(txtbxEquation);
 		sendButton = pshbtnNewButton;
 		horizontalPanel.add(pshbtnNewButton);

@@ -35,6 +35,7 @@ public class CalculationWidget extends Composite {
 		sendButton= new PushButton("Compute Calculation");
 		equationText = new TextBox();
 		equationText.setText("Equation");
+		equationText.addFocusHandler(new FirstVisitFocusHandler());
 		horizontalPanel.add(equationText);
 		horizontalPanel.add(sendButton);
 		horizontalPanel.add(help);

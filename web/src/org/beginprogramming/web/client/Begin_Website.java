@@ -11,7 +11,6 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -49,7 +48,5 @@ public class Begin_Website implements EntryPoint {
 		//mainLayout.add(new HTML("Center"));
 		RootLayoutPanel.get().add(mainLayout);
 		tabPane.setSize("500px", "192px");
-		
-	}
-	
+	}	
 }

@@ -11,7 +11,7 @@ public class EquationParserCC{
 
 	private void checkTop(EquationToken currTok)
 	{
-	  	int precedence = getPrecedence(currTok);
+	  	final int precedence = getPrecedence(currTok);
 		while(operatorStack.size() > 0 && precedence <= getPrecedence(operatorStack.peek()) && operatorStack.peek().getType() != ExpressionType.LEFTPAREN)
 		{			output.enqueue(operatorStack.pop());
 		}	

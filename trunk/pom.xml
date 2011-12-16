@@ -22,9 +22,8 @@
 			<id>Lead</id>
 			<name>Ryan Moore</name>
 			<email>dogen.growkin@gmail.com</email>
-			<url>http://www.cs.colostate.edu/~moorer</url>
-			<organization>Colorado State University</organization>
-			<organizationUrl>http://www.cs.colostate.edu</organizationUrl>
+			<organization>Hewlett Packard</organization>
+			<organizationUrl>http://www.hp.com</organizationUrl>
 			<timezone>Mountain</timezone>
 			<roles>
 				<role>Owner</role>
@@ -60,11 +59,6 @@
 							<descriptorRefs>
 								<descriptorRef>jar-with-dependencies</descriptorRef>
 							</descriptorRefs>
-							<archive>
-								<manifest>
-									<mainClass>org.advancedMathCalculator.ui.PMain</mainClass>
-								</manifest>
-							</archive>
 						</configuration>
 					</execution>
 				</executions>
